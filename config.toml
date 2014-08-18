@@ -5,9 +5,14 @@ title = "eliasson"
 [params]
     copyright = "Copyright © 2014 - Markus Eliasson - All rights reserved."
     author = "Markus"
-    gaCode = "UA-XXXXX-X"
+    gaCode = "UA-42999256-1"
 
 [[menu.main]]
     name = "about"
     url = "/about/"
     weight = 1
+
+[[menu.main]]
+    name = "articles"
+    url = "/article/"
+    weight = 0

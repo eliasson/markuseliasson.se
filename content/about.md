@@ -1,5 +1,5 @@
 +++
-draft = true
+draft = false
 title = "Markus Eliasson"
 date = 2014-08-18T06:33:03Z
 +++

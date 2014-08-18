@@ -10,4 +10,11 @@ Install Hugo and run the local server by issuing this command
     hugo server --theme=liquorice --buildDrafts --watch
 
 
+## Generate the public site
+
+Generate only published pages with this command
+
+    hugo -t liquorice
+
+
 Copyright (c) 2014 - Markus Eliasson - All rights reserved.

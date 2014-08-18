@@ -38,7 +38,7 @@ A personal time tracker for keeping track of what activities you spend
 your time on during the day. Quarterapp is free to use, so head straight
 there and [signup](http://www.quarterapp.com)
 
-[www.quarterapp.com](http.//www.quarterapp.com)
+[www.quarterapp.com](http://www.quarterapp.com)
 
 ### Liquorice
 

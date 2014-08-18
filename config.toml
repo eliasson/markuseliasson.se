@@ -1,0 +1,13 @@
+baseurl = "http://www.markuseliasson.se"
+languageCode = "en-us"
+title = "eliasson"
+
+[params]
+    copyright = "Copyright © 2014 - Markus Eliasson - All rights reserved."
+    author = "Markus"
+    gaCode = "UA-XXXXX-X"
+
+[[menu.main]]
+    name = "about"
+    url = "/about/"
+    weight = 1

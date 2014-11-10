@@ -1,6 +1,9 @@
 baseurl = "http://www.markuseliasson.se"
 languageCode = "en-us"
 title = "eliasson"
+[indexes]
+    category = "categories"
+    tag = "tags"
 
 [params]
     copyright = "Copyright © 2014 - Markus Eliasson - All rights reserved."

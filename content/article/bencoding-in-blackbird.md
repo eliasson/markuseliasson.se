@@ -1,7 +1,7 @@
 +++
-Categories = []
+Categories = ["Code"]
 Description = "Starting the bittorrent implementation in go"
-Tags = []
+Tags = ["go", "bittorrent"]
 draft = false
 date = "2014-11-10T20:32:02+01:00"
 title = "Bencoding in Blackbird"

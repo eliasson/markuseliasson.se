@@ -1,7 +1,7 @@
 +++
-Categories = []
+Categories = ["Code"]
 Description = "Adventures in Go"
-Tags = []
+Tags = ["go", "bittorrent"]
 draft = false
 title = "Adventures in Go"
 date = 2014-08-31T12:34:15Z

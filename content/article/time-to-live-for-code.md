@@ -1,5 +1,5 @@
 +++
-Categories = []
+Categories = ["Thoughts"]
 Description = ""
 Tags = []
 draft = false

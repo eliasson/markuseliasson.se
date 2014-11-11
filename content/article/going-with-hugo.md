@@ -1,5 +1,5 @@
 +++
-Categories = []
+Categories = ["Hugo"]
 Description = "Changing from handmade pages to Hugo"
 Tags = []
 draft = false

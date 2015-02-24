@@ -2,6 +2,7 @@
 Categories = ["Code"]
 Description = "Python pip virtualenv in Windows"
 Tags = ["Python", "Windows"]
+draft = false
 date = "2015-02-24T22:00:33+01:00"
 title = "Python pip virtualenv in Windows"
 

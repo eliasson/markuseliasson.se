@@ -17,4 +17,4 @@ Generate only published pages with this command
     hugo -t liquorice
 
 
-Copyright (c) 2014 - Markus Eliasson - All rights reserved.
+Copyright (c) 2014-2015 - Markus Eliasson - All rights reserved.

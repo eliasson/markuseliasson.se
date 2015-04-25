@@ -15,7 +15,7 @@ middleware code.
 
 ## Resume
 
-You can find my resume at [resume.markuseliasson.se](http://resume.markuseliasson.se)
+You can find my resume at [here](/resume/)
 
 ## Contact me
 

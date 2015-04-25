@@ -1,0 +1,255 @@
+{{ partial "head.html" . }}
+    <style>
+        body {
+            margin-bottom: 100px;
+        }
+        .li-resume-header {
+            padding: 60px 0px;
+        }
+        .li-resume-header h1 {
+            color: #fff;
+            font-size: 60px;
+            margin: 0px;
+        }
+        .li-resume-header a,
+        .li-resume-header a:active,
+        .li-resume-header a:hover,
+        .li-resume-header a:visited {
+            color: #fff;
+            font-weight: normal;
+        }
+        .li-resume-header th {
+            min-width: 100px;
+            text-align: right;
+            padding-right: 20px;
+        }
+        .li-resume-profile {
+            margin: 60px 0px;
+        }
+        .li-resume-assignment {
+            margin-bottom: 60px;
+        }
+        .li-resume-assignment-meta {
+            font-size: smaller;
+        }
+        .li-resume-assignment-consultant {
+            font-size: smaller;
+            font-style: oblique;
+        }
+        .li-resume-content {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .li-resume-course {
+            margin-bottom: 20px;
+        }
+        .li-resume-course:last-child {
+            margin-bottom: 0px;
+        }
+        /** Mobile Landscape *************************************************/
+        @media only screen and (max-width: 767px) {
+            .li-resume-header {
+                padding: 20px 0px;
+            }
+            .li-resume-header h1 {
+                font-size: 32px;
+                padding-bottom: 20px;
+                text-align: left;
+            }
+            .li-resume-header table th {
+                display: none;
+            }
+            .li-resume-profile {
+                margin: 20px 0px;
+            }
+        }
+    </style>
+    <header class="li-page-header">
+        <div class="container">
+            <div class="row li-resume-header">
+                <div class="ten columns">
+                    <h1>Markus Eliasson</h1>
+                </div>
+                <div class="six columns">
+                    <table>
+                        <tr>
+                            <th>call:</th>
+                            <td>
+                                <a href="tel:+46768832452">+46 (0)768 832 452</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>write:</th>
+                            <td>
+                                <a href="mailto:markus.eliasson@gmail.com">markus.eliasson@gmail.com</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>visit:</th>
+                            <td>
+                                <a href="http://www.markuseliasson.se">www.markuseliasson.se</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>code:</th>
+                            <td>
+                                <a href="https://github.com/eliasson">github.com/eliasson</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row li-resume-profile">
+                <div class="sixteen columns">
+                    {{ .Content }}
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <h2>Experience</h2>
+            </div>
+        </div>
+        <div class="row li-resume-assignment">
+            <div class="five columns">
+                <h3>Consultant</h3>
+                <div class="li-resume-assignment-meta">Softhouse Consulting, Karlskrona, Sweden</div>
+                <div class="li-resume-assignment-meta">2009-01 – today</div>
+            </div>
+            <div class="eleven columns">
+                <p>Markus is employed as a software consultant, his main assignments is listed below.</p>
+            </div>
+        </div>
+        <div class="row li-resume-assignment">
+            <div class="five columns">
+                <h3>Technical lead</h3>
+                <div class="li-resume-assignment-consultant">Consulting assignment</div>
+                <div class="li-resume-assignment-meta">Qvantel, Karlskrona, Sweden</div>
+                <div class="li-resume-assignment-meta">2014-06 – 2015-03</div>
+            </div>
+            <div class="eleven columns">
+                <p>Markus was technical leader of a team of 5 developers implementing a self-service web application and a major rebranding on existing order channels for one of Switzerland’s largest telecom operator.</p>
+                <p>The self-service application was built using the well-known Python framework Django and integrated to a High Performance REST API to transform and present the end-users subscription related data. This system and existing order channels was rebranded to use the same frontend implementation using HTML5, CSS3 and the Bootstrap3 framework. The frontend work was done in cooperation with a Swiss web agency.</p>
+            </div>
+        </div>
+        <div class="row li-resume-assignment">
+            <div class="five columns">
+                <h3>Technical lead</h3>
+                <div class="li-resume-assignment-consultant">Consulting assignment</div>
+                <div class="li-resume-assignment-meta">Qvantel, Karlskrona, Sweden</div>
+                <div class="li-resume-assignment-meta">2013-10 – 2014-06</div>
+            </div>
+            <div class="eleven columns">
+                <p>Markus was technical lead for a team of ~10 developers implementing online order channels for one of Switzerland’s largest telecom operator.</p>
+                <p>The assignment was to develop order channels for shops, retailers, telemarketing and web shop for selling mobile phones and subscriptions both acquisition and retention customers was supported. The solution was integrated with Qvantels BSS solution that exposed services and API’s for customer management, product catalogue and order management.</p>
+                <p>Markus and the team also maintained the B2B Order Tool, enabling business-to-business sales of subscriptions and devices.</p>
+            </div>
+        </div>
+        <div class="row li-resume-assignment">
+            <div class="five columns">
+                <h3>Software engineer and architect</h3>
+                <div class="li-resume-assignment-consultant">Consulting assignment</div>
+                <div class="li-resume-assignment-meta">Telenor Sverige, Karlskrona, Sweden</div>
+                <div class="li-resume-assignment-meta">2012-05 – 2013-10</div>
+            </div>
+            <div class="eleven columns">
+                <p>Markus was assigned architect for www.telenor.se. A position where he would still be part of the development but also working on technical roadmap, coaching of new team members and writing solution proposals.</p>
+                <p>The web platform was a heavily customized version of SDL Tridion, Markus worked on improving this platform both the application server setup and the front-end architecture. Markus also worked on making the build and deployment setup deterministic and automated using Maven and bash scripts.</p>
+            </div>
+        </div>
+        <div class="row li-resume-assignment">
+            <div class="five columns">
+                <h3>Software engineer</h3>
+                <div class="li-resume-assignment-consultant">Consulting assignment</div>
+                <div class="li-resume-assignment-meta">Telenor Sverige, Karlskrona, Sweden</div>
+                <div class="li-resume-assignment-meta">2009-03 – 2012-05</div>
+            </div>
+            <div class="eleven columns">
+                <p>Markus joined the Web Platform and Applications team at Telenor to maintain and develop their public website. The website was built using Java, JSF and SDL Tridion Content Management System. Markus developed new functions for the online editors requiring skills in Java, HTML, CSS and JavaScript. One of the bigger tasks was to build a checkout on www.telenor.se. Another big challenge was to introduce responsive design HTML5 and CSS3 in the CMS.</p>
+            </div>
+        </div>
+        <div class="row li-resume-assignment">
+            <div class="five columns">
+                <h3>System Engineer</h3>
+                <div class="li-resume-assignment-meta">UIQ Technology, Ronneby, Sweden</div>
+                <div class="li-resume-assignment-meta">2008 – 2009</div>
+            </div>
+            <div class="eleven columns">
+                <p>Markus worked with the UIQ architects to develop prototypes, perform root cause analysis for serious problems, act as technical lead, work on platform stability and non-functional requirements.
+                    In this position Markus stilled worked a lot with UIQ’s international customers Sony Ericsson and Motorola, to help them get their mobile phones to market.</p>
+            </div>
+        </div>
+        <div class="row li-resume-assignment">
+            <div class="five columns">
+                <h3>Technical consultant</h3>
+                <div class="li-resume-assignment-meta">UIQ Technology, Ronneby, Sweden</div>
+                <div class="li-resume-assignment-meta">2004 – 2008</div>
+            </div>
+            <div class="eleven columns">
+                <p>UIQ developed a graphical UI on top of Symbian OS. Symbian OS was the major operating system used for smartphones during that time. Our biggest customer was Motorola and Sony Ericsson.</p>
+                <p>Markus started as a developer working with the Network and Telephony team and mostly worked on OMA Download, DRM and HTTP clients in Symbian C++.</p>
+                <p>From there he went on in the role of Technical Consultant, tasked to help our customers with their product development on Symbian and UIQ. In this role Markus was successfully working with several types of tasks such as development in Symbian C++, on-site support for Motorola in Europe, training on UIQ Platform, technical lead.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <h2>Background</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="five columns">
+                <h3>Education</h3>
+            </div>
+            <div class="eleven columns li-resume-content">
+                Master of Science with a major in Software Engineering<br/>
+                <div class="li-resume-assignment-meta">Blekinge Institute of Technology, Ronneby, Sweden</div>
+                <div class="li-resume-assignment-meta">2000-2004</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="five columns">
+                <h3>Publications</h3>
+            </div>
+            <div class="eleven columns li-resume-content">
+                Dynamic Software Updates in .Net - Selecting a Session State Transfer Model
+                <div class="li-resume-assignment-meta">iiWAS 2005</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="five columns">
+                <h3>Courses</h3>
+            </div>
+            <div class="eleven columns li-resume-content">
+                <div class="li-resume-course">
+                    SDL Tridion Partner Technical Delta Training<br/>
+                    <div class="li-resume-assignment-meta">2011</div>
+                </div>
+                <div class="li-resume-course">
+                    SDL Tridion Partner Technical Delta Training<br/>
+                    <div class="li-resume-assignment-meta">2009</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="five columns">
+                <h3>Languages</h3>
+            </div>
+            <div class="eleven columns li-resume-content">
+                Swedish is mother tongue, speaks and writes fluent English<br/>
+            </div>
+        </div>
+    </div>
+
+{{ partial "tail.html" . }}

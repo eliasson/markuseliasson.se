@@ -6,9 +6,14 @@ title = "eliasson"
     tag = "tags"
 
 [params]
-    copyright = "Copyright © 2014 - Markus Eliasson - All rights reserved."
+    copyright = "Copyright © 2014-2015 - Markus Eliasson - All rights reserved."
     author = "Markus"
     gaCode = "UA-42999256-1"
+
+[[menu.main]]
+    name = "resume"
+    url = "http://resume.markuseliasson.se"
+    weight = 1
 
 [[menu.main]]
     name = "about"

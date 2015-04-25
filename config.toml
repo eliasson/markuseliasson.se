@@ -12,7 +12,7 @@ title = "eliasson"
 
 [[menu.main]]
     name = "resume"
-    url = "http://resume.markuseliasson.se"
+    url = "/resume/"
     weight = 1
 
 [[menu.main]]

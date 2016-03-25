@@ -26,7 +26,7 @@ with this:
                 "request": "launch",
                 "program": "${workspaceRoot}/node_modules/jest-cli/bin/jest.js",
                 "stopOnEntry": false,
-                "args": [],
+                "args": ["--runInBand"],
                 "cwd": "${workspaceRoot}",
                 "preLaunchTask": null,
                 "runtimeExecutable": null,
@@ -42,6 +42,11 @@ with this:
             }
         ]
     }
+
+The significant line here, is the use of argument `--runInBand` which will
+cause Jest to run all tests in a single sequence in the current process
+(instead of spinning up multiple processes to run tests in parallel). You want
+to use this setting only for debugging, not for normal test runs.
 
 If you have not yet tried Code, I recommend you give it a try, it's awesome.
 

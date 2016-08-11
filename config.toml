@@ -1,26 +1,28 @@
 baseurl = "http://www.markuseliasson.se"
 languageCode = "en-us"
-title = "eliasson"
+title = "Markus Eliasson"
+
 [indexes]
     category = "categories"
     tag = "tags"
 
 [params]
-    copyright = "Copyright © 2014-2015 - Markus Eliasson - All rights reserved."
-    author = "Markus"
+    author = "Markus Eliasson"
+    authorBio = "A thorough technical lead with a passion for producing valuable and clean code. Tends to occasionally blog about building software and suffers greatly from ambivalence regarding which programming language to use next."
+    authorEmail = "markus.eliasson@gmail.com"
     gaCode = "UA-42999256-1"
 
-[[menu.main]]
-    name = "resume"
-    url = "/resume/"
-    weight = 1
+[[menu.footer]]
+    name = "GitHub"
+    url = "https://github.com/eliasson"
+    weight = 10
 
-[[menu.main]]
-    name = "about"
-    url = "/about/"
-    weight = 1
+[[menu.footer]]
+    name = "Twitter"
+    url = "https://twitter.com/markuseliasson"
+    weight = 20
 
-[[menu.main]]
-    name = "articles"
-    url = "/article/"
-    weight = 0
+[[menu.footer]]
+    name = "LinkedIn"
+    url = "http://www.linkedin.com/in/markuseliasson"
+    weight = 30

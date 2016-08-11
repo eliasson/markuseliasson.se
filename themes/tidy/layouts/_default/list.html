@@ -1,0 +1,22 @@
+{{ partial "head.html" . }}
+
+<body class="tidy-landing">
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <h1 class="tidy-page-header">{{ .Title }}.
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tidy-list">
+            {{ range .Data.Pages }}
+                <h4 class="tidy-list-title"><a href="{{ .Permalink }}">&gt; {{ .Title }}</a></h4>
+            {{ end }}
+        </div>
+    </div>
+    {{ partial "tiny-footer.html" . }}
+</body>
+
+{{ partial "tail.html" . }}

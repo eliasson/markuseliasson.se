@@ -1,0 +1,29 @@
+{{ partial "head.html" . }}
+
+<body class="tidy-landing">
+    <div class="container">
+        <div class="row">
+            <div class="six columns">
+                <h1 class="tidy-page-header">{{ .Site.Params.author }}.</h1>
+                <p class="tidy-landing-bio">
+                    {{ .Site.Params.authorBio }}
+                </p>
+                <p class="tidy-landing-email">
+                    <a href="mailto:{{ .Site.Params.authorEmail }}">{{ .Site.Params.authorEmail }}</a>
+                </p>
+            </div>
+            <div class="six columns">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tidy-list">
+            {{ range first 3 .Data.Pages }}
+                <h4 class="tidy-list-title"><a href="{{ .Permalink }}">&gt; {{ .Title }}</a></h4>
+            {{ end }}
+            <h4 class="tidy-list-title"><a href="/article/">&gt; More...</a></h4>
+        </div>
+    </div>
+</body>
+
+{{ partial "tail.html" . }}

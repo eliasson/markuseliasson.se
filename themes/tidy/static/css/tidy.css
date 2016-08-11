@@ -1,0 +1,336 @@
+body {
+    font-family: 'Lora', 'Georgia', serif;
+    color: #232323;
+    line-height: 1.4;
+    text-align: justify;
+    font-size: 1.15em;
+    padding: 0px;
+    margin: 0px;
+}
+
+a,
+a:active,
+a:hover,
+a:visited {
+    color: #080808;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    border-bottom: 1px solid #080808;
+}
+
+h1, h2, h3 {
+    font-weight: 200;
+    margin-bottom: 1em;
+    margin-top: 1.5em;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.0em;
+    margin-bottom: 0.25em;
+}
+
+h4 + p {
+    margin-top: 0px;
+}
+
+code {
+    background-color: #efefef;
+    padding: 0.3em;
+}
+
+pre {
+    font-family: 'Inconsolata', monospace;
+    padding: 0em;
+    margin: 3em;
+}
+
+pre > code {
+    background-color: transparent;
+}
+
+/* Single article ***********************************************************/
+
+.tidy-article-header {
+    text-align: center;
+    padding-top: 0em;
+    padding-bottom: 3em;
+}
+
+.tidy-article-taxonomies,
+.tidy-article-date {
+    color: #999;
+    font-size: smaller;
+}
+
+.tidy-article-ingress {
+    font-style: oblique;
+    padding-bottom: 1em;
+    width: 80%;
+    margin: 0px auto;
+    font-weight: 200;
+}
+
+/* List of article **********************************************************/
+
+.tidy-list {
+    margin-top: 2em;
+}
+
+.tidy-list-description {
+    color: #999;
+    font-size: smaller;
+}
+
+/* Landing page *************************************************************/
+
+.tidy-page-header {
+    text-align: left;
+}
+
+.tidy-page-header:after {
+	border-bottom: 1px solid #39a5f0;
+    content: '';
+    width: 42px;
+    display: block;
+    height: 1px;
+}
+
+.tidy-landing-bio {
+    font-size: smaller;
+    font-style: italic;
+}
+
+.tidy-landing-email a,
+.tidy-landing-email a:active,
+.tidy-landing-email a:hover,
+.tidy-landing-email a:visited {
+    font-size: smaller;
+    font-style: italic;
+    border: none;
+    color: #080808;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+/* Page header **************************************************************/
+
+.tidy-header h2 {
+    margin-top: 0.5em;
+}
+
+.tidy-header h2 a,
+.tidy-header h2 a:active,
+.tidy-header h2 a:hover,
+.tidy-header h2 a:visited {
+    border: none;
+}
+
+/* Page footer *************************************************************/
+
+.tidy-page-footer {
+    padding: 2em 0;
+    font-size: 0.85em;
+}
+
+.tidy-page-footer-header {
+    text-align: left;
+}
+
+.tidy-page-footer-header:after {
+	border-bottom: 1px solid #39a5f0;
+    content: '';
+    width: 42px;
+    display: block;
+    height: 1px;
+}
+
+.tidy-page-footer-header a,
+.tidy-page-footer-header a:active,
+.tidy-page-footer-header a:hover,
+.tidy-page-footer-header a:visited {
+    border: none;
+}
+
+.tidy-page-footer-bio {
+    font-size: smaller;
+    font-style: italic;
+}
+
+.tidy-page-footer-email a,
+.tidy-page-footer-email a:active,
+.tidy-page-footer-email a:hover,
+.tidy-page-footer-email a:visited {
+    font-size: smaller;
+    font-style: italic;
+    border: none;
+    color: #080808;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.tidy-page-footer-fineprint {
+    text-align: center;
+    font-size: 0.85em;
+    margin: 4em 0 2em 0;
+}
+
+.tidy-page-footer-fineprint a,
+.tidy-page-footer-fineprint a:active,
+.tidy-page-footer-fineprint a:hover,
+.tidy-page-footer-fineprint a:visited {
+    color: #666;
+    text-decoration: none;
+    font-weight: 200;
+    border: none;
+}
+
+.tidy-page-footer-menu,
+.tidy-page-menu {
+    float: right;
+    margin-top: 110px;
+}
+
+.tidy-page-footer-menu li,
+.tidy-page-menu li {
+    list-style: none;
+    float: left;
+    margin-right: 1em;
+    font-size: 0.9em;
+}
+
+/* The grid ******************************************************************
+ *
+ * The grid is based on Dave Gamache's Skelton project, which is released
+ * under MIT. Read more at https://github.com/dhg/Skeleton
+ */
+.container {
+    position: relative;
+    width: 70%;
+    max-width: 1000px;
+    min-width: 320px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.container:after,
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column,
+.columns {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+
+/* For devices larger than 400px. E.g. iPhone */
+@media (min-width: 320px) {
+    .container {
+        width: 90%;
+        padding: 0;
+    }
+}
+
+/* For devices larger than 400px. E.g. iPhone 6 Plus */
+@media (min-width: 400px) {
+    .container {
+        width: 90%;
+        padding: 0;
+    }
+}
+
+/* For devices larger than 550px. E.g. iPad */
+@media (min-width: 550px) {
+    .container {
+        width: 80%;
+        padding: 0;
+    }
+
+    .column,
+    .columns {
+        margin-left: 4%;
+    }
+
+    .column:first-child,
+    .columns:first-child {
+        margin-left: 0;
+    }
+
+    .one.column,
+    .one.columns {
+        width: 4.66666666667%;
+    }
+
+    .two.columns {
+        width: 13.3333333333%;
+    }
+
+    .three.columns {
+        width: 22%;
+    }
+
+    .four.columns {
+        width: 30.6666666667%
+    }
+
+    .five.columns {
+        width: 39.3333333333%;
+    }
+
+    .six.columns {
+        width: 48%;
+    }
+
+    .seven.columns {
+        width: 56.6666666667%;
+    }
+
+    .eight.columns {
+        width: 65.3333333333%;
+    }
+
+    .nine.columns {
+        width: 74.0%;
+    }
+
+    .ten.columns {
+        width: 82.6666666667%;
+    }
+
+    .eleven.columns {
+        width: 91.3333333333%;
+        }
+
+    .twelve.columns {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* For devices larger than 1024px. E.g. desktop */
+@media (min-width: 1024px) {
+    .container {
+        width: 80%;
+        padding: 0;
+    }
+}

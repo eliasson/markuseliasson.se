@@ -1,0 +1,26 @@
+{{ partial "head.html" . }}
+
+<body class="tidy-landing">
+    <div class="container">
+        <div class="row">
+            <div class="six columns">
+                <h1 class="tidy-page-header">Not found</h1>
+                <p class="tidy-landing-bio">
+                    The page you were looking for could not be found. May I interest you in one of my lastest articles instead?
+                </p>
+            </div>
+            <div class="six columns">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tidy-list">
+            {{ range first 3 .Data.Pages }}
+                <h4 class="tidy-list-title"><a href="{{ .Permalink }}">&gt; {{ .Title }}</a></h4>
+            {{ end }}
+            <h4 class="tidy-list-title"><a href="/article/">&gt; More...</a></h4>
+        </div>
+    </div>
+</body>
+
+{{ partial "tail.html" . }}

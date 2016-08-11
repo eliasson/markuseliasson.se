@@ -1,6 +1,6 @@
 +++
 Categories = ["Code"]
-Description = "Adventures in Go"
+Description = "I made my first baby steps in the world of Go. Will this little adventure lead me to a world where the grass is green, or will it lure me into the shadows?"
 Tags = ["go", "bittorrent"]
 draft = false
 title = "Adventures in Go"
@@ -33,21 +33,21 @@ For now, my `Makefile` looks something like this [gist](https://gist.github.com/
         github.com/eliasson/foo \
         github.com/eliasson/bar
     DEPENDENCIES := github.com/eliasson/acme
-     
+
     all: build silent-test
-     
+
     build:
         go build -o bin/foo main.go
-     
+
     test:
         go test -v $(PACKAGES)
-     
+
     silent-test:
         go test $(PACKAGES)
-     
+
     format:
         go fmt $(PACKAGES)
-     
+
     deps:
         go get $(DEPENDENCIES)
 
@@ -63,7 +63,7 @@ My current thoughts on Go is that it is a quite simple language. While simple is
 
 * Error handling. Go does not use exceptions, but return values which causes the code to be very verbose (or it is just me who has not got the hang of it).
 
-* Add methods on non-local types. I was hoping I could use them similar to Clojures protocols. 
+* Add methods on non-local types. I was hoping I could use them similar to Clojures protocols.
 
 
 What I find great is:

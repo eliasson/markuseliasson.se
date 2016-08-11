@@ -1,6 +1,6 @@
 +++
 Categories = ["Hugo"]
-Description = "Taxonomies in liquorice"
+Description = "Liquorice gets updated to support taxonomies in Hugo."
 Tags = ["liquorice"]
 draft = false
 date = "2014-11-11T22:21:10+01:00"
@@ -11,7 +11,7 @@ title = "Taxonomies in liquorice"
 My Hugo theme [liquorice](https://github.com/eliasson/liquorice) was updated
 yesterday to add simple support for [Taxonomies](http://gohugo.io/taxonomies/overview/).
 Both *categories* and *tags* is supported both as list view and as the ingress
-part of a single article. 
+part of a single article.
 
 
 In order to use it you need to configured in your site configuration (see

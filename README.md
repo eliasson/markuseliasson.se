@@ -12,7 +12,7 @@ and I finish some minor extensions I will extract it to a separate theme.
 Remaining features:
 
 [ ] Improve grid for mobile layout
-
+[ ] Add support Disqus comments
 
 ## Getting started
 

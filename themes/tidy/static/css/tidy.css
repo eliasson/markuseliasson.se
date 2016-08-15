@@ -60,7 +60,8 @@ pre {
     margin: 3em;
 }
 
-pre > code {
+pre > code,
+.hljs {
     background-color: transparent;
 }
 
@@ -84,6 +85,13 @@ pre > code {
     width: 80%;
     margin: 0px auto;
     font-weight: 200;
+}
+
+.tidy-article-body a,
+.tidy-article-body a:active,
+.tidy-article-body a:hover,
+.tidy-article-body a:visited {
+    border-bottom: 1px solid #080808;
 }
 
 /* List of article **********************************************************/

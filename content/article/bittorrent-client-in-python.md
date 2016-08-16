@@ -12,8 +12,86 @@ BitTorrent has been around since 2001. The big breakthrough was when sites as _T
 * [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html) implement it for downloading of static files
 * Traditional downloads still used for larger files such as [Linux distrubutions](http://www.ubuntu.com/download/alternative-downloads)
 
+We will go through the details in the BitTorrent protocol in a moment, but first let us switch topic and have a look at Python's new module, `asyncio`.
 
-### The concept
+
+## Python's asyncio
+
+In Python 3.4 a new module, `asyncio` was introduced, this module allows you to write _concurrent_, _single threaded_ code in Python without relying on any third-party libraries (such as Twisted, or Tornado).
+
+Remember, **concurrency** is not the same as **parallellism**.
+
+* **Concurrency** is when more than one function can be started and finished, overlapping each other, without having to be executed at the exact same time. This is possible with a single-core CPU.
+
+* **Parallellism** is when one or more functions run at the same time, this requires multi-core CPU.
+
+_As a metaphor, consider when you are in the kitchen making dinner. You put your potato cake in to the oven, setting your kitchen timer for 15 minutes. Meanwhile, you start frying some pork to go with it. After 15 minutes, the timer goes off with a beep, you put away the frying pan and take the cake out of the oven._
+
+Your are being concurrent, there is only one person (CPU) in the kitchen, doing multiple tasks at the same time.
+
+Single threaded, asynchronous programming is considered simpler than using multi-threaded programming. The reason is that you don't need to coordinate routines, and shared mutable state. Rather you write single-threaded programs that feels quite sequential. This is partially what made NodeJS as popular as
+it is - the async nature is built in to NodeJS and async is often default and a synchronous API is made an option.
+
+`asyncio` gives us asynchronous IO, thus it is suitable for file and network operations, where the process will be schedule to wait for data being available. It is **not** suitable for CPU-bound programming - here you need to fallback to threading or multi-processing.s
+
+As it turns out, BitTorrent have plenty of IO and not so much CPU-bound work to do - it should match `asyncio` perfectly.
+
+
+### await and async
+
+If you run the code snippet below, you will open two TCP connections to two of Google's DNS servers. Once the connection is open, we'll pretend to do some I/O but rather sleeping. Once the fictive work is done, the connection will be closed.
+
+This is all run on a single thread, yet two connections are open at the same time. If you run the program for a couple of times you will see that the order in which the connections are closed varies due to the randomized time to sleep.
+
+````python
+    import asyncio
+    from random import randint
+
+    async def do_stuff(ip, port):
+        print('About to open a connection to {ip}'.format(ip=ip))
+        reader, writer = await asyncio.open_connection(ip, port)
+
+        print('Connection open to {ip}'.format(ip=ip))
+        await asyncio.sleep(randint(0, 5))
+
+        writer.close()
+        print('Closed connection to {ip}'.format(ip=ip))
+
+    if __name__ == '__main__':
+        loop = asyncio.get_event_loop()
+
+        work = [
+            asyncio.ensure_future(do_stuff('8.8.8.8', '53')),
+            asyncio.ensure_future(do_stuff('8.8.4.4', '53')),
+        ]
+
+        loop.run_until_complete(asyncio.gather(*work))
+````
+
+Let's start with the main code block. First we get a reference to the default [event loop](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio-event-loop). Then create a list of two tasks calling the function `do_stuff` and tell the event loop to run until those tasks are complete.
+
+The function `do_stuff` is declared with the `async def` statement, which makes it into something called a [coroutine](https://docs.python.org/3/glossary.html#term-coroutine). A _coroutine_ is a special kind of generator and to which you can send a value back. The nice thing about coroutines is that they can be suspended, and resumed at a later state - with the scoped variables intact.
+
+Whenever a `await` is reached inside the `do_stuff` that coroutine will be suspended until the response is ready (the sending values back to a generator). When resumed, it will continue execution at the same position and keep going until the next `await` is there - or until the return statement is reached ( Python use implicit return statements).
+
+Now, back to the _event loop_. Whenever a coroutine is suspended, the event loop will resume another coroutine (given that it is ready to be resumed). This is the _cooperative multi-tasking_ - coroutines will take turns running on the same thread, but two coroutines will **not** run in parallel.
+
+Basically, any function that supports asyncio is either declared using `async def` _or_ by using the decorator `@asyncio.coroutine`. Any code calling such functions needs to use the `await` statement _or_ `yield from`.
+
+In Python 3.4 the asyncio used the decorator `@coroutine` for a special type of generator, and `yield from` to pause the the generator while waiting for something to happen (e.g. a read being ready to consume). In Python 3.5 this was replaced by the expressions `async` and `await`.
+
+_Awaitable_ functions (or coroutines) needs to be wrapped in a Future and handed
+over to the _event loop_. And finally the _event loop_ needs to be instructed to run.
+
+
+## Summary
+
+This was a fairly short introduction to asyncio in Python. If you have done async programming in another language (JavaScript, C#) you might feel just at home, if not there are great articles presenting Python's implementation in greater details and with a proper walkthrough from iterator, generator, corouties to async/await.
+
+Brett Cannon have written an excellent post [How the heck does async/await work in Python 3.5](http://www.snarky.ca/how-the-heck-does-async-await-work-in-python-3-5). And A. Jesse Jiryu Davis and Guido van Rossum gives great detail in their article [A Web Crawler With asyncio Coroutines](http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html). If you only read one, I recommend Brett Cannon's as I found it easier to digest.
+
+
+## The BitTorrent concept
 
 BitTorrent is a peer-to-peer protocol, where peers join a _swarm_ of other peers to exchange pieces of data between each other. Each peer is connected to multiple peers at the same time, and thus downloading or uploading to multiple peers at the same time. So if you are downloading a file you are downloading from multiple sources in parallel. This is great in terms of limiting bandwidth compared to when a file is downloaded from a central server it is also great for keeping a file available as it does not rely on a single source, but multiple sources.
 
@@ -42,52 +120,47 @@ Seed        | A peer that is uploading pieces of data for a torrent. A peer can 
 Downloader  | A peer that is downloading pieces and does not have the entire torrent. |
 
 
-### Python's asyncio
+## The implementation
 
-As stated in the beginning of this article, one of the purposes with building **Pieces** was to get acquainted with Python's asyncio.
+As stated in the ingress of this article, the sole purpose of writing my own BitTorrent client, called **Pieces** was to try out Python's asyncio and at the same time scratch an old itch of implementing a BitTorrent client.
 
-In Python 3.4 a new module, `asyncio` was introduced, this module allows you to write _concurrent_, _single threaded_ code in Python without relying on any third-party libraries (such as Twisted, or Tornado).
+Thus, the implementation is not focused on performance, features or efficiency - instead it is focused on being simple and readable. The implementation is guaranteed to contain bugs and mistakes - after all, it is implemented in late nights during my summer holiday.
 
-Remember, **concurrency** is not the same as **parallellism**.
-
-* **Concurrency** is when more than one function can be started and finished, overlapping of each other, without having to be executed at the exact same time. This is possible with a single-core CPU.
-
-* **Parallellism** is when one or more functions run at the same time, this requires multi-core CPU.
-
-_As a metaphor, consider when you are alone in the kitchen making dinner. You put your potato cake in to the oven, setting your kitchen timer for 15 minutes. Meanwhile, you start frying some pork to go with it. After 15 minutes, the timer goes off with a beep, you put away the frying pan and take the cake out of the oven._
-
-Your are being concurrent, there is only one person (CPU) in the kitchen, doing multiple tasks at the same time.
-
-Single threaded, asynchronous programming if far simpler than using multi-threaded programming. The reason is that you don't need to coordinate routines, and shared mutable state. Rather you write single-threaded programs that feels quite sequential.
-
-`asyncio` gives us asynchronous IO, thus it is suitable for file and network operations, where the process will be schedule to wait for data being available. It is **not** suitable for CPU-bound programming - here you need to fallback to threading or multi-processing.
-
-It turns out that BitTorrent is loaded with IO operations, thus this should be a perfect match.
-
-As it turns out, BitTorrent have plenty of IO and not so much CPU-bound work to do - it should match `asyncio` perfectly.
+All of the source code is available at [GitHub](https://github.com/eliasson/pieces) and released under the Apache 2 license. Feel free to learn from it, steal from it, improve it, laugh at it or just ignore it.
 
 
-#### await and async
+### Parsing the meta-data
 
-In Python 3.4 the asyncio used the decorator `@coroutine` for a special type of generator, and `yield from` to pause the the generator while waiting for something to happen (e.g. a read being ready to consume). In Python 3.5 this was replaced by the expressions `async` and `await`.
+### Connect to the tracker
 
-Brett Cannon have written an excellent post on the detail and history regarding generators, coroutines, and these new expressions in his post [How the heck does async/await work in Python 3.5](http://www.snarky.ca/how-the-heck-does-async-await-work-in-python-3-5) you do not need to read this post in order to grasp this article, but it gives a greater understanding on what goes on underneath the surface.
+### Connect to peers
 
-Basically, it works like this. `await` will pause the current execution waiting for the call to be ready to be resumed (e.g. when a stream of data is read, a timeout occurred, etc). All methods that can be resumed should use the expression `await`. As an example, consider the code below:
+### Request pieces
 
-    async def get_foo() -> str:
+### Persist pieces
+
+### Future work
+
+Seeding is not yet implemented in the pieces client, but it should not be that hard to implement. What is needed is something along the lines of this:
+
+* Whenever a peer is connected to, we should send a `BitField` message to the remote peer indicating which pieces we have.
+
+* Whenever a new piece is received (and correctness of hash is confirmed), each `PeerConnection` should send a `Have` message to its remote peer to indicate the new piece we have.
+
+In order to do this the `PieceManager` needs to be extended to return a list of 0 and 1 for the pieces we have. And the `TorrentClient` to ask the `PeerConnection` to send the messages. Both `BitField` and `Have` messages should support encoding of these messages.
+
+Having seeding implemented would make **Pieces** a good citizen, supporting both downloading and uploading of data within the swarm.
+
+Additional features that probably can be added without too much effort is:
+
+* **Multi-file torrent**, will hit `PieceManager`, since Pieces and Blocks might span over multiple files, it affects how files are persisted (i.e. a single block might contain data for more than one file).
+
+* **Resume a download**, by seeing what parts of the file(s) are already downloaded (verified by making SHA1 hashes).
+
+* **UDP** support and not only HTTP when connecting to a tracker.
 
 
-#### The event loop
-
-Python `asyncio` comes with an _event loop_ that manages the concurrent tasks and notifies a task whenever something of interest happened. E.g. whenever there is data read from a socket ready for consumption.
-
-There is a single _event loop_ running all tasks in a _cooperative_ multi-tasking environment. _Cooperative_ means that a running task cannot be interrupted (unlike processes in an Operating System), it will run until it calls a function causing it to be suspended.
-
-The _event loop_ can either be run until all tasks are complete, or it can be run forever. In our case, the _event loop_ will run until the download is either finished or aborted.
-
-    https://github.com/eliasson/pieces/blob/master/pieces/cli.py#L52
-
+-------------------------------------------------------------------------------
 
 
 #### Bencoding
@@ -96,7 +169,7 @@ Bencoding is the binary encoding format used in BitTorrent. It is used for the _
 
 Bencoding supports four different data types, *dictionaries*, *lists*, *integers* and *strings* - it is fairly easy translate to Python's _object literals_ or _JSON_.
 
-Below is bencoding described in *Augmenterad Backus-Naur Form* ([ABNF](https://en.wikipedia.org/wiki/Augmented_Backus–Naur_Form)).
+Below is bencoding described in [Augmenterad Backus-Naur Form](https://en.wikipedia.org/wiki/Augmented_Backus–Naur_Form) courtesy of the [Haskell library](https://hackage.haskell.org/package/bencoding-0.4.3.0/docs/Data-BEncode.html).
 
     <BE>    ::= <DICT> | <LIST> | <INT> | <STR>
 

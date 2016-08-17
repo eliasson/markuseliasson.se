@@ -1,11 +1,13 @@
 body {
-    font-family: 'Lora', 'Georgia', serif;
+    font-family: 'Georgia', serif;
     color: #232323;
     line-height: 1.4;
     text-align: justify;
-    font-size: 1.15em;
+    font-size: 1.3em;
     padding: 0px;
     margin: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 a,
@@ -15,25 +17,25 @@ a:visited {
     color: #080808;
     text-decoration: none;
     font-weight: 600;
+    word-break: break-word;
 }
 
 a:hover {
     border-bottom: 1px solid #080808;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
     font-weight: 200;
     margin-bottom: 1em;
     margin-top: 1.5em;
-    text-align: center;
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 3.0em;
 }
 
 h2 {
-    font-size: 2em;
+    font-size: 2.0em;
 }
 
 h3 {
@@ -43,29 +45,48 @@ h3 {
 h4 {
     font-size: 1.0em;
     margin-bottom: 0.25em;
+    font-weight: bold;
 }
 
 h4 + p {
     margin-top: 0px;
 }
 
-code {
-    background-color: #efefef;
-    padding: 0.3em;
-}
-
 pre {
     font-family: 'Inconsolata', monospace;
     padding: 0em;
-    margin: 3em;
+    margin: 0px;
+    white-space: pre-wrap;
+    word-wrap: break-word
 }
 
 pre > code,
 .hljs {
-    background-color: transparent;
+    background-color: #f9f9f9;
+    border: 1px solid #dedede;
+    padding-left: 30px;
+}
+
+/* Grid *********************************************************************/
+
+.tidy-page {
+    max-width: 1200px;
+    box-sizing: border-box;
+    margin: 0px auto;
+}
+
+.container {
+    padding-left: 2rem;
+    padding-right: 2rem; 
 }
 
 /* Single article ***********************************************************/
+
+.tidy-article h1,
+.tidy-article h2,
+.tidy-article h3 {
+    text-align: center;
+}
 
 .tidy-article-header {
     text-align: center;
@@ -75,7 +96,7 @@ pre > code,
 
 .tidy-article-taxonomies,
 .tidy-article-date {
-    color: #999;
+    color: #666;
     font-size: smaller;
 }
 
@@ -100,11 +121,6 @@ pre > code,
     margin-top: 2em;
 }
 
-.tidy-list-description {
-    color: #999;
-    font-size: smaller;
-}
-
 /* Landing page *************************************************************/
 
 .tidy-page-header {
@@ -112,11 +128,11 @@ pre > code,
 }
 
 .tidy-page-header:after {
-	border-bottom: 1px solid #39a5f0;
+    border-bottom: 2px solid #39a5f0;
     content: '';
-    width: 42px;
+    width: 96px;
     display: block;
-    height: 1px;
+    height: 2px;
 }
 
 .tidy-landing-bio {
@@ -161,11 +177,11 @@ pre > code,
 }
 
 .tidy-page-footer-header:after {
-	border-bottom: 1px solid #39a5f0;
+    border-bottom: 2px solid #39a5f0;
     content: '';
-    width: 42px;
+    width: 48px;
     display: block;
-    height: 1px;
+    height: 2px;
 }
 
 .tidy-page-footer-header a,
@@ -173,6 +189,7 @@ pre > code,
 .tidy-page-footer-header a:hover,
 .tidy-page-footer-header a:visited {
     border: none;
+    font-weight: 200;
 }
 
 .tidy-page-footer-bio {
@@ -208,137 +225,14 @@ pre > code,
     border: none;
 }
 
-.tidy-page-footer-menu,
-.tidy-page-menu {
+.tidy-page-footer-menu {
     float: right;
     margin-top: 110px;
 }
 
-.tidy-page-footer-menu li,
-.tidy-page-menu li {
+.tidy-page-footer-menu li {
     list-style: none;
     float: left;
     margin-right: 1em;
     font-size: 0.9em;
-}
-
-/* The grid ******************************************************************
- *
- * The grid is based on Dave Gamache's Skelton project, which is released
- * under MIT. Read more at https://github.com/dhg/Skeleton
- */
-.container {
-    position: relative;
-    width: 70%;
-    max-width: 1000px;
-    min-width: 320px;
-    margin: 0 auto;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-.container:after,
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.column,
-.columns {
-    width: 100%;
-    float: left;
-    box-sizing: border-box;
-}
-
-/* For devices larger than 400px. E.g. iPhone */
-@media (min-width: 320px) {
-    .container {
-        width: 90%;
-        padding: 0;
-    }
-}
-
-/* For devices larger than 400px. E.g. iPhone 6 Plus */
-@media (min-width: 400px) {
-    .container {
-        width: 90%;
-        padding: 0;
-    }
-}
-
-/* For devices larger than 550px. E.g. iPad */
-@media (min-width: 550px) {
-    .container {
-        width: 80%;
-        padding: 0;
-    }
-
-    .column,
-    .columns {
-        margin-left: 4%;
-    }
-
-    .column:first-child,
-    .columns:first-child {
-        margin-left: 0;
-    }
-
-    .one.column,
-    .one.columns {
-        width: 4.66666666667%;
-    }
-
-    .two.columns {
-        width: 13.3333333333%;
-    }
-
-    .three.columns {
-        width: 22%;
-    }
-
-    .four.columns {
-        width: 30.6666666667%
-    }
-
-    .five.columns {
-        width: 39.3333333333%;
-    }
-
-    .six.columns {
-        width: 48%;
-    }
-
-    .seven.columns {
-        width: 56.6666666667%;
-    }
-
-    .eight.columns {
-        width: 65.3333333333%;
-    }
-
-    .nine.columns {
-        width: 74.0%;
-    }
-
-    .ten.columns {
-        width: 82.6666666667%;
-    }
-
-    .eleven.columns {
-        width: 91.3333333333%;
-        }
-
-    .twelve.columns {
-        width: 100%;
-        margin-left: 0;
-    }
-}
-
-/* For devices larger than 1024px. E.g. desktop */
-@media (min-width: 1024px) {
-    .container {
-        width: 80%;
-        padding: 0;
-    }
 }

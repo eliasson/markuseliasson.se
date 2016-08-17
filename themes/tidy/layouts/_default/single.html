@@ -7,39 +7,41 @@
 <body class="tidy-page">
     <div class="container">
         <div class="row">
-            <article class="tidy-article">
-                <header class="tidy-article-header">
-                    <h1 class="tidy-article-title">{{ .Title }}</h1>
-                    <div class="tidy-article-ingress">
-                        <p>{{ .Description }}</p>
-                        <span class="tidy-article-taxonomies">
-                            {{ with $categories }}
-                                Posted in
-                                {{ range $categories }}
-                                    <a href="{{ $baseurl }}/categories/{{ . | urlize }}">{{ . }}</a>
+            <div class="col-xs">
+                <article class="tidy-article">
+                    <header class="tidy-article-header">
+                        <h1 class="tidy-article-title">{{ .Title }}</h1>
+                        <div class="tidy-article-ingress">
+                            <p>{{ .Description }}</p>
+                            <span class="tidy-article-taxonomies">
+                                {{ with $categories }}
+                                    Posted in
+                                    {{ range $categories }}
+                                        <a href="{{ $baseurl }}/categories/{{ . | urlize }}">{{ . }}</a>
+                                    {{ end }}
                                 {{ end }}
-                            {{ end }}
 
-                            {{ with $tags }}
-                                with tags
-                                {{ range $tags }}
-                                    <a href="{{ $baseurl }}/tags/{{ . | urlize }}">{{ . }}</a>
+                                {{ with $tags }}
+                                    with tags
+                                    {{ range $tags }}
+                                        <a href="{{ $baseurl }}/tags/{{ . | urlize }}">{{ . }}</a>
+                                    {{ end }}
                                 {{ end }}
-                            {{ end }}
-                            {{ if or $categories $tags }} at {{ end }}
-                        </span>
-                        <time class="tidy-article-date">
-                            {{ .Date.Format "Monday, January 2, 2006" }}
-                        </time>
-                    </div>
-                </header>
-                <section class="tidy-article-body">
-                    {{ .Content }}
-                </section>
-            </article>
+                                {{ if or $categories $tags }} at {{ end }}
+                            </span>
+                            <time class="tidy-article-date">
+                                {{ .Date.Format "Monday, January 2, 2006" }}
+                            </time>
+                        </div>
+                    </header>
+                    <section class="tidy-article-body">
+                        {{ .Content }}
+                    </section>
+                </article>
+            </div>
         </div>
+        {{ partial "footer.html" . }}
     </div>
-    {{ partial "footer.html" . }}
 </body>
 
 {{ partial "tail.html" . }}

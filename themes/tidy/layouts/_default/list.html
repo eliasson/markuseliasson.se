@@ -1,22 +1,24 @@
 {{ partial "head.html" . }}
 
-<body class="tidy-landing">
+<body class="tidy-page">
     <div class="container">
         <div class="row">
-            <div class="twelve columns">
-                <h1 class="tidy-page-header">{{ .Title }}.
-                </h1>
+            <div class="col-xs">
+                <h1 class="tidy-page-header">{{ .Title}}.</h1>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="tidy-list">
-            {{ range .Data.Pages }}
-                <h4 class="tidy-list-title"><a href="{{ .Permalink }}">&gt; {{ .Title }}</a></h4>
-            {{ end }}
+        <div class="row">
+            <div class="col-xs">
+                <div class="tidy-list">
+                    {{ range first 3 .Data.Pages }}
+                        <h4 class="tidy-list-title"><a href="{{ .Permalink }}">&gt; {{ .Title }}</a></h4>
+                    {{ end }}
+                    <h4 class="tidy-list-title"><a href="/article/">&gt; More...</a></h4>
+                </div>
+            </div>
         </div>
+        {{ partial "footer.html" . }}
     </div>
-    {{ partial "tiny-footer.html" . }}
 </body>
 
 {{ partial "tail.html" . }}

@@ -1,28 +1,24 @@
 <footer class="tidy-page-footer">
-    <div class="container">
-        <div class="row">
-            <div class="six columns">
-                <h1 class="tidy-page-footer-header"><a href="{{ .Site.BaseURL }}">{{ .Site.Params.author }}.</a></h1>
-                <p class="tidy-page-footer-bio">
-                    {{ .Site.Params.authorBio }}
-                </p>
-                <p class="tidy-page-footer-email">
-                    <a href="mailto:{{ .Site.Params.authorEmail }}">{{ .Site.Params.authorEmail }}</a>
-                </p>
-            </div>
-            <div class="six columns">
-            </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <h1 class="tidy-page-footer-header">
+                <a href="{{ .Site.BaseURL }}">{{ .Site.Params.author }}.</a>
+            </h1>
+            <p class="tidy-page-footer-bio">
+                {{ .Site.Params.authorBio }}
+            </p>
+            <p class="tidy-page-footer-email">
+                <a href="mailto:{{ .Site.Params.authorEmail }}">{{ .Site.Params.authorEmail }}</a>
+            </p>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="twelve columns">
-                <ul class="tidy-page-footer-menu">
-                    {{ range .Site.Menus.footer }}
-                        <li><a href="{{.URL}}"> {{ .Name }} </a></li>
-                    {{end}}
-                </ul>
-            </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="tidy-page-footer-menu">
+                {{ range .Site.Menus.footer }}
+                    <li><a href="{{ .URL }}"> {{ .Name }} </a></li>
+                {{ end }}
+            </ul>
         </div>
     </div>
 </footer>

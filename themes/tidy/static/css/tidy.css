@@ -70,14 +70,14 @@ pre > code,
 /* Grid *********************************************************************/
 
 .tidy-page {
-    max-width: 1200px;
     box-sizing: border-box;
     margin: 0px auto;
 }
 
 .container {
     padding-left: 2rem;
-    padding-right: 2rem; 
+    padding-right: 2rem;
+    max-width: 65rem;
 }
 
 /* Single article ***********************************************************/
@@ -123,11 +123,27 @@ pre > code,
 
 /* Landing page *************************************************************/
 
-.tidy-page-header {
+.tidy-page-header,
+.tidy-landing-header {
     text-align: left;
 }
 
-.tidy-page-header:after {
+.tidy-page-header h4:after {
+    border-bottom: 1px solid #39a5f0;
+    content: '';
+    width: 16px;
+    display: block;
+    height: 2px;
+}
+.tidy-page-header h4 a,
+.tidy-page-header h4 a:active,
+.tidy-page-header h4 a:hover,
+.tidy-page-header h4 a:visited {
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.tidy-landing-header:after {
     border-bottom: 2px solid #39a5f0;
     content: '';
     width: 96px;

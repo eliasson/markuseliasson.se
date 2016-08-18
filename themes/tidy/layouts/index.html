@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <h1 class="tidy-page-header">{{ .Site.Params.author }}.</h1>
+                <h1 class="tidy-landing-header">{{ .Site.Params.author }}.</h1>
                 <p class="tidy-landing-bio">
                     {{ .Site.Params.authorBio }}
                 </p>
@@ -19,7 +19,7 @@
                     {{ range first 3 .Data.Pages }}
                         <h4 class="tidy-list-title"><a href="{{ .Permalink }}">&gt; {{ .Title }}</a></h4>
                     {{ end }}
-                    <h4 class="tidy-list-title"><a href="/article/">&gt; More...</a></h4>
+                    <h4 class="tidy-list-title"><a href="{{.Site.BaseURL}}/article">More...</a></h4>
                 </div>
             </div>
         </div>

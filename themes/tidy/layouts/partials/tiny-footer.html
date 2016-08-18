@@ -2,7 +2,9 @@
     <div class="row">
         <div class="col-xs-12">
             <ul class="tidy-page-footer-menu">
-                <li><a href="{{ .Site.BaseURL }}/">Home</a></li>
+                {{ range .Site.Menus.footer }}
+                    <li><a href="{{ .URL }}"> {{ .Name }} </a></li>
+                {{ end }}
             </ul>
         </div>
     </div>

@@ -52,12 +52,18 @@ h4 + p {
     margin-top: 0px;
 }
 
-pre {
+pre,
+code {
+    background-color: #f9f9f9;
     font-family: 'Inconsolata', monospace;
     padding: 0em;
     margin: 0px;
     white-space: pre-wrap;
     word-wrap: break-word
+}
+
+code {
+    padding: .25rem;
 }
 
 pre > code,

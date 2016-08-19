@@ -6,7 +6,7 @@ title = "A BitTorrent client in Python 3.5"
 draft = true
 Description = "Python 3.5 comes with support for asynchronous IO, which seems like a given fit when implementing a small BitTorrent client. This article will guide you through both the BitTorrent protocol details as well as diving in to asyncio for better or worse."
 +++
-BitTorrent has been around since 2001. The big breakthrough was when sites as _The Pirate Bay_ made it popular to use for downloading pirated material. Streaming sites, such as Netflix, might have resulted in a decrease of people using BitTorrent for downloading movies. But BitTorrent is still used in a number of different, legal, solutions where distribution of larger files are important.
+BitTorrent has been around since 2001 when [Bram Cohen](https://en.wikipedia.org/wiki/Bram_Cohen) authored the first version of the protocol. The big breakthrough was when sites as _The Pirate Bay_ made it popular to use for downloading pirated material. Streaming sites, such as Netflix, might have resulted in a decrease of people using BitTorrent for downloading movies. But BitTorrent is still used in a number of different, legal, solutions where distribution of larger files are important.
 
 * [Facebook](https://torrentfreak.com/facebook-uses-bittorrent-and-they-love-it-100625/) use it to distribute updates within their huge data centers
 * [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html) implement it for downloading of static files
@@ -174,12 +174,13 @@ Now each piece is divided into blocks in sizes of `2^14` bytes:
               = 135 168 bytes
 ```
 
-The *blocks* is the data that is requested from the connected peers, and when all blocks for a given piece is retrieved the piece is complete.
+Exachanging these blocks between peers is basically what BitTorrent is about. Once all blocks for a piece is done, that piece is complete and can be shared with other peers. And once all pieces are complete the peer transform from a _downloader_ to only be a _seeder_.
 
+Two notes on where the official specification is a bit off:
 
-_The official specification refer to both pieces and blocks as just pices which is quite confusing. The unofficial specification and others seem to have agreed upon using the term block for the smaller piece which is what we will use._
+1. _The official specification refer to both pieces and blocks as just pices which is quite confusing. The unofficial specification and others seem to have agreed upon using the term block for the smaller piece which is what we will use._
 
-_The official specification is stating another **block size** that what we use. Reading the unofficial specifcation, it seems that 2^14 bytes is what is agreed among implementers - regardless of the official specification._
+2. _The official specification is stating another **block size** that what we use. Reading the unofficial specifcation, it seems that 2^14 bytes is what is agreed among implementers - regardless of the official specification._
 
 
 ## The implementation
@@ -191,6 +192,12 @@ Thus, the implementation is not focused on performance, features or efficiency -
 All of the source code is available at [GitHub](https://github.com/eliasson/pieces) and released under the Apache 2 license. Feel free to learn from it, steal from it, improve it, laugh at it or just ignore it.
 
 While going through the implementation it might be good to have read, or to have another tab open with the [Unofficial BitTorrent Specification](https://wiki.theory.org/BitTorrentSpecification). This is without a doubt the best source of information on the BitTorrent protocol. The official specification is vague and lacks certain details so the unofficial is the one you want to study.
+
+The implementation is split into these sections:
+
+1. [Parsing the meta-data](#parsing-the-meta-data)
+2. [Torrent structure](#torrent-structure)
+3. [The info dict](#the-info-dict)
 
 
 ### Parsing the meta-data
@@ -302,8 +309,7 @@ length', 524288), (b'pieces', b'\x1at\xfc\x84\xc8\xfaV\xeb\x12\x1c\xc5\xa4\x1c?\
 
 _I have truncated the `pieces` attribute heavily in order to make this article more readable._
 
-The properties here we are interested in is only five:
-
+For _pieces_ we do not care about all those properties, only these four.
 
 ```python
 
@@ -342,18 +348,89 @@ Notice how the keys used in the `OrderedDict` are _binary_ strings. Bencoding is
 A wrapper class `pieces.torrent.Torrent` exposing these properties is implemented [source](https://github.com/eliasson/pieces/blob/master/pieces/torrent.py) abstracting the binary strings, single vs. multiple file away from the rest of the client.
 
 
-#### Meta-data's info dict
+#### The info dict
 
-One important piece of functionality the `pieces.torrent.Torrent`class has, is the SHA1 hasing of the `info` dict. This hash is used when communicating with the tracker and other peers as an identifier for this torrent.
+One important piece of functionality the `pieces.torrent.Torrent`class has, is the SHA1 hasing of the `info` dict. This hash is used when communicating with the tracker and other peers as a unique identifier for this torrent.
 
-It is the entire contents of the torrents _meta-info's_ info object that should be hased - not the entire torrent. This is why the use of `OrderedDict` is so _important_ when parsing the bencoded `.torrent`. If order is not respected, the hash might be invalid for this torrent.
+It is the entire contents of the torrents _meta-info's_ info object that should be hased - not the entire torrent. This is why the use of `OrderedDict` is so _important_ when parsing the bencoded `.torrent`. If order is not respected, the hash will be invalid for this torrent.
 
-The solution _pieces_ use for calculating the SHA1 is to encode the `info` dict to a bencoded sequence of bytes again, and then hash that value.
+The solution _pieces_ use for calculating the SHA1 is to encode the `info` dict to a bencoded sequence of bytes again, and then hash that value. Another option would be to make the SHA1 hash while reading the `.torrent` file.
 
 Look at [source](https://github.com/eliasson/pieces/blob/master/pieces/torrent.py) on how this is implemented.
 
 
 ### Connect to the tracker
+
+Now that we can decode a `.torrent` file and we have a Python representation of data within we need to get a list of peers to connect with. This is where the tracker comes in. The tracker is a central server keeping track on available peers for a given torrent. The tracker does **NOT** contain any of the torrent data, only which peers that is within a swarm.
+
+The `announce` property in the _meta-info_ is the HTTP URL to the tracker to connect to. You need to have the following URL parameters included in your request:
+
+Parameter   | Description
+------------|------------
+info_hash   | The SHA1 hash of the info dict
+peer_id     | A unique ID generated for this peer
+uploaded    | The total number of bytes uploaded
+downloaded  | The total number of bytes downloaded
+left        | The number of bytes left to download for this client
+port        | The TCP port this client listens on
+compact     | Whether or not the client accepts a compacted list of peers or not. Many trackers only support compact lists to save bandwidth and we have only implemented compact support in pieces
+
+The peer_id needs to be exactly 20 bytes, and there are two major conventions used on how to generate this ID. Pieces follows the [Azureus-style](https://wiki.theory.org/BitTorrentSpecification#peer_id) convention generating peer id like:
+
+````python
+    >>> import random
+    # -<2 character id><4 digit version number>-<random numbers>
+    >>> '-PC0001-' + ''.join([str(random.randint(0, 9)) for _ in range(12)])
+    '-PC0001-478269329936'
+````
+
+A tracker request can look like this using [httpie](https://github.com/jkbrzt/httpie):
+
+````http
+    http GET "http://torrent.ubuntu.com:6969/announce?info_hash=%90%28%9F%D3M%FC%1C%F8%F3%16%A2h%AD%D85L%853DX&peer_id=-PC0001-706887310628&uploaded=0&downloaded=0&left=699400192&port=6889&compact=1"
+    HTTP/1.0 200 OK
+    Content-Length: 363
+    Content-Type: text/plain
+    Pragma: no-cache
+
+    d8:completei3651e10:incompletei385e8:intervali1800e5:peers300:£¬%ËÌyOkÝ.ê@_<K+Ô\Ý Ámb^TnÈÕ^AËO*ÈÕ1*ÈÕ>¥³ÈÕBä)ðþ¸ÐÞ¦Ô/ãÈÕÈuÉæÈÕ
+    ...
+````
+
+_The response data is truncated since it contains binary data that screws up the Markdown formatting._
+
+From the tracker response, there is two properties of interest:
+
+* **interval** - The interval in seconds until the client should make a new announce call to the tracker.
+* **peers** - The list of peers is a binary string with a length of multiple of 6 bytes. Where each peer consist of a 4 byte IP address and a 2 byte port number (since we are using the compact format).
+
+See the module `pieces.tracker` [source code](https://github.com/eliasson/pieces/blob/master/pieces/tracker.py) for full details on how this is decoded.
+
+
+#### Async HTTP
+
+The announce call to the tracker is the first occurance of where asyncio is used in pieces. However, python does not come with a built-in support for async HTTP and my beloved [requests library](https://github.com/kennethreitz/requests) does not implement asyncio either. Scouting around the Internet it looks like most use [aiohttp](https://github.com/KeepSafe/aiohttp), which implement both a HTTP client and server.
+
+Pieces use aiohttp in the `pieces.tracker.Tracker` class for making the HTTP request to the tracker announce url. A shortened version of that code reveil this:
+
+````python
+    async def connect(self,
+                      first: bool=None,
+                      uploaded: int=0,
+                      downloaded: int=0):
+        params = { ...}
+        url = self.torrent.announce + '?' + urlencode(params)
+
+        async with self.http_client.get(url) as response:
+            if not response.status == 200:
+                raise ConnectionError('Unable to connect to tracker')
+            data = await response.read()
+            return TrackerResponse(bencoding.Decoder(data).decode())
+````
+The method is declared using `async` and uses the new [asynchronous context manager](https://www.python.org/dev/peps/pep-0492/#asynchronous-context-managers-and-async-with) `async with` to allow being suspended while the HTTP call is being made. Given a successful response, this method will be suspended again while reading the binary response data `await response.read()`.
+
+The result of this is that our event loop is free to schedule other work while we have an outstanding request to the tracker.
+
 
 ### Connect to peers
 
@@ -381,33 +458,3 @@ Additional features that probably can be added without too much effort is:
 
 * **UDP** support and not only HTTP when connecting to a tracker.
 
-
--------------------------------------------------------------------------------
-
-
-#### Bencoding
-
-Bencoding is the binary encoding format used in BitTorrent. It is used for the _meta-info_ stored inthe `.torrent` file, as well as some of the results when communicating with the tracker.
-
-
-#### Tracker
-
-#### Peers
-
-#### Piece strategy
-
-
-# References
-
-ABNF https://hackage.haskell.org/package/bencoding-0.4.3.0/docs/Data-BEncode.html
-
-Inofficiella BitTorrent specifikationen https://wiki.theory.org/BitTorrentSpecification
-
-# TODO
-
-- Link to Facebook, Amazon, Linux.
-https://torrentfreak.com/facebook-uses-bittorrent-and-they-love-it-100625/
-
-https://en.wikipedia.org/wiki/Bram_Cohen
-
-http://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html

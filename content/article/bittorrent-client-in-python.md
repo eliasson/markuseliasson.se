@@ -193,11 +193,11 @@ All of the source code is available at [GitHub](https://github.com/eliasson/piec
 
 While going through the implementation it might be good to have read, or to have another tab open with the [Unofficial BitTorrent Specification](https://wiki.theory.org/BitTorrentSpecification). This is without a doubt the best source of information on the BitTorrent protocol. The official specification is vague and lacks certain details so the unofficial is the one you want to study.
 
-The implementation is split into these sections:
+This is a long article, and the implementation details is of greath length, if you only care about some details feel feel to jump right in:
 
 1. [Parsing the meta-data](#parsing-the-meta-data)
 2. [Torrent structure](#torrent-structure)
-3. [The info dict](#the-info-dict)
+3. [Connect to the tracker](#connect-to-the-tracker)
 
 
 ### Parsing the meta-data
@@ -432,7 +432,139 @@ The method is declared using `async` and uses the new [asynchronous context mana
 The result of this is that our event loop is free to schedule other work while we have an outstanding request to the tracker.
 
 
+### The loop
+
+Everything up to this point could really have been made synchronously, but now that we are about to connect to multiple peers we need to go asynchronous.
+
+The main function in `pieces.cli` is responsible for setting up the asyncio event loop. If we get rid of some `argparse` and error handling details it looks like (see [cli.py](https://github.com/eliasson/pieces/blob/master/pieces/cli.py) for the full details).
+
+````python
+import asyncio
+
+from pieces.torrent import Torrent
+from pieces.client import TorrentClient
+
+loop = asyncio.get_event_loop()
+client = TorrentClient(Torrent(args.torrent))
+task = loop.create_task(client.start())
+
+try:
+    loop.run_until_complete(task)
+except CancelledError:
+    logging.warning('Event loop was canceled')
+````
+
+
+We start off by getting the default event loop for this thread. Then we construct the `TorrentClient` with the given `Torrent` (meta-info). This will parse the `.torrent` file and validate everything is ok.
+
+Calling the `async` method `client.start()` and wrapping that in a `asyncio.Future` and later adding that future and instructing the event loop to keep running until that task is complete.
+
+Is that it? No, not really - we have our own loop (**not** event loop) implemented in the `pieces.client.TorrentClient` that sets up the peer connections, schedules the announce call, etc.
+
+`TorrentClient` is something like a work coordinator, it starts by creating a [async.Queue](https://docs.python.org/3/library/asyncio-queue.html) which will hold the list of available peers that can be connected to.
+
+Then it constructs _N_ number of `pieces.protocol.PeerConnection` which will consume peers from off the queue. These `PeerConnection` instances will wait (`await`) until there is a peer available in the `Queue` for one of them to connect to. Thus we have a fixed size worker pool.
+
+Since the queue is empty to begin with, no `PeerConnection` will do any real work until we populate it with peers it can connect to. This is done in a loop inside of start.
+
+Lets have a look at this loop:
+
+````python
+    async def start(self):
+        self.peers = [PeerConnection(self.available_peers,
+                                     self.tracker.torrent.info_hash,
+                                     self.tracker.peer_id,
+                                     self.piece_manager,
+                                     self._on_block_retrieved)
+                      for _ in range(MAX_PEER_CONNECTIONS)]
+
+        # The time we last made an announce call (timestamp)
+        previous = None
+        # Default interval between announce calls (in seconds)
+        interval = 30*60
+
+        while True:
+            if self.piece_manager.complete:
+                break
+            if self.abort:
+                break
+
+            current = time.time()
+            if (not previous) or (previous + interval < current):
+                response = await self.tracker.connect(
+                    first=previous if previous else False,
+                    uploaded=self.piece_manager.bytes_uploaded,
+                    downloaded=self.piece_manager.bytes_downloaded)
+
+                if response:
+                    previous = current
+                    interval = response.interval
+                    self._empty_queue()
+                    for peer in response.peers:
+                        self.available_peers.put_nowait(peer)
+            else:
+                await asyncio.sleep(5)
+        self.stop()
+````
+
+Basically, what that loop does is to:
+
+1. Check if we have downloaded all pieces
+2. Check if user aborted download
+3. Make a annouce call to the tracker if needed
+4. Add any retrieved peers to a queue of available peers
+5. Sleep 5 seconds
+
+
 ### Connect to peers
+
+After receiving a peer IP and port-number from the tracker, our client will to open a TCP connection to that peer. Once the connection is open, these peers will start to exchange messages.
+
+#### Messages
+
+All BitTorrent messages are implemented in the `pieces.protocol` module [source code](https://github.com/eliasson/pieces/blob/master/pieces/protocol.py)
+
+#### Handshake
+
+The first message sent needs to be a `Handshake` message, and it is the connecting client that is responsible for initiating this.
+
+Immediately after sending the Handshake, our client should receive a Handshake message sent from the remote peer.
+
+The `Handshake` message contains two fields of importance:
+
+* **peer_id** - The unique ID of either peer
+* **info_hash** - The SHA1 hash value for the info dict
+
+If the `info_hash` does not match the torrent we are about to download, we
+close the connection.
+
+
+#### BitField and Have
+
+Immediately after the Handshake, the remote peer _may_ send a `BitField` message. The `BitField` message serves to inform the client on which pieces the remote peer have. Pieces support receiving a `BitField` message, and most BitTorrent clients seems to send it - but since pieces currently does not support seeding, it is never sent to the peer, only received.
+
+The `BitField` message payload contains a sequence of bytes that when read binary each bit will represent one piece. If the bit is `1` that means that the peer _have_ the piece with that index, while `0` means that the peer _lacks_ that piece. I.e. Each byte in the payload represent up to 8 pieces with any spare bits set to `0`.
+
+
+#### Have
+
+The remote peer can at any point in time send us a `Have` message. This is done when the remote peer have received a piece and makes that piece available for its connected peers to download.
+
+The `Have` message payload is the piece index.
+
+
+#### Choked
+
+This section will go through a connection between a client and a single peer. Remember that the client will have _N_ number of concurrent connections open at the same time, having
+
+- Open connection
+- Handshake
+- Hand off to iterator
+
+
+#### Iterator
+
+Writing a protocol using an `async iterator` was a nice experience and I think it made the implementation fairly readable.
 
 ### Request pieces
 

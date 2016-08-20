@@ -520,11 +520,10 @@ Basically, what that loop does is to:
 
 After receiving a peer IP and port-number from the tracker, our client will to open a TCP connection to that peer. Once the connection is open, these peers will start to exchange messages.
 
-#### Messages
+TODO: General message
+TODO: Async iterator
 
-All BitTorrent messages are implemented in the `pieces.protocol` module [source code](https://github.com/eliasson/pieces/blob/master/pieces/protocol.py)
-
-#### Handshake
+#### Handshaking
 
 The first message sent needs to be a `Handshake` message, and it is the connecting client that is responsible for initiating this.
 
@@ -538,35 +537,67 @@ The `Handshake` message contains two fields of importance:
 If the `info_hash` does not match the torrent we are about to download, we
 close the connection.
 
-
-#### BitField and Have
-
 Immediately after the Handshake, the remote peer _may_ send a `BitField` message. The `BitField` message serves to inform the client on which pieces the remote peer have. Pieces support receiving a `BitField` message, and most BitTorrent clients seems to send it - but since pieces currently does not support seeding, it is never sent to the peer, only received.
 
 The `BitField` message payload contains a sequence of bytes that when read binary each bit will represent one piece. If the bit is `1` that means that the peer _have_ the piece with that index, while `0` means that the peer _lacks_ that piece. I.e. Each byte in the payload represent up to 8 pieces with any spare bits set to `0`.
 
+Each client starts in the state _choked_ and _not interested_. That means that the client is not allowed to request pieces from the remote peer, nor do we have intent of being interested.
 
-#### Have
+* **Choked** A choked peer is not allowed to request any pieces from the other peer.
+* **Unchoked** A unchoked peer is allowed to request pieces from the other peer.
+* **Interested** Indicates that a peer is interested in requesting pieces.
+* **Not interested** Indicates that the peer is not interested in requesting pieces.
+
+_Consider **Choked** and **Unchoked** to be rules and **Interested** and **Not Interested** to be intents between two peers._
+
+After the handshake we send an `Interested` message to the remote peer, telling that we would like to get _unchoked_ in order to start requesting pieces.
+
+Until the client receives an `Unchoke` message - it may **not** request a piece from its remote peer - our `PeerConnection` will be choked (passive) until either _unchoked_ or _disconnected_.
+
+The following sequence of messages is what we are aiming for when setting up a `PeerConnection`:
+
+````
+              Handshake
+    client --------------> peer    We are initiating the handshake
+
+              Handshake
+    client <-------------- peer    Comparing the info_hash with our hash
+
+              BitField
+    client <-------------- peer    Might be receiving the BitField
+
+             Interested
+    client --------------> peer    Let peer know we want to download
+
+              Unchoke
+    client <-------------- peer    Peer allows us to start requesting pieces
+````
+
+
+#### Requesting pieces
+
+#### Other messages
+
+##### Have
 
 The remote peer can at any point in time send us a `Have` message. This is done when the remote peer have received a piece and makes that piece available for its connected peers to download.
 
 The `Have` message payload is the piece index.
 
+When pieces receive a `Have` message it updates the information on which pieces the peer has.
 
-#### Choked
 
-This section will go through a connection between a client and a single peer. Remember that the client will have _N_ number of concurrent connections open at the same time, having
+##### KeepAlive
 
-- Open connection
-- Handshake
-- Hand off to iterator
-
+The `KeepAlive` message can be sent at anytime in either direction. The message does not hold any payload.
 
 #### Iterator
 
 Writing a protocol using an `async iterator` was a nice experience and I think it made the implementation fairly readable.
 
-### Request pieces
+
+
+
 
 ### Persist pieces
 

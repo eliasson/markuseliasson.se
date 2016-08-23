@@ -25,7 +25,7 @@
                                 {{ with $tags }}
                                     with tags
                                     {{ range $tags }}
-                                        <a href="{{ $baseurl }}/tags/{{ . | urlize }}">{{ . }}</a>
+                                        <a href="{{ $baseurl }}/tags/{{ . | urlize }}">{{ . }}</a>,
                                     {{ end }}
                                 {{ end }}
                                 {{ if or $categories $tags }} at {{ end }}

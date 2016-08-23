@@ -1,56 +1,16 @@
 +++
-date = "2016-08-19T22:58:17+02:00"
-title = "A BitTorrent client in Python 3.5"
+date = "2016-08-22T22:00:00+02:00"
+title = "An introduction to Python's asyncio"
 draft = true
 Categories = ["Code"]
 Tags = ["Python", "BitTorrent"]
-Description = "Python 3.5 comes with support for asynchronous IO, which seems like a given fit when implementing a small BitTorrent client. This article will guide you through both the BitTorrent protocol details as well as diving in to asyncio for better or worse."
+Description = "This article gives a gentle introduction to the asyncio that arrived in Python 3.5. The purpose is to set the scen for a future article where I use asyncio to build a BitTorrent client in Python."
 +++
-
-When Python 3.5 was relesed together with the new module asyncio I was curios to give it a try. Recently I decided to implement a simple BitTorrent client using asyncio - I have always been interested in peer-to-peer protocols and it seemed like a perfect fit.
-
-The client is named **Pieces** and complete source code can be found at [GitHub](https://github.com/eliasson/pieces/).
-
-This is a series of posts where I first walk through an introduction of the BitTorrent as well as Python asyncio and later dive into the implementation details of the client.
-
-The article series is split into these parts:
-
-1. [An introduction to BitTorrent](/article)
-2. [An introduction to Pythons asyncio](/article)
-3. [Parsing a .torrent file](/article)
-4. [Connecting to the tracker](/article)
-5. [The loop](/article)
-6. [The peer protocol](/article)
-7. [Assemble the pieces](/article)
-8. [Future work](/article)
-
-
-## An introduction to BitTorrent
-
-BitTorrent has been around since 2001 when [Bram Cohen](https://en.wikipedia.org/wiki/Bram_Cohen) authored the first version of the protocol. The big breakthrough was when sites as _The Pirate Bay_ made it popular to use for downloading pirated material. Streaming sites, such as Netflix, might have resulted in a decrease of people using BitTorrent for downloading movies. But BitTorrent is still used in a number of different, legal, solutions where distribution of larger files are important.
-
-* [Facebook](https://torrentfreak.com/facebook-uses-bittorrent-and-they-love-it-100625/) use it to distribute updates within their huge data centers
-* [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html) implement it for downloading of static files
-* Traditional downloads still used for larger files such as [Linux distrubutions](http://www.ubuntu.com/download/alternative-downloads)
-
-### The meta-info
-
-### The tracker
-
-### The protocol
-
-### Pieces and blocks
-
-### Summary
-
-TODO
-
-
-## An introductionto Python's asyncio
-
 In Python 3.4 a new module, `asyncio` was introduced, this module allows you to write _concurrent_, _single threaded_ code in Python without relying on any third-party libraries (such as Twisted, or Tornado).
 
-Remember, **concurrency** is not the same as **parallellism**.
+I plan to take this new module for a test run, implementing a simple BitTorrent client. But first lets see how we can write _concurrent_ code in Python 3.5.
+
+First off, **concurrency** is not the same as **parallellism**.
 
 * **Concurrency** is when more than one function can be started and finished, overlapping each other, without having to be executed at the exact same time. This is possible with a single-core CPU.
 
@@ -65,7 +25,7 @@ it is - the async nature is built in to NodeJS and async is often default and a 
 
 `asyncio` gives us asynchronous I/O, thus it is suitable for file and network operations, where the process will be schedule to wait for data being available. It is **not** suitable for CPU-bound programming - here you need to fallback to threading or multi-processing.s
 
-As it turns out, BitTorrent have plenty of I/O and not so much CPU-bound work to do - it should match `asyncio` perfectly.
+As it turns out, the intended example project - a BitTorrent client - have plenty of I/O and not so much CPU-bound work to do - it should match `asyncio` perfectly.
 
 
 ### await and async
@@ -75,28 +35,28 @@ If you run the code snippet below, you will open two TCP connections to two of G
 This is all run on a single thread, yet two connections are open at the same time. If you run the program for a couple of times you will see that the order in which the connections are closed varies due to the randomized time to sleep.
 
 ````python
-    import asyncio
-    from random import randint
+import asyncio
+from random import randint
 
-    async def do_stuff(ip, port):
-        print('About to open a connection to {ip}'.format(ip=ip))
-        reader, writer = await asyncio.open_connection(ip, port)
+async def do_stuff(ip, port):
+    print('About to open a connection to {ip}'.format(ip=ip))
+    reader, writer = await asyncio.open_connection(ip, port)
 
-        print('Connection open to {ip}'.format(ip=ip))
-        await asyncio.sleep(randint(0, 5))
+    print('Connection open to {ip}'.format(ip=ip))
+    await asyncio.sleep(randint(0, 5))
 
-        writer.close()
-        print('Closed connection to {ip}'.format(ip=ip))
+    writer.close()
+    print('Closed connection to {ip}'.format(ip=ip))
 
-    if __name__ == '__main__':
-        loop = asyncio.get_event_loop()
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
 
-        work = [
-            asyncio.ensure_future(do_stuff('8.8.8.8', '53')),
-            asyncio.ensure_future(do_stuff('8.8.4.4', '53')),
-        ]
+    work = [
+        asyncio.ensure_future(do_stuff('8.8.8.8', '53')),
+        asyncio.ensure_future(do_stuff('8.8.4.4', '53')),
+    ]
 
-        loop.run_until_complete(asyncio.gather(*work))
+    loop.run_until_complete(asyncio.gather(*work))
 ````
 
 Let's start with the main code block. First we get a reference to the default [event loop](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio-event-loop). Then create a list of two tasks calling the function `do_stuff` and tell the event loop to run until those tasks are complete.

@@ -10,7 +10,7 @@ When Python 3.5 was relesed together with the new module asyncio I was curios to
 
 The project is named **Pieces**, all of the source code is available at [GitHub](https://github.com/eliasson/pieces) and released under the Apache 2 license. Feel free to learn from it, steal from it, improve it, laugh at it or just ignore it.
 
-I previously posted a short introduction to Python's async module. If this is your first time looking at `asyncio` it might be a good idea to read through that one first.
+I previously posted a short [introduction to Python's async module](/article/introduction-to-asyncio). If this is your first time looking at `asyncio` it might be a good idea to read through that one first.
 
 
 ## An introduction to BitTorrent
@@ -23,7 +23,7 @@ BitTorrent has been around since 2001 when [Bram Cohen](https://en.wikipedia.org
 
 BitTorrent is a peer-to-peer protocol, where _peers_ join a _swarm_ of other peers to exchange pieces of data between each other. Each peer is connected to multiple peers at the same time, and thus downloading or uploading to multiple peers at the same time. This is great in terms of limiting bandwidth compared to when a file is downloaded from a central server it is also great for keeping a file available as it does not rely on a single source.
 
-TODO: Give slightly more details on that each torrent is split into pieces.
+The BitTorrent protocol and `.torrent` regulates how many pieces there is for a given file, how these should be exchanged between peers, as well as how the data integrity of these pieces can be confirmed by clients.
 
 While going through the implementation it might be good to have read, or to have another tab open with the [Unofficial BitTorrent Specification](https://wiki.theory.org/BitTorrentSpecification). This is without a doubt the best source of information on the BitTorrent protocol. The official specification is vague and lacks certain details so the unofficial is the one you want to study.
 
@@ -130,14 +130,14 @@ length', 524288), (b'pieces', b'\x1at\xfc\x84\xc8\xfaV\xeb\x12\x1c\xc5\xa4\x1c?\
 
 Notice how the keys used in the `OrderedDict` are _binary_ strings. Bencoding is a binary protocol, and using UTF-8 strings as keys _will not work_!
 
-A wrapper class `pieces.torrent.Torrent` exposing these properties is implemented abstracting the binary strings, single vs. multiple file away from the rest of the client. This class only implements the attributes used in pieces client.
+A wrapper class `pieces.torrent.Torrent` exposing these properties is implemented abstracting the binary strings, and other details away from the rest of the client. This class only implements the attributes used in pieces client.
 
 I will not go through which attributes that is available, instead the rest of this article will refer back to attributes found in the `.torrent` / _meta-info_ where used.
 
 
 ### Connecting to the tracker
 
-Now that we can decode a `.torrent` file and we have a Python representation of data within we need to get a list of peers to connect with. This is where the tracker comes in. The tracker is a central server keeping track on available peers for a given torrent. The tracker does **NOT** contain any of the torrent data, only which peers that can be connected to and their statistics.
+Now that we can decode a `.torrent` file and we have a Python representation of the data, we need to get a list of peers to connect with. This is where the tracker comes in. The tracker is a central server keeping track on available peers for a given torrent. The tracker does **NOT** contain any of the torrent data, only which peers that can be connected to and their statistics.
 
 
 #### Building the request
@@ -185,12 +185,12 @@ From the tracker response, there is two properties of interest:
 
 So, a successful announce call made to the tracker, gives you a list of peers to connect to. This might not be all available peers in this swarm, only the peers the tracker assigned your client to connect. A subsequent call to the tracker might result in another list of peers.
 
-Python does not come with a built-in support for async HTTP and my beloved [requests library](https://github.com/kennethreitz/requests) does not implement asyncio either. Scouting around the Internet it looks like most use [aiohttp](https://github.com/KeepSafe/aiohttp), which implement both a HTTP client and server.
-
 
 #### Async HTTP
 
-Pieces use aiohttp in the `pieces.tracker.Tracker` class for making the HTTP request to the tracker announce url. A shortened version of that code reveil this:
+Python does not come with a built-in support for async HTTP and my beloved [requests library](https://github.com/kennethreitz/requests) does not implement asyncio either. Scouting around the Internet it looks like most use [aiohttp](https://github.com/KeepSafe/aiohttp), which implement both a HTTP client and server.
+
+Pieces use `aiohttp` in the `pieces.tracker.Tracker` class for making the HTTP request to the tracker announce url. A shortened version of that code is this:
 
 ````python
 async def connect(self,
@@ -206,9 +206,9 @@ async def connect(self,
         data = await response.read()
         return TrackerResponse(bencoding.Decoder(data).decode())
 ````
-The method is declared using `async` and uses the new [asynchronous context manager](https://www.python.org/dev/peps/pep-0492/#asynchronous-context-managers-and-async-with) `async with` to allow being suspended while the HTTP call is being made. Given a successful response, this method will be suspended again while reading the binary response data `await response.read()`.
+The method is declared using `async` and uses the new [asynchronous context manager](https://www.python.org/dev/peps/pep-0492/#asynchronous-context-managers-and-async-with) `async with` to allow being suspended while the HTTP call is being made. Given a successful response, this method will be suspended again while reading the binary response data `await response.read()`. Finally the response data is wrapped in a `TrackerResponse` instance containing the list of peers, alternative an error message.
 
-The result of this is that our event loop is free to schedule other work while we have an outstanding request to the tracker.
+The result of using `aiohttp` is that our event loop is free to schedule other work while we have an outstanding request to the tracker.
 
 See the module `pieces.tracker` [source code](https://github.com/eliasson/pieces/blob/master/pieces/tracker.py) for full details.
 
@@ -384,9 +384,9 @@ The `KeepAlive` message can be sent at anytime in either direction. The message 
 
 #### Implementation
 
-The `PeerConnection` opens a TCP connection to a remote peer using `asyncio.open_connection` to asynchronously open a TCP connection and returns a tuple of `StreamReader` and a `StreamWriter`. Given that the connection was created successfully, the `PeerConnection` will send and receive a `Handshake` message.
+The `PeerConnection` opens a TCP connection to a remote peer using `asyncio.open_connection` to asynchronously open a TCP connection that returns a tuple of `StreamReader` and a `StreamWriter`. Given that the connection was created successfully, the `PeerConnection` will send and receive a `Handshake` message.
 
-Once a handshake is made, the PeerConnection will use an asynchronous iterator  to return a stream of `PeerMessages` and take the appropiate action. Remember that _async_ & _await_ is _coroutine_ & _yield_ which is implemented using a _generator_, which in turn is a special kind of _iterator_ - it make.
+Once a handshake is made, the PeerConnection will use an asynchronous iterator  to return a stream of `PeerMessages` and take the appropiate action.
 
 Using an async iterator separates the `PeerConnection` from the details on how to read from sockets and how to parse the BitTorrent binary protocol. The `PeerConnection` can focus on the semantics regarding the protocol - such as managnig the peer state, receiving the pieces, closing the connection.
 
@@ -421,9 +421,9 @@ The BitTorrent protocol uses messages with variable length, where all messages t
 
 So as soon as the buffer have enough data for the next message it will be parsed and returned from the iterator.
 
-All messages are decoded using Python's module `struct` which contains functions to convert to and from Pythons values and C structs. [Struct](https://docs.python.org/2/library/struct.html) use compact strings as descriptors on what to convert, e.g. `>Ib` reads as "Big-Endian, 4 byte unsigned integer, 1 byte character. All messages uses Big-Endian.
+All messages are decoded using Python's module `struct` which contains functions to convert to and from Pythons values and C structs. [Struct](https://docs.python.org/2/library/struct.html) use compact strings as descriptors on what to convert, e.g. `>Ib` reads as "Big-Endian, 4 byte unsigned integer, 1 byte character. Note that all messages uses Big-Endian in BitTorrent..
 
-This makes if easy to create unit tests to encode and decode messages. Let's have a look on the tests for the `Have` message:
+This makes it easy to create unit tests to encode and decode messages. Let's have a look on the tests for the `Have` message:
 
 ````python
 class HaveMessageTests(unittest.TestCase):
@@ -438,7 +438,7 @@ class HaveMessageTests(unittest.TestCase):
         self.assertEqual(33, have.index)
 ````
 
-From the raw binary string we can tell that the Have message have a length of 5 byets `\x00\x00\x00\x05` an id of value 4 `\x04` and the payload is 33 `\x00\x00\x00!`.
+From the raw binary string we can tell that the Have message have a length of 5 bytes `\x00\x00\x00\x05` an id of value 4 `\x04` and the payload is 33 `\x00\x00\x00!`.
 
 Since the message length is 5 and ID only use a single byte we know that we have four bytes to interpret as the payload value. Using `struct.unpack` we can easily convert it to a python integer like:
 
@@ -508,14 +508,14 @@ Exachanging these blocks between peers is basically what BitTorrent is about. On
 
 Two notes on where the official specification is a bit off:
 
-1. _The official specification refer to both pieces and blocks as just pices which is quite confusing. The unofficial specification and others seem to have agreed upon using the term block for the smaller piece which is what we will use._
+1. _The official specification refer to both pieces and blocks as just pieces which is quite confusing. The unofficial specification and others seem to have agreed upon using the term block for the smaller piece which is what we will use._
 
 2. _The official specification is stating another **block size** that what we use. Reading the unofficial specifcation, it seems that 2^14 bytes is what is agreed among implementers - regardless of the official specification._
 
 
 ### The implementation
 
-When a `TorrentClient` is constructed, so is a `PieceManager ` the resposibility to:
+When a `TorrentClient` is constructed, so is a `PieceManager` with the resposibility to:
 
 * Determine which block to request next
 * Persisting received blocks to file
@@ -540,7 +540,7 @@ Since pieces aims to be a simple client, no effort have been made on implementin
 
 Whenever a block is received from a peer, it is stored (in memory) by the PieceManager. When all blocks for a piece is retrieved, a SHA1 hash is made on the piece. This hash is compared to the SHA1 hashes include in the `.torrent` info dict - if it matches the piece is written to disk.
 
-When all pieces are accounted for (matching hashes) the torrent is considered to be complete, which stops the `TorrentClient` looping closing any open TCP connection and as a result the program exits with a message that the torrent is downloaded.
+When all pieces are accounted for (matching hashes) the torrent is considered to be complete, which stops the `TorrentClient` closing any open TCP connection and as a result the program exits with a message that the torrent is downloaded.
 
 ### Future work
 
@@ -559,8 +559,6 @@ Additional features that probably can be added without too much effort is:
 * **Multi-file torrent**, will hit `PieceManager`, since Pieces and Blocks might span over multiple files, it affects how files are persisted (i.e. a single block might contain data for more than one file).
 
 * **Resume a download**, by seeing what parts of the file(s) are already downloaded (verified by making SHA1 hashes).
-
-* **UDP** support and not only HTTP when connecting to a tracker.
 
 
 ## Summary

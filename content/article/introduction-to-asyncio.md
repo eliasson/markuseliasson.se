@@ -10,7 +10,7 @@ In Python 3.4 a new module, `asyncio` was introduced, this module allows you to 
 
 I plan to take this new module for a test run, implementing a simple BitTorrent client. But first lets see how we can write _concurrent_ code in Python 3.5.
 
-First off, **concurrency** is not the same as **parallellism**.
+Remember, **concurrency** is not the same as **parallellism**.
 
 * **Concurrency** is when more than one function can be started and finished, overlapping each other, without having to be executed at the exact same time. This is possible with a single-core CPU.
 
@@ -23,7 +23,7 @@ Your are being concurrent, there is only one person (CPU) in the kitchen, doing 
 Single threaded, asynchronous programming is considered simpler than using multi-threaded programming. The reason is that you don't need to coordinate routines, and shared mutable state. Rather you write single-threaded programs that feels quite sequential. This is partially what made NodeJS as popular as
 it is - the async nature is built in to NodeJS and async is often default and a synchronous API is made an option.
 
-`asyncio` gives us asynchronous I/O, thus it is suitable for file and network operations, where the process will be schedule to wait for data being available. It is **not** suitable for CPU-bound programming - here you need to fallback to threading or multi-processing.s
+`asyncio` gives us asynchronous I/O, thus it is suitable for file and network operations, where the process will be schedule to wait for data being available. It is **not** suitable for CPU-bound programming - here you need to fallback to threading or multi-processing.
 
 As it turns out, the intended example project - a BitTorrent client - have plenty of I/O and not so much CPU-bound work to do - it should match `asyncio` perfectly.
 
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     loop.run_until_complete(asyncio.gather(*work))
 ````
 
-Let's start with the main code block. First we get a reference to the default [event loop](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio-event-loop). Then create a list of two tasks calling the function `do_stuff` and tell the event loop to run until those tasks are complete.
+Let's start with the main code block. First we get a reference to the default [event loop](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio-event-loop). Then we create a list of two tasks calling the function `do_stuff` and tell the event loop to run until those tasks are complete.
 
 The function `do_stuff` is declared with the `async def` statement, which makes it into something called a [coroutine](https://docs.python.org/3/glossary.html#term-coroutine). A _coroutine_ is a special kind of generator and to which you can send a value back. The nice thing about coroutines is that they can be suspended, and resumed at a later state - with the scoped variables intact.
 
@@ -77,6 +77,6 @@ over to the _event loop_. And finally the _event loop_ needs to be instructed to
 
 ## Summary
 
-This was a short introduction to asyncio in Python. If you have done async programming in another language (JavaScript, C#) you might feel just at home, if not there are great articles presenting Python's implementation in greater details and with a proper walkthrough from iterator, generator, corouties to async/await.
+This was a short introduction to asyncio in Python. If you have done async programming in another language (JavaScript, C#) you might feel just at home, if not there are great articles presenting Python's implementation in details and with a proper walkthrough from iterator, generator, corouties to async/await.
 
 Brett Cannon have written an excellent post [How the heck does async/await work in Python 3.5](http://www.snarky.ca/how-the-heck-does-async-await-work-in-python-3-5). And A. Jesse Jiryu Davis and Guido van Rossum gives great detail in their article [A Web Crawler With asyncio Coroutines](http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html). If you only read one, I recommend Brett Cannon's as I found it easier to digest.

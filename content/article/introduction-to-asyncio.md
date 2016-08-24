@@ -1,22 +1,21 @@
 +++
-date = "2016-08-22T22:00:00+02:00"
+date = "2016-08-24T21:00:00+02:00"
 title = "An introduction to Python's asyncio"
-draft = true
 Categories = ["Code"]
 Tags = ["Python", "BitTorrent"]
-Description = "This article gives a gentle introduction to the asyncio that arrived in Python 3.5. The purpose is to set the scen for a future article where I use asyncio to build a BitTorrent client in Python."
+Description = "This article gives a gentle introduction to the asyncio that arrived in Python 3.5. The purpose is to set the scene for a future article where I use asyncio to build a BitTorrent client in Python."
 +++
 In Python 3.4 a new module, `asyncio` was introduced, this module allows you to write _concurrent_, _single threaded_ code in Python without relying on any third-party libraries (such as Twisted, or Tornado).
 
 I plan to take this new module for a test run, implementing a simple BitTorrent client. But first lets see how we can write _concurrent_ code in Python 3.5.
 
-Remember, **concurrency** is not the same as **parallellism**.
+Remember, **concurrency** is not the same as **parallelism**.
 
 * **Concurrency** is when more than one function can be started and finished, overlapping each other, without having to be executed at the exact same time. This is possible with a single-core CPU.
 
-* **Parallellism** is when one or more functions run at the same time, this requires multi-core CPU.
+* **Parallelism** is when one or more functions run at the same time, this requires multi-core CPU.
 
-_As a metaphor, consider when you are in the kitchen making dinner. You put your potato cake in to the oven, setting your kitchen timer for 15 minutes. Meanwhile, you start frying some pork to go with it. After 15 minutes, the timer goes off with a beep, you put away the frying pan and take the cake out of the oven._
+_As a metaphor, consider when you are in the kitchen making dinner. You put your potato cake into the oven, setting your kitchen timer for 15 minutes. Meanwhile, you start frying some pork to go with it. After 15 minutes, the timer goes off with a beep, you put away the frying pan and take the cake out of the oven._
 
 Your are being concurrent, there is only one person (CPU) in the kitchen, doing multiple tasks at the same time.
 

@@ -3,6 +3,7 @@ languageCode = "en-us"
 title = "Markus Eliasson"
 paginate = 10
 googleAnalytics = "UA-42999256-1"
+disqusShortname = "markus-eliasson"
 
 [indexes]
     category = "categories"

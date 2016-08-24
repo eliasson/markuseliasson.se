@@ -41,6 +41,18 @@
                 </article>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs">
+                <h3>Comments</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs">
+                <section>
+                    {{ template "_internal/disqus.html" . }}
+                </section>
+            </div>
+        </div>
         {{ partial "footer.html" . }}
     </div>
 </body>

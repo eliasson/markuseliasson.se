@@ -1,12 +1,11 @@
 +++
-date = "2016-08-22T22:58:17+02:00"
+date = "2016-08-24T22:48:17+02:00"
 title = "A BitTorrent client in Python 3.5"
-draft = true
 Categories = ["Code"]
 Tags = ["Python", "BitTorrent"]
 Description = "Python 3.5 comes with support for asynchronous IO, which seems like a perfect fit when implementing a BitTorrent client. This article will guide you through the BitTorrent protocol details while showcasing how a small client was implemented using it."
 +++
-When Python 3.5 was relesed together with the new module asyncio I was curios to give it a try. Recently I decided to implement a simple BitTorrent client using asyncio - I have always been interested in peer-to-peer protocols and it seemed like a perfect fit.
+When Python 3.5 was released together with the new module asyncio I was curios to give it a try. Recently I decided to implement a simple BitTorrent client using asyncio - I have always been interested in peer-to-peer protocols and it seemed like a perfect fit.
 
 The project is named **Pieces**, all of the source code is available at [GitHub](https://github.com/eliasson/pieces) and released under the Apache 2 license. Feel free to learn from it, steal from it, improve it, laugh at it or just ignore it.
 
@@ -19,20 +18,20 @@ BitTorrent has been around since 2001 when [Bram Cohen](https://en.wikipedia.org
 
 * [Facebook](https://torrentfreak.com/facebook-uses-bittorrent-and-they-love-it-100625/) use it to distribute updates within their huge data centers
 * [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html) implement it for downloading of static files
-* Traditional downloads still used for larger files such as [Linux distrubutions](http://www.ubuntu.com/download/alternative-downloads)
+* Traditional downloads still used for larger files such as [Linux distributions](http://www.ubuntu.com/download/alternative-downloads)
 
-BitTorrent is a peer-to-peer protocol, where _peers_ join a _swarm_ of other peers to exchange pieces of data between each other. Each peer is connected to multiple peers at the same time, and thus downloading or uploading to multiple peers at the same time. This is great in terms of limiting bandwidth compared to when a file is downloaded from a central server it is also great for keeping a file available as it does not rely on a single source.
+BitTorrent is a peer-to-peer protocol, where _peers_ join a _swarm_ of other peers to exchange pieces of data between each other. Each peer is connected to multiple peers at the same time, and thus downloading or uploading to multiple peers at the same time. This is great in terms of limiting bandwidth compared to when a file is downloaded from a central server. It is also great for keeping a file available as it does not rely on a single source being online.
 
-The BitTorrent protocol and `.torrent` regulates how many pieces there is for a given file, how these should be exchanged between peers, as well as how the data integrity of these pieces can be confirmed by clients.
+There is a `.torrent` file that regulates how many pieces there is for a given file(s), how these should be exchanged between peers, as well as how the data integrity of these pieces can be confirmed by clients.
 
 While going through the implementation it might be good to have read, or to have another tab open with the [Unofficial BitTorrent Specification](https://wiki.theory.org/BitTorrentSpecification). This is without a doubt the best source of information on the BitTorrent protocol. The official specification is vague and lacks certain details so the unofficial is the one you want to study.
 
 
 ### Parsing a .torrent file
 
-The first thing a client needs to do is to find out what it is supposed to download and from where. This information is what is stored in the `.torrent` file, a.k.a. the _meta-info_.
+The first thing a client needs to do is to find out what it is supposed to download and from where. This information is what is stored in the `.torrent` file, a.k.a. the _meta-info_. There is a number of properties stored in the _meta-info_ that we need in order to successfully implement a client.
 
-There is a number of properties stored in the _meta-info_ that we need in order to successfully implement a client. Things like:
+Things like:
 
 * The name of the file to download
 * The size of the file to download
@@ -69,7 +68,7 @@ Here are a few examples decoding bencoded data into a Python representation usin
 >>> Decoder(b'i123e').decode()
 123
 
-# A string value, starts by defining the number of charactes
+# A string value, starts by defining the number of characters
 # contained in the string, followed by the actual string.
 # Notice that the string returned is a binary string, not unicode.
 >>> Decoder(b'12:Middle Earth').decode()
@@ -82,7 +81,7 @@ b'Middle Earth'
 [b'spam', b'eggs', 123]
 
 # A dict starts with a 'd' and is terminated with a 'e'. objects
-# inbetween those characters must be pairs of string + object.
+# in between those characters must be pairs of string + object.
 # The order is significant in a dict, thus OrderedDict (from
 # Python 3.1) is used.
 >>> Decoder(b'd3:cow3:moo4:spam4:eggse').decode()
@@ -128,16 +127,18 @@ OrderedDict([(b'announce', b'http://torrent.ubuntu.com:6969/announce'), (b'annou
 length', 524288), (b'pieces', b'\x1at\xfc\x84\xc8\xfaV\xeb\x12\x1c\xc5\xa4\x1c?\xf0\x96\x07P\x87\xb8\xb2\xa5G1\xc8L\x18\x81\x9bc\x81\xfc8*\x9d\xf4k\xe6\xdb6\xa3\x0b\x8d\xbe\xe3L\xfd\xfd4\...')]))])
 ```
 
+Here you can read see some of the _meta-data_ such as the name of the destination file (ubuntu-16.04-desktop-amd64.iso) and the total size in bytes (1485881344).
+
 Notice how the keys used in the `OrderedDict` are _binary_ strings. Bencoding is a binary protocol, and using UTF-8 strings as keys _will not work_!
 
 A wrapper class `pieces.torrent.Torrent` exposing these properties is implemented abstracting the binary strings, and other details away from the rest of the client. This class only implements the attributes used in pieces client.
 
-I will not go through which attributes that is available, instead the rest of this article will refer back to attributes found in the `.torrent` / _meta-info_ where used.
+I will not go through which attributes that is available, instead the rest of this article will refer back to attributes found in the `.torrent` / _meta-info_ were used.
 
 
 ### Connecting to the tracker
 
-Now that we can decode a `.torrent` file and we have a Python representation of the data, we need to get a list of peers to connect with. This is where the tracker comes in. The tracker is a central server keeping track on available peers for a given torrent. The tracker does **NOT** contain any of the torrent data, only which peers that can be connected to and their statistics.
+Now that we can decode a `.torrent` file and we have a Python representation of the data, we need to get a list of peers to connect with. This is where the tracker comes in. A tracker is a central server keeping track of available peers for a given torrent. A tracker does **NOT** contain any of the torrent data, only which peers that can be connected to and their statistics.
 
 
 #### Building the request
@@ -247,7 +248,7 @@ Then it constructs _N_ number of `pieces.protocol.PeerConnection` which will con
 
 Since the queue is empty to begin with, no `PeerConnection` will do any real work until we populate it with peers it can connect to. This is done in a loop inside of `TorrentClient.start`.
 
-Lets have a look at this loop:
+Let's have a look at this loop:
 
 ````python
 async def start(self):
@@ -334,7 +335,7 @@ _Consider **Choked** and **Unchoked** to be rules and **Interested** and **Not I
 
 After the handshake we send an `Interested` message to the remote peer, telling that we would like to get _unchoked_ in order to start requesting pieces.
 
-Until the client receives an `Unchoke` message - it may **not** request a piece from its remote peer - our `PeerConnection` will be choked (passive) until either _unchoked_ or _disconnected_.
+Until the client receives an `Unchoke` message - it may **not** request a piece from its remote peer - the `PeerConnection` will be choked (passive) until either _unchoked_ or _disconnected_.
 
 The following sequence of messages is what we are aiming for when setting up a `PeerConnection`:
 
@@ -386,9 +387,9 @@ The `KeepAlive` message can be sent at anytime in either direction. The message 
 
 The `PeerConnection` opens a TCP connection to a remote peer using `asyncio.open_connection` to asynchronously open a TCP connection that returns a tuple of `StreamReader` and a `StreamWriter`. Given that the connection was created successfully, the `PeerConnection` will send and receive a `Handshake` message.
 
-Once a handshake is made, the PeerConnection will use an asynchronous iterator  to return a stream of `PeerMessages` and take the appropiate action.
+Once a handshake is made, the PeerConnection will use an asynchronous iterator to return a stream of `PeerMessages` and take the appropriate action.
 
-Using an async iterator separates the `PeerConnection` from the details on how to read from sockets and how to parse the BitTorrent binary protocol. The `PeerConnection` can focus on the semantics regarding the protocol - such as managnig the peer state, receiving the pieces, closing the connection.
+Using an async iterator separates the `PeerConnection` from the details on how to read from sockets and how to parse the BitTorrent binary protocol. The `PeerConnection` can focus on the semantics regarding the protocol - such as managing the peer state, receiving the pieces, closing the connection.
 
 This allows the main code in `PeerConnection.start` to basically look like:
 
@@ -405,7 +406,7 @@ async for message in PeerStreamIterator(self.reader, buffer):
         ...
 ````
 
-An [asynchronous iterator](https://www.python.org/dev/peps/pep-0492/#asynchronous-iterators-and-async-for) is a class that implements the methods `__aiter__` and `__anext__` which is just async versions of Pythons standard iterators that have `__iter__` and `next`.
+An [asynchronous iterator](https://www.python.org/dev/peps/pep-0492/#asynchronous-iterators-and-async-for) is a class that implements the methods `__aiter__` and `__anext__` which is just async versions of Python's standard iterators that have implements the methods, `__iter__` and `next`.
 
 Upon iterating (calling next) the `PeerStreamIterator` will read data from the `StreamReader` and if enough data is available try to parse and return a valid `PeerMessage`.
 
@@ -421,7 +422,9 @@ The BitTorrent protocol uses messages with variable length, where all messages t
 
 So as soon as the buffer have enough data for the next message it will be parsed and returned from the iterator.
 
-All messages are decoded using Python's module `struct` which contains functions to convert to and from Pythons values and C structs. [Struct](https://docs.python.org/2/library/struct.html) use compact strings as descriptors on what to convert, e.g. `>Ib` reads as "Big-Endian, 4 byte unsigned integer, 1 byte character. Note that all messages uses Big-Endian in BitTorrent..
+All messages are decoded using Python's module `struct` which contains functions to convert to and from Pythons values and C structs. [Struct](https://docs.python.org/3.5/library/struct.html) use compact strings as descriptors on what to convert, e.g. `>Ib` reads as "Big-Endian, 4 byte unsigned integer, 1 byte character. 
+
+_Note that all messages uses Big-Endian in BitTorrent._
 
 This makes it easy to create unit tests to encode and decode messages. Let's have a look on the tests for the `Have` message:
 
@@ -456,7 +459,7 @@ So far we have only discussed pieces - pieces of data being exchanged by two pee
 
 A _piece_ is, unsurprisingly, a partial piece of the torrents data. A torrent's data is split into _N_ number of pieces of equal size (except the last piece in a torrent, which might be of smaller size than the others). The piece length is specified in the `.torrent` file. Typically pieces are of sizes 512 kB or less, and should be a power of 2.
 
-Pieces are still too big to be shared efficiently between peers, so pieces are further divided into something refered to as _blocks_. Blocks is the chunks of data that is actually requested between peers, but pieces are still used to indicate which peer that have which pieces. If only blocks should have been used it would increase the overhead in the protocol greatly (resulting in longer BitFields, more Have message and larger `.torrent` files).
+Pieces are still too big to be shared efficiently between peers, so pieces are further divided into something referred to as _blocks_. Blocks is the chunks of data that is actually requested between peers, but pieces are still used to indicate which peer that have which pieces. If only blocks should have been used it would increase the overhead in the protocol greatly (resulting in longer BitFields, more Have message and larger `.torrent` files).
 
 A _block_ is 2^14 (16384) bytes in size, except the final block that most likely will be of a smaller size.
 
@@ -484,33 +487,33 @@ piece 0:
     block 0: 16 384 bytes (2^14)
     block 1: 16 384 bytes
     block 2: 16 384 bytes
-            =  49 152 bytes
+          =  49 152 bytes
 
 piece 1:
     block 0: 16 384 bytes
     block 1: 16 384 bytes
     block 2: 16 384 bytes
-            =  49 152 bytes
+          =  49 152 bytes
 
 piece 2:
     block 0: 16 384 bytes
     block 1: 16 384 bytes
     block 2:  4 096 bytes
-            =  36 864 bytes
+          =  36 864 bytes
 
 total:       49 152 bytes
-            +  49 152 bytes
-            +  36 864 bytes
-            = 135 168 bytes
+          +  49 152 bytes
+          +  36 864 bytes
+          = 135 168 bytes
 ```
 
-Exachanging these blocks between peers is basically what BitTorrent is about. Once all blocks for a piece is done, that piece is complete and can be shared with other peers (the `Have` message is sent to connected peers). And once all pieces are complete the peer transform from a _downloader_ to only be a _seeder_.
+Exchanging these blocks between peers is basically what BitTorrent is about. Once all blocks for a piece is done, that piece is complete and can be shared with other peers (the `Have` message is sent to connected peers). And once all pieces are complete the peer transform from a _downloader_ to only be a _seeder_.
 
 Two notes on where the official specification is a bit off:
 
-1. _The official specification refer to both pieces and blocks as just pieces which is quite confusing. The unofficial specification and others seem to have agreed upon using the term block for the smaller piece which is what we will use._
+1. _The official specification refer to both pieces and blocks as just pieces which is quite confusing. The unofficial specification and others seem to have agreed upon using the term block for the smaller piece which is what we will use as well._
 
-2. _The official specification is stating another **block size** that what we use. Reading the unofficial specifcation, it seems that 2^14 bytes is what is agreed among implementers - regardless of the official specification._
+2. _The official specification is stating another **block size** that what we use. Reading the unofficial specification, it seems that 2^14 bytes is what is agreed among implementers - regardless of the official specification._
 
 
 ### The implementation
@@ -536,7 +539,7 @@ The `next_request` implements a very simple strategy on which piece to request n
 
 This way the blocks and pieces will be requsted in order. However, multiple pieces might be ongoing based on which piece a client have.
 
-Since pieces aims to be a simple client, no effort have been made on implementing a smart or efficient strategy for which pieces to request. A better solution would be to request the rarest piece first, which would make the entire swarm healthier.
+Since pieces aims to be a simple client, no effort have been made on implementing a smart or efficient strategy for which pieces to request. A better solution would be to request the rarest piece first, which would make the entire swarm healthier as well.
 
 Whenever a block is received from a peer, it is stored (in memory) by the PieceManager. When all blocks for a piece is retrieved, a SHA1 hash is made on the piece. This hash is compared to the SHA1 hashes include in the `.torrent` info dict - if it matches the piece is written to disk.
 
@@ -565,6 +568,6 @@ Additional features that probably can be added without too much effort is:
 
 It was real fun to implement a BitTorrent client, having to handle binary protocols and networking was great to balance all that recent web development I have been doing.
 
-Python continous to be one of my favourite programming language. Handling binary data was a breeze given the `struct` module and the recent addition `asyncio` feels very pythonic. Using _async iterator_ to implement the protocol  turned out to be a good fit as well.
+Python continues to be one of my favourite programming language. Handling binary data was a breeze given the `struct` module and the recent addition `asyncio` feels very pythonic. Using _async iterator_ to implement the protocol  turned out to be a good fit as well.
 
 Hopefully this article inspired you to write a BitTorrent client of your own, or to extend pieces in some way. If you spot any error in the article or the source code, feel free to open an issue over at [GitHub](https://github.com/eliasson/pieces/).

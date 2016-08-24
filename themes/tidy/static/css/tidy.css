@@ -86,6 +86,12 @@ pre > code,
     max-width: 65rem;
 }
 
+@media only screen and (min-width: 48em) and (max-width: 76em) {
+    .container {
+        width: 44rem;
+    }
+}
+
 /* Single article ***********************************************************/
 
 .tidy-article h1,

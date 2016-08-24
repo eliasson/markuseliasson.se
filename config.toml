@@ -10,7 +10,7 @@ googleAnalytics = "UA-42999256-1"
 
 [params]
     author = "Markus Eliasson"
-    authorBio = "A thorough technical lead with a passion for producing valuable and clean code. Tends to occasionally blog about building software and suffers greatly from ambivalence regarding which programming language to use next."
+    authorBio = "A thorough technical lead with a passion for producing valuable and clean code. Tends to occasionally blog about building software and can't seem to make up his mind on which programming language to use next."
     authorEmail = "markus.eliasson@gmail.com"
     gaCode = "UA-42999256-1"
 

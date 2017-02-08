@@ -1,6 +1,6 @@
 +++
 Categories = ["Code"]
-Description = "JavaScript have a fast moving ecosystem and if you do not manage your dependencies you risk breaking your application."
+Description = "JavaScript has a fast moving ecosystem and if you do not manage your dependencies you risk breaking your application."
 Tags = ["JavaScript"]
 date = "2017-02-02T23:40:47+01:00"
 title = "Managing your JavaScript dependencies"
@@ -14,7 +14,7 @@ The way I see it is that each dependency is a risk. It can introduce a bug, a br
 
 Depending on your project it might be OK not being able to reproduce a previous build. But not all organisations move fast and break things, some still work using waterfall process. There it is absolutely crucial to be able to reproduce build both during QA and after release for potential emergency corrections. Not only do you have to be able to reproduce, you might need to step only a single dependency up or down - how can you guarantee that no other dependency was changed?
 
-Most of these advice is based on first-hand experience, helping a Swedish govermental organization with their frontend development.
+Most of these advice is based on first-hand experience, helping a Swedish governmental organization with their frontend development.
 
 
 ## Use NPM
@@ -36,7 +36,7 @@ Npm comes with semantic versioning for packages and you should use that. Besides
 
 Do **not** rely on anything but semantic versions. Using any other type of dependencies will make it close to impossible to reproduce a build unless you have full control over the remote media. Also, running `npm install` will not update git repositories, and `npm update` might [behave different](https://github.com/npm/npm/issues/1727) depending on host.
 
-_Sure it might be OK using tags during development phase, as long as you know what you are doing._
+_Sure, it might be OK using tags during development phase, as long as you know what you are doing._
 
 
 ## Lock your dependency tree
@@ -50,7 +50,7 @@ In order to solve this, npm has a built in feature called [shinkwrap](https://do
 
 ## Roll your own registry
 
-Most rely on http://www.npmjs.org when downloading packages, it's free, it has **tons** of packages and they do a great job keeping it online. Still, it is a commercial company running that service, [npm, Inc.](https://www.npmjs.com/about) Do you trust them to always keep your dependencies around? What if the service suddenly goes away, transfers to a paid service, or it gets bought and shut down.
+Most rely on http://www.npmjs.org when downloading packages, it's free, it has **tons** of packages and they do a great job keeping it online. Still, it is a commercial company running that service, [npm, Inc.](https://www.npmjs.com/about) Do you trust them to always keep your dependencies around? What if the service suddenly goes away, transfers to a paid service, or it gets bought and shut down?
 
 During the left-pad incident, npm, Inc. decided to transfer a package name in use to another owner than the current owner due to brand infringement claims. What guarantee is there that something like this does not happen again?
 
@@ -74,7 +74,7 @@ Also, besides from being deterministic and npm-compatible it is _way faster_ tha
 
 Even if you do all these things you are still not safe. The way npm packages are constructed it might not contain the actual code you want, rather a package can hook up to the [npm-lifecycle](https://docs.npmjs.com/misc/scripts) and execute scripts as part of the installation. These scripts can do *whatever* the executing user have access to, most commonly it download files from off the Internet and install on your system.
 
-E.g. [`phantomjs`](https://github.com/Medium/phantomjs/blob/master/package.json) use a install hook to download the correct version of phantom based on the current platform.
+E.g. [`phantomjs`](https://github.com/Medium/phantomjs/blob/master/package.json) use an install hook to download the correct version of phantom based on the current platform.
 
 While this might seem like a good thing, it makes it **very** hard to keep a backup of the version you rely on. An internal npm registry will only keep the package content, any `pre/post/install` action is entirely up to the package maintainer. While some offer configuration to specify alternative URL:s for where additional files are downloaded - all such config is package specific. Another example is [node-sass](https://github.com/sass/node-sass) which downloads source code in order to build node bindings for libsass.
 
@@ -85,7 +85,7 @@ _A good way to test your builds is to block traffic to Internet during a clean b
 
 ## To summarize
 
-The size and available options in the JavaScript ecosystem is one of its great strengths, you should use dependencies - but at least be aware of the risk they introduce. Maybe you don't need, or cannot afford, to have 100% reproducible builds - just make sure you call that decision before the _SHTF_. 
+The size and available options in the JavaScript ecosystem is one of its great strengths, you should use dependencies - but at least be aware of the risk they introduce. Maybe you don't need, or cannot afford, to have 100% reproducible builds - just make sure you call that decision before the _SHTF_.
 
 * Only use npm or yarn for package management
 * Use semantic versions, not tags, not git repositories, etc.

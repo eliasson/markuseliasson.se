@@ -29,4 +29,4 @@ blogging I really need these commands written down.
     hugo -t tidy
 
 
-Copyright (c) 2014-2016 - Markus Eliasson - All rights reserved.
+Copyright (c) 2014-2017 - Markus Eliasson - All rights reserved.

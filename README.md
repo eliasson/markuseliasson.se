@@ -27,6 +27,10 @@ blogging I really need these commands written down.
 
     # Generate only published pages with this command
     hugo -t tidy
+    cd public
+    git add .
+    git commit -m "Build site"
+    git push
 
 
 Copyright (c) 2014-2017 - Markus Eliasson - All rights reserved.

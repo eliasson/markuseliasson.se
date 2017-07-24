@@ -1,3 +1,7 @@
 [submodule "themes/liquorice"]
 	path = themes/liquorice
 	url = https://github.com/eliasson/liquorice.git
+[submodule "public"]
+	path = public
+	url = git@github.com:eliasson/eliasson.github.io.git
+	branch = master

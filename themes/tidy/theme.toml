@@ -5,7 +5,7 @@ description = "A small, elegant theme for articles"
 homepage = "http://www.markuseliasson.se"
 tags = ["", ""]
 features = ["", ""]
-min_version = 0.15
+min_version = 0.37
 
 [author]
   name = "Markus Eliasson"

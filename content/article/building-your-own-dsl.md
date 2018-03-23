@@ -3,7 +3,7 @@ Categories = ["Software Development", "Code"]
 Description = "The need for different types of computer languages is growing rapidly — luckily it turns out that creating your own Domain Specific Language does not have to be too hard."
 Tags = ["Software Development", "Sequence", "DSL"]
 date = "2018-03-23T18:48:00+01:00"
-title = "Building your own DSL must not be hard"
+title = "Building your own DSL does not have to be hard"
 draft = false
 +++
 Currently there is a lot of initiatives that everybody should learn how to program, schools are making programming part of the standard education. For enterprises there are numerous of low-code platforms popping up, all with the sole purpose of enabling more people construct programs. And all in a rapid pace.
@@ -15,21 +15,21 @@ In short, programming is growing tremendously, it is finding its way into new do
 
 ## Not hard - really?
 
-I think many engineers mistakenly assume that a creating your own language, and especially the dreaded compiler is a huge undertaking and a very complex one. If the language is a General Purpose Language such as Java, C, Rust — yes the task is daunting to say the least. There must be a reason why some argue that the C compiler is one of the most complex piece of software out there.
+I think many engineers mistakenly assume that creating your own language, and especially the dreaded compiler, is a huge undertaking and a very complex one. If the language is a General Purpose Language such as Java, C, Rust — yes the task is daunting to say the least. There must be a reason why some argue that the C compiler is one of the most complex piece of software out there.
 
 Thankfully, a Domain Specific Language is not a General Purpose Language per definition. A DSL can be, and often is much simpler, and it might not even need a complex compiler.
 
-A General Purpose Language i generic by definition. Its domain is not the domain in which it is being used, but rather the domain _computer science_. Scala is a great example of a GPL. It leans heavily on theories form both computer science and math (such as category theory) and can be used to write programs either in functional or object-oriented style - one cost of this is that both the language and the compiler is well known for its complexities.
+A General Purpose Language i generic by definition. Its domain is not the domain in which it is being used, but rather the domain _computer science_. Scala is a great example of a GPL. It leans heavily on theories from both computer science and math (such as category theory) and can be used to write programs either in functional or object-oriented style - one cost of this is that both the language and the compiler is well known for its complexities.
 
 A DSL, as I see it, has a few different characteristics:
 
-**Simpler grammar** - The grammar should be kept as simple as possible, or as [The Zen of Python](https://www.python.org/dev/peps/pep-0020/) puts it _"There should be one-- and preferably only one --obvious way to do it."_. This goes well in hand when defining a _Ubiquitous Language_ for domain experts to use.
+**Unambigious grammar** - The grammar should be kept as simple and unamgigious as possible, or as [The Zen of Python](https://www.python.org/dev/peps/pep-0020/) puts it _"There should be one-- and preferably only one --obvious way to do it."_. Still the grammar can be both big and complex, just as a domain can be big and complex (similar to defining a _Ubiquitous Language_ in DDD).
 
-**A single abstraction level** - A DSL should be designed to operate on a single abstraction level - its purpose is specific and not general. If you have a wide spectrum, maybe it is better to go with multiple DSL's, choose a GPL, or maybe even build an embedded DSL. HTML and CSS is an example where two different languages are used, one for describing the semantics of a document and the other for styling it (including graphical transitions). Although there is an overlap in domain, and HTML can inline style properties, it is two separate languages.
+**A single abstraction level** - A DSL should be designed to operate on a single abstraction level - its purpose is specific and not general. If you have a wide spectrum, maybe it is better to go with multiple DSLs, choose a GPL, or maybe even build an embedded DSL. HTML and CSS is an example where two different languages are used, one for describing the semantics of a document and the other for styling it (including graphical transitions). Although there is an overlap in domain, and HTML can inline style properties, it is two separate languages.
 
-**Tooling** - A DSL is only as good as it's tooling. Putting an untrained programmer in front of a great language, but with poor tooling, will lower the adoption rate. Likewise, a well-trained programmer will most likely fall back and use one of the other languages he or she knows to get the job done. I do think that, for some reason, people are more forgiving when using a GPL when it comes to tooling (or at least I am).
+**Tooling** - A DSL is only as good as its tooling. Putting an untrained programmer in front of a great language, but with poor tooling, will lower the adoption rate. Likewise, a well-trained programmer will most likely fall back and use one of the other languages he or she knows to get the job done. I do think that, for some reason, people are more forgiving when using a GPL when it comes to tooling (or at least I am).
 
-**No machine-code** - Traditional programming languages compile to machine code, or to some sort of byte code like the JVM or CLR. For a DSL that is not always the case, a DSL can very well be used for configuration, modelling, etc. Thus, there might not be a need for a generator / compiler, instead the motivation might just be a language with editor support.
+**No machine-code** - Traditional programming languages compile to machine code, or to some sort of byte code like the JVM or CLR. For a DSL that is not always the case, a DSL can very well be used for configuration, modelling, etc. Thus, there might not be a need for a generator / compiler, instead the motivation might just be a language that gets interpreted (such as a Makefile).
 
 This does not automatically mean that a DSL is simple, but for some use-cases you might get away with a smaller scope than a traditional language. Also, there is plenty of high quality, and free, tools available for you to use to get a pretty good tooling.
 

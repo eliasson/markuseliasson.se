@@ -3,7 +3,7 @@ Categories = ["Thoughts"]
 Description = "Have you ever come across a poorly written software where you thought to yourself — this has grown out of control!"
 Tags = ["Software Development", "Code Quality", "People"]
 date = "2017-10-20T22:00:00+01:00"
-title = "Bytes does not destroy software — people do"
+title = "Bytes do not destroy software — people do"
 draft = false
 +++
 Most of the times, people seem to refer to organic growth — much like a garden that grows wild when there’s no-one that’s maintaining it. This is not a valid metaphor — biological growth happens thanks to photosynthesis and is not by the hand of man. Software on the other side is static — it does not change by itself — it changes when someone change it or change the environment it operates in.

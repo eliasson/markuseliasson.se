@@ -29,7 +29,7 @@ A DSL, as I see it, has a few different characteristics:
 
 **Tooling** - A DSL is only as good as its tooling. Putting an untrained programmer in front of a great language, but with poor tooling, will lower the adoption rate. Likewise, a well-trained programmer will most likely fall back and use one of the other languages he or she knows to get the job done. I do think that, for some reason, people are more forgiving when using a GPL when it comes to tooling (or at least I am).
 
-**No machine-code** - Traditional programming languages compile to machine code, or to some sort of byte code like the JVM or CLR. For a DSL that is not always the case, a DSL can very well be used for configuration, modeling, etc. Thus, there might not be a need for a generator / compiler, it might be enough to interpreted a language (such as a Makefile).
+**No machine code** - Traditional programming languages compile to machine code, or to some sort of byte code like the JVM or CLR. For a DSL that is not always the case, a DSL can very well be used for configuration, modeling, etc. Thus, there might not be a need for a generator / compiler, it might be enough to interpreted a language (such as a Makefile).
 
 This does not automatically mean that a DSL is simple, but for some use-cases you might get away with a smaller scope than with a traditional language. Also, there are plenty of high quality, and free, tools available for you to use to get a pretty good tooling.
 
@@ -42,9 +42,9 @@ Finally, not only do I think this skill will be more valuable in the future; dev
 
 I often find myself creating sequence diagrams, whether when designing a system, explaining some details to a colleague or just when trying to understand something for myself. The last few years I have used the excellent service [http://websequencediagrams.com](http://websequencediagrams.com) but I have two problems with that service:
 
-1) Version control, I needed to keep my source files under version control and manually copy paste into the web editor.
+1) Version control. I needed to keep my source files under version control and manually copy paste into the web editor.
 
-2) Online only, I do a fair amount of work while travelling and in the deep forests of Sweden you’re not always connected to the Internet.
+2) Online only. I do a fair amount of work while travelling and in the deep forests of Sweden, you’re not always connected to the Internet.
 
 This will result in a blog series about creating a custom language where you can express a sequence flow and produce image representations out of these, both using a command line tool as well as Visual Studio Code.
 

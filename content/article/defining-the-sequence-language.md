@@ -1,17 +1,15 @@
 +++
 Categories = ["Software Development", "Code"]
-Description = "Defining a language requires you first need to consider the semantics and then the syntax. Even for a tiny language such as Sequence it is an iterative process where the definition was changed multiple times early on."
+Description = "Even a tiny language as Sequnce requires a careful and iterative process, you need to consider both the semantics and the synatax."
 Tags = ["Software Development", "Sequence", "DSL"]
-date = "2018-04-19T14:55:00+01:00"
-title = "Defining a language"
-draft = true
+date = "2018-08-16T12:00:00+00:00"
+title = "Defining the Sequence language"
 +++
-
 
 When discussing languages, especially computer language, I have noticed that people often start
 with expressing their view on syntax and grammar.  Just like it is easy to have opinions about
 the appearance of an application, they are both _user interfaces_. What is far more important
-is the semantics, what the language allows to be expressed. I do not think look and feel or syntax
+is the _semantics_, what the language allows to be expressed. I do not think look and feel or syntax
 is superficial - it is still very important, but second to semantics.
 
 ### Start with the semantics
@@ -25,7 +23,7 @@ language.
 What I knew I wanted:
 
 * **Fluent language** - I wanted anyone be able to read and understand the sequence of messages
-* **Focused** - I did not want to support all use-cases for sequences, all I wanted was to cover the basic situations
+* **Focused** - I did not want to support all use-cases there is for sequence diagrams, all I wanted was to cover the basic situations
 * **Not UML** - I had no ambition to fulfil UML or any other notation, unless it made sense to do so
 
 This was one of the first drafts I came up with:
@@ -47,31 +45,33 @@ First off, I wanted to have a global definition of Actors and Systems, clearly d
 taking place in the upcoming message exchange. Participants should have an optional description to allow
 for shorter names, but still allow for a detailed description within the document.
 
-Next, I think having multiple sequences in a single file, and later in a single diagram is quite useful
-for describing alternative or very similar sequences involving the same participants.
+This also enables having multiple sequences in a single file, and later in a single diagram. Which is
+quite useful for describing alternative or very similar sequences involving the same participants (e.g.
+login, and failed login sequences).
 
-Each sequence should then define the list of messages containing source, destination and the actual
-message.
+Each sequence should then define the list of messages containing _source_, _destination_ and the actual
+_message_.
 
 ### Words over symbols
 
 I thought this was pretty good, it allows me to describe actors and systems separately, where an actor
 is a human and a system is a system. And it's clear that **Alice** sends a message to **Acme**. The
-arrow notation was also something I was used to from websequencediagrams.com
+arrow notation was also something I was used to from [websequencediagrams.com](http://websequencediagrams.com)
 
 Then I quickly realized that having different symbols for the type of message was problematic,
 would I render an asynchronous message as `~>`, a reply as `<-`? I came to the conclusion that
-using words are better than symbols. Symbols are only meaningful if the user has previous experience
-of those. Which in my case would require symbols to be established in the _domain_ of sequence diagrams.
+using words are better than symbols.
 
-This is a well-known fact among [usability experts](https://www.nngroup.com/articles/icon-usability/),
-which says that an icon needs a label and standalone icons can be problematic.
+Symbols are only meaningful if the user has previous experience of those. Which in my case would require
+symbols to be established in the _domain_ of sequence diagrams. This is a well-known fact among
+[usability experts](https://www.nngroup.com/articles/icon-usability/), which says that an icon needs a
+label and standalone icons can be problematic.
 
 Thus, I replaced the arrows with the wording of **ask** or **tell** to better communicate
 the nature of the message (asynchronous or synchronous). I also changed **System** to **Object** since I though
 **System** was a bit to narrow.
 
-My draft was now:
+My next iteration of the language draft now looked like this:
 
 ```bash
 Actor Alice

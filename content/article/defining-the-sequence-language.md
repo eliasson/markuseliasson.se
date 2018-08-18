@@ -109,7 +109,7 @@ of my familiarity of using strings combined with the fear of parsing inline text
 
 These changes resulted in the latest, and present, version of Sequence:
 
-```bash
+```
 Name "Sequence demo"
 
 Actor User

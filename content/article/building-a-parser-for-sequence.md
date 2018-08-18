@@ -7,7 +7,7 @@ title = "Building a parser for Sequence"
 draft = true
 +++
 
-Previously, in [Defining the Sequence language]({{< ref "article/defining-the-sequence-language.md" >}}) we drafted a version
+Previously, in [Defining the Sequence language](/article/defining-the-sequence-language/) we drafted a version
 of the **Sequence** language that were happy with, now we need to formalize this language and build a parser for it.
 
 The language, as we left it looks like:
@@ -31,7 +31,7 @@ Sequence Test
 
 _For new readers, Sequence is a tiny domain specific language used to describe sequence diagrams. I use it as basis
 for a series of blog posts covering how to build such a tool together with a Visual Studio Code extension. See the
-initial post [here](http://localhost:1313/article/building-your-own-dsl/)._
+initial post [here](/article/building-your-own-dsl/)._
 
 
 ## Scanning, lexing, tokenizing and parsing

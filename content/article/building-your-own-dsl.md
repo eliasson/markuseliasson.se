@@ -50,8 +50,8 @@ This will result in a blog series about creating a custom language where you can
 
 The upcoming posts are planned to cover the following topics:
 
-* Defining a language
-* Parsing source files
+* [Defining a language](/article/defining-the-sequence-language/)
+* [Parsing source files](/article/building-a-parser-for-sequence/)
 * Analyzing an AST
 * Producing the target image
 * Syntax highlight

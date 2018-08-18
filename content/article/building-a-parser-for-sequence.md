@@ -4,7 +4,7 @@ Description = "Now that we have defined what we want the Sequence language to lo
 Tags = ["Software Development", "Sequence", "DSL"]
 date = "2018-08-18T13:00:00+01:00"
 title = "Building a parser for Sequence"
-draft = true
+draft = false
 +++
 
 Previously, in [Defining the Sequence language](/article/defining-the-sequence-language/) we drafted a version

@@ -1,4 +1,4 @@
-baseurl = "http://www.markuseliasson.se"
+baseurl = "https://markuseliasson.se"
 languageCode = "en-us"
 title = "Markus Eliasson"
 paginate = 10

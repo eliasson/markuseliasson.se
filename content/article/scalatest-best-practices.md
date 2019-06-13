@@ -2,9 +2,9 @@
 Categories = ["Code"]
 Description = "Writing clear, consice and maintainable tests can be quite challeging regardless of tool and language. Following the practices discussed here will hopefully help you achieve this if you are using ScalaTest."
 Tags = ["Scala"]
-date = "2019-05-14T23:00:00+02:00"
+date = "2019-06-13T14:35:00+02:00"
 title = "Best practices for ScalaTest"
-draft = true
+draft = false
 +++
 Like many things in the Scala ecosystem, [ScalaTest](~http://www.scalatest.org~) does not come short
 on features or alternatives to use when writing tests. This is seen as a strength and is advertised on their webpage as:
@@ -42,7 +42,7 @@ class UserRepositoryTest extends FreeSpec {
 I tend to write hierarchical tests as I think it is a great way to structure tests both when writing and later when I need
 to find the corresponding tests for a given piece of functionality.
 
-The tests are often structured into _Component_ / _State_ / _Behaviour_ and while reading the path should make sense, it does not have to be a well formed sentence, and does not have
+The tests are often structured into _Component_ / _State_ / _Behaviour_ and while reading the path should make sense, it does not have to be a well-formed sentence, and does not have
 to start using _"should"_ or _"test"_ either.
 
 ## Use fixture-context objects
@@ -178,7 +178,7 @@ I would consider running tests in parallel even if there is little to no perform
 
 ## Be eventual
 
-When writing tests for an eventual consistent system you might need to test an asynchronous behaviour that _does not_ return a `Future`. ScalaTest comes
+When writing tests for an eventual consistent system you might need to test an asynchronous behavior that _does not_ return a `Future`. ScalaTest comes
 with the trait `Eventually` which fills this need so that you don't have to sleep.
 
 ```
@@ -206,7 +206,7 @@ class TestEventualConsistency extends FreeSpec
 }
 ```
 
-In this example, the assertion will be periodically evaluted using a timeout. If the assertion fails after the specified timeout the test will fail.
+In this example, the assertion will be periodically evaluated using a timeout. If the assertion fails after the specified timeout the test will fail.
 
 For how long and at what interval the evaluation should be performed is specified using a _patience_. The default is tuned for unit-testing, but there is a handy trait named `IntegrationPatience` that increase the timeout to 15 seconds instead of 150 ms which is the default.
 
@@ -253,7 +253,7 @@ the test (during test execution)
 
 Note that both mix-ins mentioned above are synchronous so you cannot do any async setup in them without blocking (e.g. using `Await.result`).
 
-It is quite easy to end up putting setup code that gets executed in the discovery phase which often lead to subtle bugs and non-deterministic behaviour. Only put constants here, or preferably, nothing at all.
+It is quite easy to end up putting setup code that gets executed in the discovery phase which often lead to subtle bugs and non-deterministic behavior. Only put constants here, or preferably, nothing at all.
 
 Sharing test setup is much easier done using _fixture-context objects_ described earlier.
 
@@ -262,8 +262,8 @@ Sharing test setup is much easier done using _fixture-context objects_ described
 
 In many unit-testing frameworks it is common to be able to focus on a specific test or suite - e.g. using `fit` in Jasmine (JavaScript).
 
-And while your IDE might support running individual tests, I often find that when changing existing code it is very handy to be able
-to highlight a few individual tests that does not neccessarily exist in the same hierarchy.
+And while your IDE might support running individual tests, I often find that when changing existing code, it is very handy to be able
+to highlight a few individual tests that does not necessarily exist in the same hierarchy.
 
 ScalaTest handles this a bit differently, where you tag your test using symbols you define yourself and then filter tags when you run the tests using the parameter `-n focused`
 
@@ -323,7 +323,7 @@ More matchers and descriptions available in the [documentation](http://www.scala
 
 I tend to use the `equal` matcher as much as possible. Even though ScalaTest comes with quite a lot of matchers I stick to basic ones - there are two reasons for that;
 
-First, I don’t find them intuitive, so I have to search for which one to use when writing a test, and then often once again whenever I review some code later on. Some require parens, others don't - it is quite confusing.
+First, I don’t find them intuitive, so I have to search for which one to use when writing a test, and then often once again whenever I review some code later on. Some require parenthesis, others don't - it is quite confusing.
 
 Second, using familiar Scala constructs makes the test more readable and I prefer to process the data prior to any assertion which often let me use simpler matchers.
 
@@ -351,7 +351,7 @@ class UserRepositoryTestSync extends FreeSpec
 }
 ```
 
-This test uses a pattern called _Transform to Identity_, it was coined by my college in his talk [Supercharge your automated tests to fail better](https://www.youtube.com/watch?v=jJRgSy2vVF8). The assertion is made simple, both while reading and it is expresive when failing, win-win.
+This test uses a pattern called _Transform to Identity_, it was coined by my college in his talk [Supercharge your automated tests to fail better](https://www.youtube.com/watch?v=jJRgSy2vVF8). The assertion is made simple, both while reading and it is expressive when failing, win-win.
 
 
 ## Other considerations
@@ -360,11 +360,11 @@ When composing this list, I identified a few things that is unrelated to ScalaTe
 
 ### Don’t name things SUT
 
-Stay away from using the name `sut` such as in variables. While it makes perfect sense when writing the test I find that when I come back later, or when reviewing an isolated delta it is easy to make misstakes on what is being tested. It might be that the test file is too large, but I still think spelling out what it is you are testing improves readability.
+Stay away from using the name `sut` such as in variables. While it makes perfect sense when writing the test, I find that when I come back later, or when reviewing an isolated delta it is easy to make mistakes on what is being tested. It might be that the test file is too large, but I still think spelling out what it is you are testing improves readability.
 
 ### Put your test first
 
-Do not put class member declarations, test-fixtures, helper functions, `beforeEach/afterEach` at the top of the class body. A future developer, or future you, is primarily interested in reading the test and not boilerplate and setup. Put the most relavant first and everything else at the end of the class / file.
+Do not put class member declarations, test-fixtures, helper functions, `beforeEach/afterEach` at the top of the class body. A future developer, or future you, are primarily interested in reading the test and not boilerplate and setup. Put the most relevant first and everything else at the end of the class / file.
 
 And for shared helpers I find Scala package object to be a great container.
 

@@ -23,14 +23,14 @@ blogging I really need these commands written down.
     $ hugo new article/my-new-article.md
 
     # Run a local server
-    $ hugo server --theme=tidy --buildDrafts --watch
+    $ hugo server --theme=x10 --buildDrafts --watch
 
     # Generate only published pages with this command
-    hugo -t tidy
+    hugo -t x10
     cd public
     git add .
     git commit -m "Build site"
     git push
 
 
-Copyright (c) 2014-2017 - Markus Eliasson - All rights reserved.
+Copyright (c) 2014-2019 - Markus Eliasson - All rights reserved.

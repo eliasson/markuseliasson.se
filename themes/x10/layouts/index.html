@@ -1,0 +1,71 @@
+{{ partial "head.html" . }}
+
+<body class="red-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 hidden-small-screen">
+                <ul class="red-landing-social">
+                    {{ range .Site.Menus.footer }}
+                        <li class="red-social"><a href="{{ .URL }}" class="no-feedback">{{ .Pre }}</a></li>
+                    {{ end }}
+                </ul>
+                <div class="break"></div>
+            </div>
+            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+                <h1 class="red-landing-header">{{ .Site.Params.author }}<span class="is-red-period">.</span></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5"></div>
+            <div class="col-xs-12 col-sm-7 col-md-6 col-lg-7">
+                <p class="red-landing-bio">{{ .Site.Params.authorBio }}</p>
+                <p class="red-landing-email">
+                    <a href="mailto:{{ .Site.Params.authorEmail }}">{{ .Site.Params.authorEmail }}</a>
+                </p>
+                <p class="red-landing-affiliation">
+                    Consultat at <a href="{{.Site.Params.affiliateUrl}}" class="no-feedback">
+                        <img src="{{ .Site.BaseURL }}{{ .Site.Params.affiliateLogo }}" alt="{{ .Site.Params.affiliateLogoAlt }}" />
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 hidden-big-screen">
+                <ul class="red-landing-social">
+                    {{ range .Site.Menus.footer }}
+                        <li class="red-social"><a href="{{ .URL }}" class="no-feedback">{{ .Pre }}</a></li>
+                    {{ end }}
+                </ul>
+                <div class="break"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs">
+                <div class="red-article-list">
+                    {{ range  .Data.Pages }}
+                        <div class="row red-article-list-item">
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                <a href="{{ .Permalink }}"><h3>{{ .Title }}</h3></a>
+                            </div>
+                            <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1">
+                                <div class="has-right-border is-paddle"></div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <p>{{ .Description }}</p>
+                                <time>{{ .Date.Format "Monday, January 2, 2006" }}</time>
+                            </div>
+                            <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 is-right hidden-small-screen">
+                                <a href="{{ .Permalink }}" class="no-feedback">
+                                    <img src="angle.png" class="red-read-more" alt="Go to page">
+                                </a>
+                            </div>
+                        </div>
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+{{ partial "tail.html" . }}

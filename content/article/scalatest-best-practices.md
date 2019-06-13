@@ -172,7 +172,7 @@ class UserRepositoryTestAsyncOther extends AsyncFreeSpec
 }
 ```
 
-Note, that by default ScalaTest will run the test in a single suite sequentially and not in parallel unless the test mixin `ParallelTestExecution` (rational is available in the [documentation](http://www.scalatest.org/user_guide/async_testing)). Even though the performance wins might be small in parallel testing, I would recommend turning this on - as it helps
+Note, that by default ScalaTest will run the test in a single suite sequentially and not in parallel unless the test mixin `ParallelTestExecution` (rationale is available in the [documentation](http://www.scalatest.org/user_guide/async_testing)). Even though the performance wins might be small in parallel testing, I would recommend turning this on - as it helps
 
 I would consider running tests in parallel even if there is little to no performance win. Running tests sequential might hide concurrency related bugs in your code - parallel and random execution order will give you the best coverage.
 
@@ -351,7 +351,7 @@ class UserRepositoryTestSync extends FreeSpec
 }
 ```
 
-This test uses a pattern called _Transform to Identity_, it was coined by my college in his talk [Supercharge your automated tests to fail better](https://www.youtube.com/watch?v=jJRgSy2vVF8). The assertion is made simple, both while reading and it is expressive when failing, win-win.
+This test uses a pattern called _Transform to Identity_, it was coined by my co-worker [@provegard](https://twitter.com/provegard) in his talk [Supercharge your automated tests to fail better](https://www.youtube.com/watch?v=jJRgSy2vVF8). The assertion is made simple while reading and it is expressive when failing, win-win.
 
 
 ## Other considerations

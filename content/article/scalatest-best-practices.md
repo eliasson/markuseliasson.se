@@ -6,7 +6,7 @@ date = "2019-06-13T14:35:00+02:00"
 title = "Best practices for ScalaTest"
 draft = false
 +++
-Like many things in the Scala ecosystem, [ScalaTest](~http://www.scalatest.org~) does not come short
+Like many things in the Scala ecosystem, [ScalaTest](http://www.scalatest.org) does not come short
 on features or alternatives to use when writing tests. This is seen as a strength and is advertised on their webpage as:
 
 > ScalaTest does not try to impose a testing philosophy on you, but rather is designed from the philosophy that the tool should get out of your way and let you work the way you find most productive.

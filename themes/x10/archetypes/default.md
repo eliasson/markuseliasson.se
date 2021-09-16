@@ -1,4 +1,6 @@
 +++
-Tags = []
-Categories = []
+date = {{ .Date }}
+title = "{{ replace .TranslationBaseName "-" " " }}"
+description = ""
+tags = []
 +++

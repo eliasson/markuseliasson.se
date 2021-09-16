@@ -31,3 +31,8 @@ disqusShortname = "markus-eliasson"
     url = "http://www.linkedin.com/in/markuseliasson"
     pre = "<img src=\"/badge-linkedin.png\" /> "
     weight = 30
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

@@ -111,6 +111,7 @@ time {
 .is-left                { text-align: left; }
 .is-right               { text-align: right; }
 .is-red-period          { color: #e6352b; }
+.spacer                 { margin: 32px 0; }
 
 /* Grid *********************************************************************/
 
@@ -317,6 +318,10 @@ a.red-tag {
 a.red-tag:hover {
     border: none;
     background-color: #B30200;
+}
+
+.red-article-post-scriptium {
+    margin-top: 3em;
 }
 
 /* Footer */

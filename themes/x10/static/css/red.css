@@ -197,6 +197,22 @@ ul.red-landing-social {
 
 .red-read-more {
     padding-top: 1em;
+    
+}
+
+.red-article-archive {
+    text-align: center;
+}
+
+a.red-big-link,
+a.red-big-link:active,
+a.red-big-link:hover,
+a.red-big-link:visited {
+    color: #e6352b;
+    font-size: 1.5em;
+    font-weight: 200;
+    text-decoration: none;
+    border: none;
 }
 
 /* Page header **************************************************************/

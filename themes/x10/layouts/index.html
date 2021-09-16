@@ -43,7 +43,9 @@
         <div class="row">
             <div class="col-xs">
                 <div class="red-article-list">
-                    {{ range  .Data.Pages }}
+                    {{ $mainSections := .Site.Params.mainSections | default (slice "article") }}
+                    {{ $section := where .Site.RegularPages "Section" "in" $mainSections }}
+                    {{ range (first 6 $section)  }}
                         <div class="row red-article-list-item">
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                 <a href="{{ .Permalink }}"><h3>{{ .Title }}</h3></a>
@@ -62,6 +64,15 @@
                             </div>
                         </div>
                     {{ end }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs">
+                <div class="red-article-archive">
+                    <a href="{{ref . "article" }}" class="red-big-link">
+                        View older articles
+                    </a>
                 </div>
             </div>
         </div>

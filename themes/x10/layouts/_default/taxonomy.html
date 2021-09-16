@@ -1,0 +1,8 @@
+<h1>Taxonomy</h1>
+<ul>
+{{ range  .Pages }}
+<li>
+    {{ partial "summary.html" . }}
+</li>
+{{ end }}
+</ul>

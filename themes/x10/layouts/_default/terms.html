@@ -1,0 +1,16 @@
+Terms
+<article>
+    {{ .Content }}
+</article>
+<section>
+    {{ range $key, $value := .Data.Terms }}
+        <h2 class="f1">
+            <a href="{{ "/" | relLangURL }}{{ $.Data.Plural | urlize }}/{{ $key | urlize }}">
+                {{ $.Data.Singular | humanize }}: {{ $key }}
+            </a>
+        </h2>
+        {{ range $value.Pages }}
+            {{ partial "summary.html" . }}
+        {{ end }}
+    {{ end }}
+</section>

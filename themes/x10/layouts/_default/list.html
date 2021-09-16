@@ -1,0 +1,8 @@
+<h1>List</h1>
+<ul>
+{{ range .Paginator.Pages }}
+<li>
+    {{- partial "summary.html" . -}}
+</li>
+{{ end }}
+</ul>

@@ -123,14 +123,13 @@ time {
 .container {
     padding-left: 2rem;
     padding-right: 2rem;
-    width: 64rem;
 }
 
 .hidden-big-screen { display: none; }
 
-@media only screen and (min-width: 48em) and (max-width: 76em) {
+@media only screen and (min-width: 48em) {
     .container {
-        width: 28rem;
+        width: 64rem;
     }
 
 }

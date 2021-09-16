@@ -20,10 +20,11 @@ a:visited {
     text-decoration: none;
     font-weight: 600;
     word-break: break-word;
+    border-bottom: 2px solid #e6352b;
 }
 
 a:hover {
-    border-bottom: 1px solid #080808;
+    border-bottom: 2px solid #e6352b;
 }
 
 a.no-feedback:hover {
@@ -85,6 +86,18 @@ blockquote {
     border-left: 4px solid #e6352b;
     -webkit-margin-start: 0px;
 }
+
+ul li {
+    list-style-type: none;
+}
+
+ul li:before {
+    content: "-";
+    color: #e6352b;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
 
 /* Common *******************************************************************/
 
@@ -173,6 +186,10 @@ ul.red-landing-social {
     margin-right: 14px;
 }
 
+.red-landing-social li:before {
+    display: none;
+}
+
 .red-social img {
     width: 42px;
     height: 42px;
@@ -197,7 +214,13 @@ ul.red-landing-social {
 
 .red-read-more {
     padding-top: 1em;
-    
+}
+
+a.no-feedback,
+a.no-feedback:active,
+a.no-feedback:hover,
+a.no-feedback:visited {
+    border-bottom: none;
 }
 
 .red-article-archive {
@@ -260,7 +283,7 @@ h1.red-article-title {
 .red-article-body a:active,
 .red-article-body a:hover,
 .red-article-body a:visited {
-    border-bottom: 1px solid #080808;
+    border-bottom: 2px solid #e6352b;
 }
 
 .red-article-tags {

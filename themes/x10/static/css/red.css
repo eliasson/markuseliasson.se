@@ -267,6 +267,7 @@ a.red-tag {
     transition: all ease 0.2s;
     border-radius: 24px;
     padding: 8px 16px;
+    margin: 8px 2px;
 }
 
 a.red-tag:hover {

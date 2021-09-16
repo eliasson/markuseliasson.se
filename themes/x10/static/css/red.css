@@ -8,6 +8,8 @@ body {
     margin: 0px;
     display: flex;
     flex-direction: column;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 a,
@@ -243,6 +245,33 @@ h1.red-article-title {
 .red-article-body a:hover,
 .red-article-body a:visited {
     border-bottom: 1px solid #080808;
+}
+
+.red-article-tags {
+    margin-top: 2em;
+}
+
+.red-article-tags .red-label {
+    color: #333334;
+    margin-bottom: 0.5em;
+    font-weight: 200;
+    font-size: smaller;
+}
+
+a.red-tag {
+    background-color: #e6352b;
+    color: white;
+    font-weight: 200;
+    font-size: smaller;
+    display: inline-block;
+    transition: all ease 0.2s;
+    border-radius: 24px;
+    padding: 8px 16px;
+}
+
+a.red-tag:hover {
+    border: none;
+    background-color: #B30200;
 }
 
 /* Footer */

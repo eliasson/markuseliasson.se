@@ -28,7 +28,7 @@ Are you using microservices? An architecture tailored to scale the organization 
 
 Distributed systems are an order of magnitude more complex than monolithic systems. Still many organizations are using them as their goto solution. Why? 
 
-A few years ago I was hired as a technical lead for a team of developers. Our task, build a “microservice platform”. This was a requirement, straight from the business people I tell you! Some people referred to it as a “Marketecture”. To be fair, the were other requirements too, but the need for microservices was real.
+A few years ago I was hired as a technical lead for a team of developers. Our task, build a “microservice platform”. This was a requirement, straight from the business people I tell you! Some people referred to it as a “Marketecture”. To be fair, there were other requirements too, but the need for microservices was real.
 
 Unfortunately that project is far from being alone. Large and complex systems lure developers like sirens. Totally blindsighted from the additional cost, too many organizations start with an overly complicated system when their needs are fairly modest.
 
@@ -43,14 +43,14 @@ To scale up a system typically gives the exact opposite characteristics. A situa
 
 Most people know this, I would say it is pretty rational after all. Decisions, however, are often not rational but emotional. I believe that in many organizations there is a clear relationship between status and the size of departments or teams. The more people you are in charge of, the higher official or unofficial status will be granted to you. This is equally true for architects and engineers - the bigger the system the higher status.
 
-Do not base your architecture on cult or office-politics, base it on its effect. If you are building an unnecessary complex system, you are wasting time and effort that could have been better invested elsewhere. 
+Do not base your architecture on cult or office-politics, base it on its effect. If you are building an unnecessarily complex system, you are wasting time and effort that could have been better invested elsewhere. 
 
 Most likely there are only a few parts of your architecture that needs to scale or perform differently from the rest. Identify these components and how to scale them without splitting your entire system up into pieces.
 
 To summarize:
 
 - Find your bottleneck and resolve it, repeat
-- Optimize where the effect are the greatest
+- Optimize where the effect is the greatest
 - Do not distribute more than necessary
 
 {{% post-scriptum %}}

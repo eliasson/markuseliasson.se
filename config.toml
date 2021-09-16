@@ -5,10 +5,6 @@ paginate = 10
 googleAnalytics = "UA-42999256-1"
 disqusShortname = "markus-eliasson"
 
-[indexes]
-    category = "categories"
-    tag = "tags"
-
 [params]
     author = "Markus Eliasson"
     authorBio = "A thorough technical lead with a passion for producing valuable and clean code. Tends to occasionally blog about building software and can't seem to make up his mind on which programming language to use next."

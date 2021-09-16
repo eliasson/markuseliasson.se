@@ -119,13 +119,14 @@ ul li:before {
 .container {
     padding-left: 2rem;
     padding-right: 2rem;
+    width: 64rem;
 }
 
 .hidden-big-screen { display: none; }
 
 @media only screen and (min-width: 48em) and (max-width: 76em) {
     .container {
-        width: 44rem;
+        width: 28rem;
     }
 
 }

@@ -1,9 +1,8 @@
 +++
-Categories = ["Software Development", "Code"]
-Description = "Now that we have defined what we want the Sequence language to look like, we need to formalize this in a grammar and then build a parser to parse our input into an Abstract Syntax Tree"
-Tags = ["Software Development", "Sequence", "DSL"]
 date = "2018-08-18T13:00:00+01:00"
 title = "Building a parser for Sequence"
+description = "Now that we have defined what we want the Sequence language to look like, we need to formalize this in a grammar and then build a parser to parse our input into an Abstract Syntax Tree"
+tags = ["Software Development", "Sequence", "DSL"]
 draft = false
 +++
 

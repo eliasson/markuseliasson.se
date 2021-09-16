@@ -1,10 +1,9 @@
 +++
-Categories = ["Code"]
-Description = "My personal notes on how to setup virtualenv for Python 2.7 in Windows"
-Tags = ["Python", "Windows"]
-draft = false
 date = "2015-02-24T22:00:33+01:00"
 title = "Python pip virtualenv in Windows"
+description = "My personal notes on how to setup virtualenv for Python 2.7 in Windows"
+tags = ["Python", "Windows"]
+draft = false
 +++
 
 I needed to setup my Windows 8 machine for Python and Django development as I

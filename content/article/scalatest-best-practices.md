@@ -1,9 +1,8 @@
 +++
-Categories = ["Code"]
-Description = "Writing clear, consice and maintainable tests can be quite challenging regardless of tool and language. Following the practices discussed here will hopefully help you achieve this if you are using ScalaTest."
-Tags = ["Scala"]
 date = "2019-06-13T14:35:00+02:00"
 title = "Best practices for ScalaTest"
+description = "Writing clear, consice and maintainable tests can be quite challenging regardless of tool and language. Following the practices discussed here will hopefully help you achieve this if you are using ScalaTest."
+tags = ["Scala"]
 draft = false
 +++
 Like many things in the Scala ecosystem, [ScalaTest](http://www.scalatest.org) does not come short

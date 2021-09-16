@@ -1,9 +1,8 @@
 +++
-Categories = ["Software Development", "Code"]
-Description = "Even a tiny language as Sequnce requires a careful and iterative process, you need to consider both the semantics and the synatax."
-Tags = ["Software Development", "Sequence", "DSL"]
 date = "2018-08-16T12:00:00+00:00"
 title = "Defining the Sequence language"
+description = "Even a tiny language as Sequnce requires a careful and iterative process, you need to consider both the semantics and the synatax."
+tags = ["Software Development", "Sequence", "DSL"]
 +++
 
 When discussing languages, especially computer language, I have noticed that people often start

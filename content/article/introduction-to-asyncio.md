@@ -1,9 +1,8 @@
 +++
 date = "2016-08-24T21:00:00+02:00"
 title = "An introduction to Python's asyncio"
-Categories = ["Code"]
-Tags = ["Python", "BitTorrent"]
-Description = "This article gives a gentle introduction to the asyncio that arrived in Python 3.5. The purpose is to set the scene for a future article where I use asyncio to build a BitTorrent client in Python."
+description = "This article gives a gentle introduction to the asyncio that arrived in Python 3.5. The purpose is to set the scene for a future article where I use asyncio to build a BitTorrent client in Python."
+tags = ["Python", "BitTorrent"]
 +++
 In Python 3.4 a new module, `asyncio` was introduced, this module allows you to write _concurrent_, _single threaded_ code in Python without relying on any third-party libraries (such as Twisted, or Tornado).
 

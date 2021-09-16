@@ -1,9 +1,8 @@
 +++
-Categories = ["Software Development", "Code"]
-Description = "The need for different types of computer languages is growing rapidly — luckily it turns out that creating your own Domain Specific Language does not have to be all that hard."
-Tags = ["Software Development", "Sequence", "DSL"]
 date = "2018-03-23T18:48:00+01:00"
 title = "Building your own DSL does not have to be hard"
+description = "The need for different types of computer languages is growing rapidly — luckily it turns out that creating your own Domain Specific Language does not have to be all that hard."
+tags = ["Software Development", "Sequence", "DSL"]
 draft = false
 +++
 Currently there are a lot of initiatives saying that everybody should learn how to program, and schools are making programming part of the curriculum. For enterprises there are numerous of low-code platforms popping up, all with the sole purpose of enabling more people to construct programs. And it's all happening at a rapid pace.

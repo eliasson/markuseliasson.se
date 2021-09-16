@@ -1,9 +1,8 @@
 +++
-Categories = ["Code"]
-Description = "JavaScript has a fast moving ecosystem and if you do not manage your dependencies you risk breaking your application."
-Tags = ["JavaScript"]
 date = "2017-02-02T23:40:47+01:00"
 title = "Managing your JavaScript dependencies"
+description = "JavaScript has a fast moving ecosystem and if you do not manage your dependencies you risk breaking your application."
+tags = ["JavaScript"]
 draft = false
 +++
 Recently a colleague of mine and I had a discussion on npm dependencies, in where he asked _“Why is it bad to have many dependencies, really, why do you care?”._ I think it is a fair question, npm gets bashed all the time for resulting in a ridiculous number of dependencies, is that really a problem?

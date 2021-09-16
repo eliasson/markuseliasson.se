@@ -1,9 +1,8 @@
 +++
 date = "2016-08-24T22:48:17+02:00"
 title = "A BitTorrent client in Python 3.5"
-Categories = ["Code"]
-Tags = ["Python", "BitTorrent"]
-Description = "Python 3.5 comes with support for asynchronous IO, which seems like a perfect fit when implementing a BitTorrent client. This article will guide you through the BitTorrent protocol details while showcasing how a small client was implemented using it."
+description = "Python 3.5 comes with support for asynchronous IO, which seems like a perfect fit when implementing a BitTorrent client. This article will guide you through the BitTorrent protocol details while showcasing how a small client was implemented using it."
+tags = ["Python", "BitTorrent"]
 +++
 When Python 3.5 was released together with the new module asyncio I was curios to give it a try. Recently I decided to implement a simple BitTorrent client using asyncio - I have always been interested in peer-to-peer protocols and it seemed like a perfect fit.
 

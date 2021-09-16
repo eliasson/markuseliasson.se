@@ -1,9 +1,8 @@
 +++
-Categories = ["Code"]
-Description = "Are we littering the JavaScript ecosystem, or are we setting up a smorgasboard of choices?"
-Tags = ["JavaScript"]
 date = "2017-05-15T22:53:30+02:00"
 title = "Littering in the ecosystem"
+description = "Are we littering the JavaScript ecosystem, or are we setting up a smorgasboard of choices?"
+tags = ["JavaScript"]
 draft = false
 +++
 The other day I was in a discussion on the general situation with JavaScript development. I argued that the JavaScript community many time feels like a youth centre, everyone trying to show off themselves and not everyone taking responsibility on what they do. I even expressed that publishing many small NPM packages should be seen as littering the JavaScript ecosystem. Heck, one [developer](https://www.npmjs.com/~mafintosh) published over 500 packages and this behaviour seems to be encouraged by the community.

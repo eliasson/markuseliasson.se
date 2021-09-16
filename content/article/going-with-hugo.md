@@ -1,10 +1,9 @@
 +++
-Categories = ["Hugo"]
-Description = "Changing from handmade pages to Hugo"
+date = 2014-08-18T07:21:36Z
+title = "Going with hugo"
+description = "Changing from handmade pages to Hugo"
 Tags = []
 draft = false
-title = "Going with hugo"
-date = 2014-08-18T07:21:36Z
 +++
 
 After reading about [Hugo](http://hugo.spf13.com/) I decided to give it a go

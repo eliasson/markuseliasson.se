@@ -1,9 +1,8 @@
 +++
-Categories = ["Code"]
-Description = "Visual Studio Code comes with great features, one of which is debuging. Let's set it up for debugging tests implemented with Facebook's Jest framework."
-Tags = ["JavaScript"]
 date = "2016-03-23T22:26:58+01:00"
 title = "Debugging Jest in Visual Studio Code"
+description = "Visual Studio Code comes with great features, one of which is debuging. Let's set it up for debugging tests implemented with Facebook's Jest framework."
+tags = ["JavaScript"]
 draft = false
 +++
 One of the reason I decided to start using

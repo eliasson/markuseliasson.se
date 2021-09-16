@@ -1,10 +1,9 @@
 +++
-Categories = ["Code"]
-Description = "I made my first baby steps in the world of Go. Will this little adventure lead me to a world where the grass is green, or will it lure me into the shadows?"
-Tags = ["go", "bittorrent"]
-draft = false
-title = "Adventures in Go"
 date = 2014-08-31T12:34:15Z
+title = "Adventures in Go"
+description = "I made my first baby steps in the world of Go. Will this little adventure lead me to a world where the grass is green, or will it lure me into the shadows?"
+tags = ["go", "bittorrent"]
+draft = false
 +++
 
 I am in my mid thirties and like many of my peers I need to take som action to stay(?) cool. Since I don't fancy running a marathon, nor do I have the money to buy me a brand new car - my only choice is to learn a new programming language.

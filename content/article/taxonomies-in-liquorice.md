@@ -1,11 +1,9 @@
 +++
-Categories = ["Hugo"]
-Description = "Liquorice gets updated to support taxonomies in Hugo."
-Tags = ["liquorice"]
-draft = false
 date = "2014-11-11T22:21:10+01:00"
 title = "Taxonomies in liquorice"
-
+description = "Liquorice gets updated to support taxonomies in Hugo."
+tags = ["liquorice"]
+draft = false
 +++
 
 My Hugo theme [liquorice](https://github.com/eliasson/liquorice) was updated

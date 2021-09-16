@@ -98,6 +98,9 @@ ul li:before {
     margin-right: 8px;
 }
 
+time {
+    font-size: smaller;
+}
 
 /* Common *******************************************************************/
 

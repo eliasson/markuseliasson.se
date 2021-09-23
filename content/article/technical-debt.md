@@ -20,7 +20,7 @@ If I were to be cynical, I would say that some developers use the term technical
 
 No, I am not saying that developers are playing the technical debt card out of evil. They are most likely blinded by their relation to the code, they want to improve it in some way. If a piece of code is terrible to work with, but you only do it very rarely, is it worth fixing?
 
-Remember the ingress, that we alone choose where to spend our time and energy? If that piece of code really is blocking revenue, fix it! But, if there are other more important areas that would benefit more from the same effort I would choose the one with the greatest customer value.
+Remember the ingress, that we alone choose where to spend our time and energy? If that piece of code really is blocking progress, fix it! But, if there are other more important areas that would benefit more from the same effort I would choose the one with the greatest customer value.
 
 ## Stuck with bad code?
 

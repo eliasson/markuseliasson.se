@@ -54,5 +54,5 @@ To summarize:
 - Do not distribute more than necessary
 
 {{% post-scriptum %}}
-This was the first post in a series of posts. Next week, I will tackle _technical debt_.
+This was the first post in a series of posts. Next week, I will tackle [technical debt.](/article/technical-debt/)
 {{% /post-scriptum %}}

@@ -1,11 +1,12 @@
 +++
-date = 2021-09-22T13:00:00+02:00
+date = 2021-09-23T10:00:00+02:00
 title = "Technical debt"
 description = "What is technical debt, who owns it and when is it due? Post #2 in a series of post about obstacles around software development."
 tags = ["Software Development", "Obstacles"]
-draft = true
 +++
-Have you ever experienced a full stop on new features due to the team working on technical debt?
+> This is the second in a series of articles that claim that the obstacles you have in your organisation are put there by the very same organisation, yours. And it is up to your organisation to remove these obstacles, no one else will do it for you. [Read the first article here.](/article/your-obstacles-are-your-obstacles/)
+
+Have you ever experienced a full stop on new features due to the team is busy working on technical debt?
 
 What is technical debt, who owns it and when is it due? Ask that question to a development team and you will likely get vague answers, something about architecture, slow development time and guaranteed - lack of unit-tests.
 
@@ -22,9 +23,8 @@ No, I am not saying that developers are playing the technical debt card out of e
 Remember the ingress, that we alone choose where to spend our time and energy? If that piece of code really is blocking revenue, fix it! But, if there are other more important areas that would benefit more from the same effort I would choose the one with the greatest customer value.
 
 ## Stuck with bad code?
-Sure, you might be stuck with a codebase that is terrible and that stops you from making changes in a steady
-and safe manner. Calling it technical debt in such a situation is in my experience not productive. Technical debt
-tends to be rooted in emotions and is overly focused on code - not why that code came to be that way. 
+
+Sure, you might be stuck with a codebase that is terrible and that stops you from making changes in a steady and safe manner. Calling it technical debt in such a situation is in my experience not productive. Technical debt tends to be rooted in emotions and is overly focused on code - not why that code came to be that way.
 
 There are many reasons for why a codebase is in a bad shape, here are a few reasons I have identified during my years as a developer.
 
@@ -34,25 +34,24 @@ Predicting the future however is super-hard and you are better off making your c
 
 **Bad test-coverage** - some of the systems I have worked with did not have any unit-tests, some had a few unit-tests and a few of them had many unit-tests.
 
-Needless to say, the systems with more unit-tests were _a lot_ simpler to change and grow with new features. Not having good test coverage is either _extremely risky_ or _extremely slow_ - either you hope your change is OK and then you ship it, or you need extensive manual testing. 
+Needless to say, the systems with more unit-tests were _a lot_ simpler to change and grow with new features. Not having good test coverage is either _extremely risky_ or _extremely slow_ - either you hope your change is OK and then you ship it, or you need extensive manual testing.
 
-**Lack of understanding** - building the wrong thing is not only expensive in time and resources. The cost of having the wrong solution or abstractions in the code base is also not to be ignored.
+**Lack of understanding** - building the wrong thing is not only expensive in time and resources. The cost of having the wrong solution or abstractions in the code base should not be ignored.
 
-A developer obviously needs to understand the existing design and code. This is most likely the easy part, most developers are used to working in different codebases and have their colleagues at arms length when in doubt. The other part of understanding is to understand _what_ to build and _why_. If this is not known there is a great risk that what is built is not solving the right problem. The developers need to collaborate with all stakeholders for a feature, this is crucial, the further away you keep your developers the further away you put your chance of success!
+A developer obviously needs to understand the existing design and code. This is most likely the easy part, most developers are used to working in different codebases and have their colleagues at arms length when in doubt. The other part of understanding is to understand what to build and why. If this is not clear there is a great risk that what is built is not solving the right problem. The developers need to collaborate with key stakeholders for a feature, this is crucial. The further away you keep your developers, the further away you put your chance of success!
 
-**Stress** - is an obvious factor, people perform badly under too much stress regardless of profession. Stress leads to mistakes, ignoring code-hygiene such as unit-tests or not taking the time to understand the task at hand.
+**Stress** - is an obvious factor, people perform badly under too much stress, regardless of profession. Stress leads to mistakes, ignoring code-hygiene such as unit-tests or not taking the time to understand the task at hand.
 
-**Incompetence** - a harsh word maybe but sometimes it is as simple as that. The person(s) who wrote a piece of code might just not know better. Incompetence is a though problem though, sometimes it can be mitigated with training, coaching and pair-programming. Other times, different actions are needed.
-
+**Incompetence** - a harsh word maybe, but sometimes it is as simple as that. The person(s) who wrote a piece of code might just not know better. To be clear, I think there is a difference in being incompetent and not yet knowing it all. If you keep practicing and are willing to learn new things throughout your career you will probably be fine. Incompetence is a tough problem though, sometimes it can be mitigated with training, coaching and pair-programming. Other times, different actions are needed.
 
 ## Cause and effect
 
-As you can see far from every reason originates from code, many of them span across the organisation. What is common for all these reasons however is that they manifest themselves in the code. Hence it is easy to label these problems as _technical debt_. The developers have the responsibility of the code, they should make sure it is correct and in overall good shape, but it is naive to think that solely lies within the developers domain. Hence, to correct _technical debt_ you have to broaden your view and look over the entire organisation.
+As you can see far from every reason originates from code, many of them span across the organisation. What is common for all these reasons however is that they manifest themselves in the code. Hence it is easy to label these problems as _technical debt_. The developers have the responsibility of the code, they should make sure it is correct and in overall good shape, but it is naive to think that it solely lies within the developers domain. Hence, to correct technical debt you have to broaden your view and look over the entire organisation.
 
 What you need to do is to find your bottlenecks to increase customer value. Find out ways to improve that, label it and prioritize it as any other work. If you do not name and describe work correctly, how can you know that you are working on the correct task?
 
 - Technical debt is a vague term, define concrete tasks
-- Use techniques as Test-Driven Development and pair programming to avoid the situation in first place
+- Use techniques as Test-Driven Development and pair programming to avoid the situation in the first place
 - Collaborate and make sure features are well understood
 
 {{% post-scriptum %}}

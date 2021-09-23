@@ -6,7 +6,7 @@ tags = ["Software Development", "Obstacles"]
 +++
 > This is the second in a series of articles that claim that the obstacles you have in your organisation are put there by the very same organisation, yours. And it is up to your organisation to remove these obstacles, no one else will do it for you. [Read the first article here.](/article/your-obstacles-are-your-obstacles/)
 
-Have you ever experienced a full stop on new features due to the team is busy working on technical debt?
+Have you ever experienced a full stop on new features due to the team being busy working on technical debt?
 
 What is technical debt, who owns it and when is it due? Ask that question to a development team and you will likely get vague answers, something about architecture, slow development time, lack of unit-tests or that the code is too old.
 
@@ -18,7 +18,7 @@ You either have a problem or you do not. Everything else is speculation.
 
 If I were to be cynical, I would say that some developers use the term technical debt as a veto in discussions with project managers or product managers. If you are not technically oriented in the system it is hard, near impossible, to separate what is actually a problem from what is a desire to use the latest technology or to polish something into perfection.
 
-No, I am not saying that developers are playing the technical debt card out of evil. They are most likely blinded by their relation to the code, they want to improve it in some way. If a piece of code is terrible to work with, but you only do it very rarely, is it worth fixing?
+No, I am not saying that developers are playing the technical debt card out of malice. They are most likely blinded by their relation to the code, they want to improve it in some way. If a piece of code is terrible to work with, but you only do it very rarely, is it worth fixing?
 
 Remember the ingress, that we alone choose where to spend our time and energy? If that piece of code really is blocking progress, fix it! But, if there are other more important areas that would benefit more from the same effort I would choose the one with the greatest customer value.
 
@@ -46,7 +46,7 @@ A developer obviously needs to understand the existing design and code. This is 
 
 ## Cause and effect
 
-As you can see far from every reason originates from code, many of them span across the organisation. What is common for all these reasons however is that they manifest themselves in the code. Hence it is easy to label these problems as _technical debt_. The developers have the responsibility of the code, they should make sure it is correct and in overall good shape, but it is naive to think that it solely lies within the developers domain. Hence, to correct technical debt you have to broaden your view and look over the entire organisation.
+As you can see far from every reason originates from code, many of them span across the organisation. What is common for all these reasons however is that they manifest themselves in the code. Hence it is easy to label these problems as _technical debt_. The developers have the responsibility of the code, they should make sure it is correct and in overall good shape, but it is naive to think that it solely lies within the developers domain. Hence, to find and correct these problems you sometimes must broaden your view to include a larger part of organisation to find the root cause.
 
 What you need to do is to find your bottlenecks to increase customer value. Find out ways to improve that, label it and prioritize it as any other work. If you do not name and describe work correctly, how can you know that you are working on the correct task?
 

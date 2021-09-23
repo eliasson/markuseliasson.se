@@ -8,7 +8,7 @@ tags = ["Software Development", "Obstacles"]
 
 Have you ever experienced a full stop on new features due to the team is busy working on technical debt?
 
-What is technical debt, who owns it and when is it due? Ask that question to a development team and you will likely get vague answers, something about architecture, slow development time and guaranteed - lack of unit-tests.
+What is technical debt, who owns it and when is it due? Ask that question to a development team and you will likely get vague answers, something about architecture, slow development time, lack of unit-tests or that the code is too old.
 
 The truth is that **there is no such thing as technical debt!**
 

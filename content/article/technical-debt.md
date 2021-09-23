@@ -44,9 +44,7 @@ A developer obviously needs to understand the existing design and code. This is 
 
 **Stress** - is an obvious factor, people perform badly under too much stress, regardless of profession. Stress leads to mistakes, ignoring code-hygiene such as unit-tests or not taking the time to understand the task at hand.
 
-**Incompetence** - a harsh word maybe, but sometimes it is as simple as that. The person(s) who wrote a piece of code might just not know better.
-
-Incompetence however does not need to be static.If you keep practicing and are willing to learn new things throughout your career you will probably be fine. Incompetence is a tough problem though, sometimes it can be mitigated with training, coaching and pair-programming. Other times, different actions are needed.
+**Lack of knowledge** - sometimes the person(s) who wrote a piece of code might just not have known better. This can be due to the person not having the required technical knowledge, or domain knowledge. That kind of problem can often be mitigated with training, coaching and pair-programming. Other times it is a lack of interest or motivation which require different actions.
 
 ## Cause and effect
 

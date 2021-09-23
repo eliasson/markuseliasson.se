@@ -40,7 +40,7 @@ If your system is lacking good test-coverage, Test-Driven Development is an esta
 
 **Lack of understanding** - building the wrong thing is not only expensive in time and resources. The cost of having the wrong solution or abstractions in the code base should not be ignored.
 
-A developer obviously needs to understand the existing design and code. This is most likely the easy part, most developers are used to working in different codebases and have their colleagues at arms length when in doubt. The other part of understanding is to understand what to build and why. If this is not clear there is a great risk that what is built is not solving the right problem. The developers need to collaborate with key stakeholders for a feature, this is crucial. The further away you keep your developers, the further away you put your chance of success!
+A developer obviously needs to understand the existing design and code. This is most likely the easy part, most developers are used to working in different codebases and have their colleagues close by when in doubt. The other part of understanding is to understand what to build and why. If this is not clear there is a great risk that what is built is not solving the right problem. The developers need to collaborate with key stakeholders for a feature, this is crucial. The further away you keep your developers, the further away you put your chance of success!
 
 **Stress** - is an obvious factor, people perform badly under too much stress, regardless of profession. Stress leads to mistakes, ignoring code-hygiene such as unit-tests or not taking the time to understand the task at hand.
 

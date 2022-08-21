@@ -30,7 +30,7 @@ That is true about many things, e.g. laying the foundation to a new house, or bu
 
 Sometimes the benefit of frequent releases is pitched as a risk mitigation strategy. While this is true, it might not be valued as high by product managers or business people as by the development team. I can think of at least two more important attributes of releasing frequently.
 
-**Ensure you are on the right path** - hat if the feature you’re building is something your end-users would prefer functioned in a different way? Or even worse, something they don’t even need? Releasing often will shorten your feedback loop helping you to minimize the risk of waste and to fulfill the customer’s needs sooner.
+**Ensure you are on the right path** - what if the feature you’re building is something your end-users would prefer functioned in a different way? Or even worse, something they don’t even need? Releasing often will shorten your feedback loop helping you to minimize the risk of waste and to fulfill the customer’s needs sooner.
 
 **Monetize as soon as possible** - instead of releasing a feature once it is complete, try shifting views and express what needs to be done with the suffix _“…before we can monetize”_. Many features bring value to users long before they are fully complete, and who knows, maybe it turns out that the last set of functions was not all that important after all.
 

@@ -3,7 +3,6 @@ title = "Test-Driven Development - looking back"
 date = 2022-09-09T19:21:31+02:00
 description = "For the last five years I have been test driving pretty much all the code I have written. This is a retrospective on why it took so long to get started, where I see the greatest benefits and where it is still hard."
 tags = ["Software Development"]
-draft = true
 +++
 
 I have been working in the software industry for more than 15 years. I started my career with Symbian C++, an obscure programming language used by the smartphones of that era. At that company there were almost no unit-tests, most of the testing was done manually (which included the time consuming flashing of ROM-image) both by developers and a huge test department. From there I moved on to web and general back-end development, still relying on manual testing. At this moment in time, web development was all about server-side rendering, CSS and jQuery. There were a lot of moving parts like CMS, networking, browsers and most of it was about look and feel - that is too hard to test I argued. At the back-end, I wrote the occasional test, for the simple stuff at least, and so it continued for quite a few years.

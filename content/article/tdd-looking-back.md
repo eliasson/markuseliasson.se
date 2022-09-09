@@ -66,7 +66,7 @@ Is it expensive to TDD? Yes.
 
 Is it worth it? Yes.
 
-Most times I have these kinds of discussions. It is comparing the effort of writing tests versus not writing tests. In which the latter obviously takes zero effort. But if we consider the effort to maintain a piece of code for 5-10 years I am confident that it’s not more expensive - in fact I do believe **it is cheaper than the alternative**.
+When I usually have these discussions, it is comparing the effort of writing tests versus not writing tests. In which the latter obviously takes zero effort. But if we consider the effort to maintain a piece of code for 5-10 years I am confident that it’s not more expensive - in fact I do believe **it is cheaper than the alternative**.
 
 If we put the quality aspect aside again, the two greatest benefits of using TDD from my perspective is **to move fast and be agile** and to be a **better team player**. Aspects that I know are super important to most organisations. The fact that it reduces cognitive load and makes you sleep better at night are just added benefits.
 

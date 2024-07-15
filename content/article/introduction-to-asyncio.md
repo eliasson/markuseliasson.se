@@ -16,7 +16,7 @@ Remember, **concurrency** is not the same as **parallelism**.
 
 _As a metaphor, consider when you are in the kitchen making dinner. You put your potato cake into the oven, setting your kitchen timer for 15 minutes. Meanwhile, you start frying some pork to go with it. After 15 minutes, the timer goes off with a beep, you put away the frying pan and take the cake out of the oven._
 
-Your are being concurrent, there is only one person (CPU) in the kitchen, doing multiple tasks at the same time.
+You are being concurrent, there is only one person (CPU) in the kitchen, doing multiple tasks at the same time.
 
 Single threaded, asynchronous programming is considered simpler than using multi-threaded programming. The reason is that you don't need to coordinate routines, and shared mutable state. Rather you write single-threaded programs that feels quite sequential. This is partially what made NodeJS as popular as
 it is - the async nature is built in to NodeJS and async is often default and a synchronous API is made an option.

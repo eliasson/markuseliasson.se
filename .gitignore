@@ -2,3 +2,4 @@ public/
 themes/ananke/
 .DS_Store
 .hugo_build.lock
+.idea/

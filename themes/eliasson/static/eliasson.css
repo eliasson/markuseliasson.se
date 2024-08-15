@@ -1,0 +1,206 @@
+
+/* Variables *****************************************************************/
+:root {
+    --color-blackish: #232323;
+    --color-red: #e6352b;
+    --color-white: #fff;
+    --color-whiteish: #ededed;
+    --color-gray-vlight: #c3c3c3;
+    --color-gray-dark: #1f1b1a;
+
+    --font-s: 1.0rem;
+    --font-m: 1.1rem;
+    --font-l: 2.2rem;
+    --font-xl: 3.2rem;
+
+    --background-color: var(--color-white);
+    --text-color: var(--color-blackish);
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: var(--color-gray-dark);
+        --text-color: var(--color-whiteish);
+    }
+}
+
+
+/* Disposition ***************************************************************/
+html {
+    font-family: 'Georgia', serif;
+}
+
+body {
+    color: var(--text-color);
+    background-color: var(--background-color);
+
+    line-height: 1;
+    font-size: var(--font-m);
+    font-weight: 200;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+body {
+    /* Main text layout is inspired by Tufte */
+    max-width: 1600px;
+    width: 87.5%;
+    padding-left: 12.5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+    margin-bottom: 4rem;
+}
+
+
+ul.social {
+    padding: 0;
+}
+
+ul.social li {
+    list-style-type: none;
+    float: left;
+}
+
+ul.social li + li {
+    padding-left: 1rem;
+}
+
+.is-icon {
+    stroke: #808080;
+}
+
+/* Typography ***************************************************************/
+p {
+    width: 55%;
+    line-height: 1.4rem;
+}
+
+p.preamble {
+    line-height: 1.5rem;
+    font-style: oblique;
+}
+
+h1 {
+    font-weight: 400;
+    font-size: var(--font-l);
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: var(--font-l);
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: var(--font-l);
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+a,
+a:active,
+a:hover,
+a:visited {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 400;
+    word-break: break-word;
+    border-bottom: 1px solid var(--color-red);
+}
+
+a:hover {
+    border-bottom: 1px solid var(--color-blackish);
+}
+
+time {
+    display: block;
+    width: 55%;
+    margin: 2rem 0 3rem 0;
+    font-size: var(--font-s);
+}
+
+footer p {
+    font-size: var(--font-s);
+    line-height: 1.2rem;
+    font-weight: 200;
+}
+
+article blockquote {
+    font-style: oblique;
+    margin: 38px 0 38px 0;
+    padding-left: 1rem;
+    border-left: 4px solid var(--color-red);
+    -webkit-margin-start: 0;
+}
+
+article ul li {
+    list-style-type: none;
+}
+
+article ul li:before {
+    content: "-";
+    color: #e6352b;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+/* Common ********************************************************************/
+.is-red-period {
+    color: var(--color-red);
+}
+
+.is-icon {
+    width: 16px;
+    height: 16px;
+}
+
+a.no-feedback,
+a.no-feedback:active,
+a.no-feedback:hover,
+a.no-feedback:visited {
+    border-bottom: none;
+}
+
+/* Page logotype *************************************************************/
+header .logo {
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+header .logo a,
+header .logo a:active,
+header .logo a:hover,
+header .logo a:visited {
+    border: none;
+    font-weight: 200;
+    font-size: var(--font-l);
+}
+
+@media only screen and (min-width: 48em) {
+    /* Large screen **********************************************************/
+}
+
+@media only screen and (max-width: 48em) {
+    /* Small screen **********************************************************/
+    body {
+        width: 90%;
+        padding: 0;
+    }
+
+    p {
+        width: 100%;
+    }
+}

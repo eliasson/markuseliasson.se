@@ -1,0 +1,28 @@
+<footer>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <p class="red-landing-bio">{{ .Site.Params.authorBio }}</p>
+            <p class="red-landing-email">
+                <a href="mailto:{{ .Site.Params.authorEmail }}">{{ .Site.Params.authorEmail }}</a>
+            </p>
+            <p class="red-landing-affiliation">
+                Consultant at <a href="{{.Site.Params.affiliateUrl}}" class="no-feedback">
+                    <img src="{{ .Site.BaseURL }}{{ .Site.Params.affiliateLogo }}" alt="{{ .Site.Params.affiliateLogoAlt }}" />
+                </a>
+            </p>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+            <h1 class="red-landing-header">{{ .Site.Params.author }}<span class="is-red-period">.</span></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <ul class="red-landing-social">
+                {{ range .Site.Menus.footer }}
+                    <li class="red-social"><a href="{{ .URL }}" class="no-feedback">{{ .Pre }}</a></li>
+                {{ end }}
+            </ul>
+            <div class="break"></div>
+        </div>
+    </div>
+</footer>

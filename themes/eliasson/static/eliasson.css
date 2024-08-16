@@ -5,6 +5,7 @@
     --color-red: #e6352b;
     --color-white: #fff;
     --color-whiteish: #ededed;
+    --color-gray: #939393;
     --color-gray-vlight: #c3c3c3;
     --color-gray-dark: #1f1b1a;
 
@@ -166,6 +167,20 @@ article ul li:before {
     color: #e6352b;
     font-weight: 600;
     margin-right: 8px;
+}
+
+.list {
+    margin: 4rem 0;
+}
+
+.list-item + .list-item {
+    margin-top: 1.5rem;
+}
+
+.list-item time {
+    color: var(--color-gray);
+    display: inline-block;
+    margin: 0;
 }
 
 /* Common ********************************************************************/

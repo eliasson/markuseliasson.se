@@ -146,6 +146,10 @@ code {
     font-size: 1rem;
 }
 
+strong {
+    font-weight: 600;
+}
+
 time {
     display: block;
     width: 55%;
@@ -167,16 +171,18 @@ article blockquote {
     -webkit-margin-start: 0;
 }
 
-article ul {
+article ul,
+article ol {
     width: 55%;
-    line-height: 1.2rem;
+    line-height: 1.25rem;
 }
 
 article ul li {
     list-style-type: none;
 }
 
-article ul li + li {
+article ul li + li,
+article ol li + li {
     margin-top: 0.5rem;
 }
 

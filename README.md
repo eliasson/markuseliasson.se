@@ -15,7 +15,7 @@ blogging I really need these commands written down.
     $ hugo server --theme=eliasson --buildDrafts --watch
 
     # Generate only published pages with this command
-    hugo -t eliasson
+    hugo -t eliasson -d ..\eliasson.github.io\ 
     cd public
     git add .
     git commit -m "Build site"

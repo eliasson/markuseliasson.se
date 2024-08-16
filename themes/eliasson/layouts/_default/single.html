@@ -2,27 +2,19 @@
 
 {{ $baseurl := .Site.BaseURL }}
 
-<body class="red-page">
-    <div class="container">
-        {{ partial "header.html" . }}
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <article class="red-article">
-                    <header class="red-article-header">
-                        <h1 class="red-article-title">{{ .Title }}</h1>
-                        <div class="red-article-ingress">
-                            <p>{{ .Description }}</p>
-                            <time class="red-article-date">
-                                {{ .Date.Format "Monday, January 2, 2006" }}
-                            </time>
-                        </div>
-                    </header>
-                    <section class="red-article-body">{{ .Content }}</section>
-                </article>
-            </div>
-        </div>
-        {{ partial "footer.html" . }}
-    </div>
+<body>
+    {{ partial "header.html" . }}
+
+    <article>
+        <h1>{{ .Title }}</h1>
+        <p class="preamble">{{ .Description }}</p>
+        <time>{{ .Date.Format "Monday, January 2, 2006" }}</time>
+
+        <section>
+            {{ .Content }}
+        </section>
+    </article>
+    {{ partial "footer.html" . }}
 </body>
 
 {{ partial "tail.html" . }}

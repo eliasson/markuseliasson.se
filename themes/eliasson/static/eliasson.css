@@ -79,6 +79,7 @@ ul.social li + li {
 }
 
 /* Typography ***************************************************************/
+
 p {
     width: 55%;
     line-height: 1.4rem;
@@ -146,8 +147,18 @@ article blockquote {
     -webkit-margin-start: 0;
 }
 
+article ul {
+    width: 55%;
+    line-height: 1.4rem;
+}
+
 article ul li {
     list-style-type: none;
+    display: inline-flex;
+}
+
+article ul li + li {
+    margin-top: 0.5rem;
 }
 
 article ul li:before {

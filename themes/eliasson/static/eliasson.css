@@ -130,7 +130,7 @@ a:visited {
 }
 
 a:hover {
-    text-decoration-color: var(--color-blackish);
+    text-decoration: none;
 }
 
 pre {
@@ -225,7 +225,7 @@ a.no-feedback,
 a.no-feedback:active,
 a.no-feedback:hover,
 a.no-feedback:visited {
-    border-bottom: none;
+    text-decoration: none;
 }
 
 header .logo {
@@ -237,7 +237,7 @@ header .logo a,
 header .logo a:active,
 header .logo a:hover,
 header .logo a:visited {
-    border: none;
+    text-decoration: none;
     font-weight: 200;
     font-size: var(--font-l);
 }

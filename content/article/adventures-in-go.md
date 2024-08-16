@@ -61,19 +61,14 @@ Go comes with a default logger, but you might want to have different loglevels, 
 My current thoughts on Go is that it is a quite simple language. While simple is better than easy (as [Rich Hickey](http://www.infoq.com/presentations/Simple-Made-Easy) puts it), there are a few things I find frustrating:
 
 * Error handling. Go does not use exceptions, but return values which causes the code to be very verbose (or it is just me who has not got the hang of it).
-
 * Add methods on non-local types. I was hoping I could use them similar to Clojures protocols.
 
 
 What I find great is:
 
 * The language feels nice so far, like I said the love child of Python and C. It is easy to read and well documented.
-
 * The speed, both compilation and runtime.
-
 * The separation of data and behaviour (structs and methods).
 
 
 I'll try to add detailed posts on go along the road of my adventures. And I'll make sure to publish the source code for lox once it brings some value.
-
-Markus

@@ -133,12 +133,10 @@ depending on how your language is constructed (left recursion, etc.), but also g
 for error handling. I recommend Ruslan Spivak’s article series
 [Let’s Build A Simple Interpreter](https://ruslanspivak.com/lsbasi-part1/) if you want to read up on how to build one yourself.
 
-<br/>
 **Parser combinator** - A parser combinator provides a library of small functions that you can compose to
 write a complex parser in (often using functional composition). See [this article](https://medium.com/@chetcorcos/introduction-to-parsers-644d1b5d7f3d)
 for a short introduction to parser combinators and examples using a JavaScript parser combinator.
 
-<br/>
 **Parser generator** - A parser generator, is a separate program (a compiler actually) that generates a parser
 given a formal grammar definition. Often you describe your grammar in a format resembling
 [Backus-Naur Form](https://en.wikipedia.org/wiki/Backus–Naur_form) and run a tool that generates the source

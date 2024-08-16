@@ -34,5 +34,3 @@ The theme for this site is [liquorice](http://github.com/eliasson/liquorice),
 a theme I made myself and made available under the MIT license. I'll try write
 another post on that topic, meanwhile feel free to download the theme at
 [github](http://github.com/eliasson/liquorice)
-
-_Markus_

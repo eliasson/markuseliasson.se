@@ -533,7 +533,7 @@ The `next_request` implements a very simple strategy on which piece to request n
 2. All pieces are put in a missing list
 3. When `next_request` is called, the manager will do one of:
     - Re-request any previously requested block that has timed-out
-    - Requst the next block in an ongoing piece
+    - Request the next block in an ongoing piece
     - Request the first block in the next missing piece
 
 This way the blocks and pieces will be requsted in order. However, multiple pieces might be ongoing based on which piece a client have.
@@ -548,9 +548,9 @@ When all pieces are accounted for (matching hashes) the torrent is considered to
 
 Seeding is not yet implemented, but it should not be that hard to implement. What is needed is something along the lines of this:
 
-* Whenever a peer is connected to, we should send a `BitField` message to the remote peer indicating which pieces we have.
+**Whenever a peer is connected** to, we should send a `BitField` message to the remote peer indicating which pieces we have.
 
-* Whenever a new piece is received (and correctness of hash is confirmed), each `PeerConnection` should send a `Have` message to its remote peer to indicate the new piece that can be shared.
+**Whenever a new piece is received** (and correctness of hash is confirmed), each `PeerConnection` should send a `Have` message to its remote peer to indicate the new piece that can be shared.
 
 In order to do this the `PieceManager` needs to be extended to return a list of 0 and 1 for the pieces we have. And the `TorrentClient` to tell the `PeerConnection` to send a `Have` to its remote peer. Both `BitField` and `Have` messages should support encoding of these messages.
 
@@ -558,9 +558,9 @@ Having seeding implemented would make Pieces a good citizen, supporting both dow
 
 Additional features that probably can be added without too much effort is:
 
-* **Multi-file torrent**, will hit `PieceManager`, since Pieces and Blocks might span over multiple files, it affects how files are persisted (i.e. a single block might contain data for more than one file).
+**Multi-file torrent**, will hit `PieceManager`, since Pieces and Blocks might span over multiple files, it affects how files are persisted (i.e. a single block might contain data for more than one file).
 
-* **Resume a download**, by seeing what parts of the file(s) are already downloaded (verified by making SHA1 hashes).
+**Resume a download**, by seeing what parts of the file(s) are already downloaded (verified by making SHA1 hashes).
 
 
 ## Summary

@@ -10,9 +10,9 @@ I plan to take this new module for a test run, implementing a simple BitTorrent 
 
 Remember, **concurrency** is not the same as **parallelism**.
 
-* **Concurrency** is when more than one function can be started and finished, overlapping each other, without having to be executed at the exact same time. This is possible with a single-core CPU.
+**Concurrency** is when more than one function can be started and finished, overlapping each other, without having to be executed at the exact same time. This is possible with a single-core CPU.
 
-* **Parallelism** is when one or more functions run at the same time, this requires multi-core CPU.
+**Parallelism** is when one or more functions run at the same time, this requires multi-core CPU.
 
 _As a metaphor, consider when you are in the kitchen making dinner. You put your potato cake into the oven, setting your kitchen timer for 15 minutes. Meanwhile, you start frying some pork to go with it. After 15 minutes, the timer goes off with a beep, you put away the frying pan and take the cake out of the oven._
 

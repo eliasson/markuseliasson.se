@@ -249,7 +249,19 @@ header .logo a:visited {
         padding: 0;
     }
 
-    p {
+    article p,
+    article ul,
+    article ol {
+        width: 90%;
+    }
+
+    article ul {
+        padding-left: 1rem;
+    }
+
+    pre {
         width: 100%;
+        margin: 0 -1rem;
+        padding: 1rem;
     }
 }

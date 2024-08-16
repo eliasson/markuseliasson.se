@@ -2,34 +2,28 @@ baseurl = "https://markuseliasson.se"
 languageCode = "en-us"
 title = "Markus Eliasson"
 paginate = 10
-googleAnalytics = "UA-42999256-1"
-disqusShortname = "markus-eliasson"
 
 [params]
     author = "Markus Eliasson"
     authorBio = "A thorough technical lead with a passion for producing valuable and clean code. Tends to occasionally blog about building software and can't seem to make up his mind on which programming language to use next."
-    affiliateLogo = "/factor10.png"
-    affiliateLogoAlt = "factor10"
-    affiliateUrl = "http://factor10.com"
     authorEmail = "markus.eliasson@gmail.com"
-    gaCode = "UA-42999256-1"
 
 [[menu.footer]]
     name = "GitHub"
     url = "https://github.com/eliasson"
-    pre = "<img src=\"/badge-github.png\" /> "
+    pre = "<use xlink:href=\"#icon-github\"></use>"
     weight = 10
 
 [[menu.footer]]
     name = "Twitter"
     url = "https://twitter.com/markuseliasson"
-    pre = "<img src=\"/badge-twitter.png\" /> "
+    pre = "<use xlink:href=\"#icon-twitter\"></use>"
     weight = 20
 
 [[menu.footer]]
     name = "LinkedIn"
     url = "http://www.linkedin.com/in/markuseliasson"
-    pre = "<img src=\"/badge-linkedin.png\" /> "
+    pre = "<use xlink:href=\"#icon-linkedin\"></use>"
     weight = 30
 
 [markup]

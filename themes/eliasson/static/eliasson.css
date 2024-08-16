@@ -15,6 +15,7 @@
     --font-xl: 3.2rem;
 
     --background-color: var(--color-white);
+    --code-background-color: #f8f8f8;
     --text-color: var(--color-blackish);
 }
 
@@ -26,8 +27,6 @@
     }
 }
 
-
-/* Disposition ***************************************************************/
 html {
     font-family: 'Georgia', serif;
 }
@@ -49,7 +48,6 @@ body {
 
 
 body {
-    /* Main text layout is inspired by Tufte */
     max-width: 1400px;
     width: 87.5%;
     padding-left: 12.5%;
@@ -85,8 +83,6 @@ ul.social li + li {
     margin-top: 60px;
     width: 140px;
 }
-
-/* Typography ***************************************************************/
 
 p {
     width: 55%;
@@ -134,6 +130,22 @@ a:hover {
     border-bottom: 1px solid var(--color-blackish);
 }
 
+pre {
+    display: block;
+    line-height: 1rem;
+    background-color: var(--code-background-color);
+    width: 55%;
+    margin: 0 -1rem;
+    padding: 1rem;
+    word-break: break-word;
+    white-space: preserve;
+}
+
+code {
+    background: none;
+    font-size: 1rem;
+}
+
 time {
     display: block;
     width: 55%;
@@ -170,7 +182,7 @@ article ul li + li {
 
 article ul li:before {
     content: "-";
-    color: #e6352b;
+    color: var(--color-red);
     font-weight: 600;
     margin-right: 8px;
 }
@@ -189,7 +201,6 @@ article ul li:before {
     margin: 0;
 }
 
-/* Common ********************************************************************/
 .is-red-period {
     color: var(--color-red);
 }
@@ -206,7 +217,6 @@ a.no-feedback:visited {
     border-bottom: none;
 }
 
-/* Page logotype *************************************************************/
 header .logo {
     margin-top: 3em;
     margin-bottom: 3em;

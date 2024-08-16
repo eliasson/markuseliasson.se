@@ -5,7 +5,7 @@
     --color-red: #e6352b;
     --color-white: #fff;
     --color-whiteish: #ededed;
-    --color-gray: #939393;
+    --color-gray: #808080;
     --color-gray-vlight: #c3c3c3;
     --color-gray-dark: #1f1b1a;
 
@@ -17,6 +17,8 @@
     --background-color: var(--color-white);
     --code-background-color: #f8f8f8;
     --text-color: var(--color-blackish);
+    --dim-text-color: var(--color-gray);
+    --icon-color: var(--color-gray);
 }
 
 
@@ -24,6 +26,8 @@
     :root {
         --background-color: var(--color-gray-dark);
         --text-color: var(--color-whiteish);
+        --dim-text-color: var(--color-gray-vlight);
+        --icon-color: var(--color-gray)
     }
 }
 
@@ -71,10 +75,6 @@ ul.social li {
 
 ul.social li + li {
     padding-left: 1rem;
-}
-
-.is-icon {
-    stroke: #808080;
 }
 
 #face {
@@ -204,7 +204,7 @@ article ul li:before {
 }
 
 .list-item time {
-    color: var(--color-gray);
+    color: var(--dim-text-color);
     display: inline-block;
     margin: 0;
 }
@@ -216,6 +216,7 @@ article ul li:before {
 .is-icon {
     width: 16px;
     height: 16px;
+    stroke: var(--icon-color);
 }
 
 a.no-feedback,
@@ -264,5 +265,15 @@ header .logo a:visited {
         width: 100%;
         margin: 0 -1rem;
         padding: 1rem;
+    }
+
+    .list-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .list-item a {
+        align-self: flex-start;
     }
 }

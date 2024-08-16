@@ -50,7 +50,7 @@ body {
 
 body {
     /* Main text layout is inspired by Tufte */
-    max-width: 1600px;
+    max-width: 1400px;
     width: 87.5%;
     padding-left: 12.5%;
     margin-left: auto;
@@ -77,6 +77,13 @@ ul.social li + li {
 
 .is-icon {
     stroke: #808080;
+}
+
+#face {
+    float:left;
+    margin-left: -179px;
+    margin-top: 60px;
+    width: 140px;
 }
 
 /* Typography ***************************************************************/

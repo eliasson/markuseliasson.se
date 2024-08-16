@@ -150,12 +150,11 @@ article blockquote {
 
 article ul {
     width: 55%;
-    line-height: 1.4rem;
+    line-height: 1.2rem;
 }
 
 article ul li {
     list-style-type: none;
-    display: inline-flex;
 }
 
 article ul li + li {

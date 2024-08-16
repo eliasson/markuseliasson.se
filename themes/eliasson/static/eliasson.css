@@ -9,6 +9,7 @@
     --color-gray-vlight: #c3c3c3;
     --color-gray-dark: #1f1b1a;
 
+    --font-xs: 0.9rem;
     --font-s: 1.1rem;
     --font-m: 1.2rem;
     --font-l: 2.2rem;
@@ -276,6 +277,10 @@ header .logo a:visited {
 
     .list-item a {
         align-self: flex-start;
+    }
+
+    .list-item time {
+        font-size: var(--font-xs);
     }
 
     footer p {

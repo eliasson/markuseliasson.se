@@ -255,7 +255,7 @@ header .logo a:visited {
     article p,
     article ul,
     article ol {
-        width: 90%;
+        width: 100%;
     }
 
     article ul {
@@ -276,5 +276,9 @@ header .logo a:visited {
 
     .list-item a {
         align-self: flex-start;
+    }
+
+    footer p {
+        width: 100%;
     }
 }

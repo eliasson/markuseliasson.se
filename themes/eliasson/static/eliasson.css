@@ -122,14 +122,14 @@ a:active,
 a:hover,
 a:visited {
     color: var(--text-color);
-    text-decoration: none;
+    text-decoration: underline;
     font-weight: 400;
     word-break: break-word;
-    border-bottom: 1px solid var(--color-red);
+    text-decoration-color: var(--color-red);
 }
 
 a:hover {
-    border-bottom: 1px solid var(--color-blackish);
+    text-decoration-color: var(--color-blackish);
 }
 
 pre {

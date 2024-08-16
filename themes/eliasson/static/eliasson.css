@@ -4,13 +4,13 @@
     --color-blackish: #232323;
     --color-red: #e6352b;
     --color-white: #fff;
-    --color-whiteish: #ededed;
+    --color-whiteish: #efefef;
     --color-gray: #808080;
     --color-gray-vlight: #c3c3c3;
     --color-gray-dark: #1f1b1a;
 
-    --font-s: 1.0rem;
-    --font-m: 1.1rem;
+    --font-s: 1.1rem;
+    --font-m: 1.2rem;
     --font-l: 2.2rem;
     --font-xl: 3.2rem;
 
@@ -26,6 +26,7 @@
     :root {
         --background-color: var(--color-gray-dark);
         --text-color: var(--color-whiteish);
+        --text-color: #b8b8b8;
         --dim-text-color: var(--color-gray-vlight);
         --icon-color: var(--color-gray)
     }
@@ -38,8 +39,7 @@ html {
 body {
     color: var(--text-color);
     background-color: var(--background-color);
-
-    line-height: 1;
+    line-height: 1.2rem;
     font-size: var(--font-m);
     font-weight: 200;
     padding: 0;
@@ -48,6 +48,8 @@ body {
     flex-direction: column;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 

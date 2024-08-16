@@ -82,6 +82,7 @@ ul.social li + li {
     margin-left: -179px;
     margin-top: 60px;
     width: 140px;
+    display: none;
 }
 
 p {

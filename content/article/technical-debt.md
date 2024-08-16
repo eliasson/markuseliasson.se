@@ -59,8 +59,3 @@ To summarize:
 - Technical debt is a vague term, define concrete tasks and prioritize accordingly
 - Use techniques as Test-Driven Development and pair programming to improve the code quality in the first place
 - Collaborate and make sure features are well understood
-
-{{% post-scriptum %}}
-This was the second part of a series of articles, you can find the first one here:
-- [Your obstacles are YOUR obstacles](/article/your-obstacles-are-your-obstacles/)
-{{% /post-scriptum %}}

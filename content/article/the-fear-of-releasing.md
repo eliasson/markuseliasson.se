@@ -44,8 +44,3 @@ To summarize:
 
 _These ideas are not new, most of this is covered by Extreme Programming (XP). I highly recommend you to go read up on XP, although it’s more than 20 years old it is a breath of fresh air in today's software development._
 
-{{% post-scriptum %}}
-This was the third part of a series of articles, you can find the other ones here:
-- [Your obstacles are YOUR obstacles](/article/your-obstacles-are-your-obstacles/)
-- [Technical debt](/article/technical-debt/)
-{{% /post-scriptum %}}

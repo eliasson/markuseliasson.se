@@ -52,7 +52,3 @@ To summarize:
 - Find your bottleneck and resolve it, repeat
 - Optimize where the effect is the greatest
 - Do not distribute more than necessary
-
-{{% post-scriptum %}}
-This was the first post in a series of posts. Next week, I will tackle [technical debt.](/article/technical-debt/)
-{{% /post-scriptum %}}

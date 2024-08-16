@@ -52,7 +52,6 @@ body {
     font-style: normal;
 }
 
-
 body {
     max-width: 1400px;
     width: 87.5%;
@@ -99,6 +98,7 @@ p.preamble {
 h1 {
     font-weight: 400;
     font-size: var(--font-l);
+    line-height: 2rem;
     margin-top: 4rem;
     margin-bottom: 2rem;
 }

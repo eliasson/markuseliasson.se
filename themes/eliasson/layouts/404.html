@@ -3,6 +3,10 @@
 <body>
 {{ partial "header.html" . }}
 
+<script>
+    document.addEventListener("load", () => pirschNotFound());
+</script>
+
 <article>
     <h1>Hello<span class="is-red-period">.</span></h1>
     <p>The page you were looking for could not be found. May I interest you in one of my latest articles instead?</p>

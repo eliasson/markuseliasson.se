@@ -87,7 +87,7 @@ For readers unfamiliar with these concepts, the reasons are:
 
 The architecture is pretty standard, there is a front-end and a back-end service.
 
-> TODO IMAGE 1
+![Architecture overview](/designer/overview.png)
 
 The responsibility between these parts is that the back-end is responsible for:
 
@@ -134,7 +134,7 @@ Imagine that you are about to design a simple electricity route.
 - Yet another post is added, also with wiring to its previous post. The previous post is automatically rotated 45
   degrees to form a corner.
 
-> TODO IMAGE 2
+![Designing a tiny route](/designer/tiny-route.png)
 
 
 ## Step-by-step walkthrough
@@ -144,7 +144,7 @@ Let us walk through this step by step.
 Skipping the initial post, here is a simplified diagram on what happens when a user selects a post and acts on one of
 the arrows presented (i.e. the transition from image 2 to 3).
 
-> TODO IMAGE 3
+![Step by step](/designer/step-by-step.png)
 
 When the user selects the post, the 2D shape renderer will ask the `SolutionWorkingSet` which options are available (1).
 Option are modeled as `CommandOption`, each represents a single option with meta-data such as:
@@ -256,7 +256,7 @@ def *optionsForItem(id) =
 Now that the UI has received the options available it needs to show them somehow. In our case each option represents a
 possible direction, which is illustrated with a blue arrow.
 
-> TODO IMAGE 4
+![Executing a command](/designer/executing-command.png)
 
 The renderer code that generates the UI above upon a post selection looks something like this:
 
@@ -366,7 +366,7 @@ At a simplified level, this is it.
 
 Let’s recap before we dive into the strengths and weaknesses of this design.
 
-> TODO IMAGE 4
+![Step by step](/designer/step-by-step.png)
 
 The renderer and solution working set are unaware of the nitty-gritty details of posts and wires (i.e. the domain rules)
 and only focus on showing available options and rendering a world of items.

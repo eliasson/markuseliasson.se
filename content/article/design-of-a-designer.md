@@ -188,6 +188,8 @@ execute.
 
 Below is a pseudocode{{< note 2 >}} implementation of how such a method is implemented in the `RuleEngine`.
 {{< sidenote >}}2. A love child between Scala and TypeScript.{{< /sidenote >}}
+
+{{< code >}}
 ```
 def availableExtensionsFromPost(post, world, preferences) =
     for connection in post.availableConnections():
@@ -222,6 +224,7 @@ def availableExtensionsFromPost(post, world, preferences) =
             added = [newPost, wires],
             pointOfInterest = post.position) 
 ```
+{{< /code >}} 
 
 As illustrated in the code above, the `RuleEngine` is responsible to ensure that each alternative is viable. The
 alternative where the new wires would intersect with something existing is not a valid alternative and not included
@@ -233,6 +236,7 @@ The `RuleEngine` handles what is possible to do and what items of the world that
 The above method would have been called when the user selects the post item in the 2D rendering. Where the UI will call
 `SolutionWorkingSet.optionsForItem` to get the options to render.
 
+{{< code >}}
 ```
 def *optionsForItem(id) =
     val item = this.world.byId(id)
@@ -253,6 +257,7 @@ def *optionsForItem(id) =
         // Return an option that should be rendered as an Action at the given position
         yield Option(type = Action, position = alt.pointOfInterest, command))
 ```
+{{< /code >}}
 
 ### Executing commands
 
@@ -263,6 +268,7 @@ possible direction, which is illustrated with a blue arrow.
 
 The renderer code that generates the UI above upon a post selection looks something like this:
 
+{{< code >}}
 ``` 
 // Method called when user selects a post
 def showOptions(itemId) =
@@ -276,6 +282,7 @@ def showOptions(itemId) =
                 onClick = this.workingSet.execute(option.command))
             this.canvas.add(ornament)
 ```
+{{< /code >}}
 
 As you can see the UI is quite “dumb”, it will only get available options, filter out the relevant ones and then create
 the UI control that should be used to represent it.
@@ -285,6 +292,7 @@ implement the “action handler” when a blue arrow is clicked is very simple, 
 
 When the user clicks the arrow the command is executed by calling the `SolutionWorkingSet.execute`:
 
+{{< code >}}
 ```
 def executeCommand(command):
     // Handle the undo and redo stack 
@@ -306,6 +314,7 @@ def executeCommand(command):
     val renderInstructions = this.createRenderInstructions(executionResult)
     this.renderer.rerender(renderInstructions)
 ```
+{{< /code >}}
 
 The `SolutionWorkingSet` is orchestrating the command execution, handling things like the undo/redo stack and generates
 instructions on what to render based on the result of the command execution (to avoid re-render the entire drawing).
@@ -318,6 +327,7 @@ arguments to the command, `ExtendFromPostCommand(alt.replacement, alt.added)`.
 
 The implementation of the command execution is something like:
 
+{{< code >}}
 ```
 def execute(world) =
     // The command constructor was given the items to replace and add
@@ -333,6 +343,7 @@ def execute(world) =
         updated = [this.replacement]
         deleted = [])
 ```
+{{< /code >}}
 
 This is a simple command, the RuleEngine has already constructed all the items needed. The command only needs to connect
 the wiring between the posts in order to set the positions and attach the wire to each post.
@@ -418,6 +429,7 @@ a post given its state. Modifying or accessing the world is also simple to unit-
 The domain rules have slightly more high-level tests that are executed via the `SolutionWorkingSet` to the `RuleEngine`
 and back. These tests look something like this:
 
+{{< code >}}
 ```
 describe("extend form post"):
     beforeEach:
@@ -451,6 +463,7 @@ describe("extend form post"):
                     var posts = workingSet.world.posts()
                     expect(posts.length).toEqual(2)
 ```
+{{< /code >}}
 
 Sure, in the real world there are slightly more details to these tests. I think that the use of options and commands
 also benefit the test setup to be quite readable.

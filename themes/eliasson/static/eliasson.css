@@ -15,8 +15,12 @@
     --font-l: 2.2rem;
     --font-xl: 3.2rem;
 
+    --text-width: 60%;
+    --aside-width: 40%;
+
     --background-color: var(--color-white);
     --code-background-color: #f8f8f8;
+    --image-background-color: var(--background-color);
     --text-color: var(--color-blackish);
     --dim-text-color: var(--color-gray);
     --icon-color: var(--color-gray);
@@ -27,6 +31,7 @@
     :root {
         --background-color: var(--color-gray-dark);
         --code-background-color: #2b2726;
+        --image-background-color: var(--color-white);
         --text-color: #b8b8b8;
         --dim-text-color: var(--color-gray);
         --icon-color: var(--color-gray)
@@ -87,13 +92,43 @@ ul.social li + li {
 }
 
 p {
-    width: 55%;
-    line-height: 1.5rem;
+    width: var(--text-width);
+    line-height: 1.7rem;
 }
 
 p.preamble {
-    line-height: 1.5rem;
+    line-height: 1.7rem;
     font-style: oblique;
+}
+
+article span.sidenote {
+    position: relative;
+    float: right;
+    clear: right;
+
+    width: var(--aside-width);
+    margin-right: calc(-1 * var(--text-width));
+    margin-top: -4rem;
+    line-height: 1.7rem;
+    font-size: var(--font-xs);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+article p span.sidenote a {
+    display: inline;
+}
+
+article p span.sidenote img {
+    max-width: 100%;
+    margin: 0.5rem 0;
+}
+
+.note {
+    font-size: var(--font-xs);
+    position: relative;
+    top: -0.5rem;
 }
 
 h1 {
@@ -139,7 +174,7 @@ pre {
     display: block;
     line-height: 1rem;
     background-color: var(--code-background-color);
-    width: 55%;
+    width: var(--text-width);
     margin: 0 -1rem;
     padding: 1rem;
     word-break: break-word;
@@ -152,9 +187,15 @@ code {
 }
 
 img {
-    max-width: 1400px;
+    max-width: 100%;
     margin: 1rem auto;
+    background-color: var(--image-background-color);
 }
+
+div.fullwidth pre {
+    width: 100%
+}
+
 
 strong {
     font-weight: 600;
@@ -183,7 +224,7 @@ article blockquote {
 
 article ul,
 article ol {
-    width: 55%;
+    width: var(--text-width);
     line-height: 1.5rem;
     padding-left: 1rem;
 }
@@ -292,5 +333,9 @@ header .logo a:visited {
 
     footer p {
         width: 100%;
+    }
+
+    article span.sidenote {
+        display: none;
     }
 }

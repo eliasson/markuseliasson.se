@@ -1,12 +1,11 @@
 ---
-title: "Design of a Designer"
-date: 2024-09-03T15:21:00+02:00
+title: "The Design of a Designer"
+date: 2024-09-03T20:00:00+02:00
 description:
   Here is a walkthrough of the software design of a construction design tool I have been working on lately. It is a
   long read, focusing on the user interaction of such a tool in a complex domain, together with the benefits and
   challenges of this design. I always enjoy reading about how a piece of software is designed, the rationale behind
   the decisions, etc. This article is my way of giving back.
-draft: true
 ---
 
 I recently had the great opportunity to be part of a team that developed a piece of software that enabled users to
@@ -25,8 +24,10 @@ Why on earth would anyone build their own design tool? Is it not enough to rely 
 
 ## Computer Aided Design
 
-Most CAD software are highly advanced 3D-modeling tools. They provide incredible levels of details, simulations, stress
-analysis, integrations to product data and a long list of other features.
+Most CAD software are highly advanced 3D-modeling tools.
+{{< sidenote >}}<img src="/designer/picoCAD.jpg" alt="picoCAD" /><a class="no-feedback" href="https://johanpeitz.itch.io/picocad" target="_new">The fabulous picoCAD</a>{{< /sidenote >}}
+They provide incredible levels of details, simulations, stress analysis, integrations to product data and a long list
+of other features.
 
 CAD tools are also aimed at technical people that care about most of those details. The tool we were asked to develop
 is both a technical tool and a sales tool. The target audience for said tool might very well be in charge of both the
@@ -34,7 +35,6 @@ purchase and assembly of the products sold.
 
 One might argue that such a tool is still a Computer Aided Design tool, but it is not really what most people would
 consider a _“CAD-tool”_.
-
 
 ## Objectives
 
@@ -54,8 +54,9 @@ Onboarding of new users should not require dedicated training.
 
 ## Domain
 
-As you might have noticed I have stayed away from naming our client and their specific domain. It is not relevant for
-this article and instead the examples used to illustrate the design will be generic. Let’s pretend we’re about to
+As you might have noticed I have stayed away from naming our client and their specific domain.
+{{< sidenote >}}<img src="/designer/our-domain.png" alt="Our domain" />Our domain, old school power lines.{{< /sidenote >}}
+It is not relevant for this article and instead the examples used to illustrate the design will be generic. Let’s pretend we’re about to
 develop a software to design a system of old school overhead power lines.
 
 - There are multiple types of posts; wood and steel.
@@ -73,7 +74,7 @@ The team building this software relied on the following principles during the de
 - Domain logic should be kept out from any rendering.
 
 While not clearly defined at the start of the project these principles were already agreed upon by the team from earlier
-projects and a long history of using Domain Driven Design, Extreme Programming and Test-Driven Development.
+projects and a long history of using **Domain Driven Design**, **Extreme Programming** and **Test-Driven Development**.
 
 For readers unfamiliar with these concepts, the reasons are:
 
@@ -82,12 +83,11 @@ For readers unfamiliar with these concepts, the reasons are:
 - Rendering UI, drawings, etc. should be separated from domain logic to allow for independent changes and life cycles.
 - TDD gives us a sound design as well as confidence to change and improve the software for years to come.
 
-
 ## Architecture and software design
 
 The architecture is pretty standard, there is a front-end and a back-end service.
 
-![Architecture overview](/designer/overview.png)
+{{< fullwidth title="Architecture overview" source="/designer/overview.png" >}}
 
 The responsibility between these parts is that the back-end is responsible for:
 
@@ -102,9 +102,9 @@ The responsibility between these parts is that the back-end is responsible for:
 The front-end is where the user designs a solution in a 2D canvas with 3D rendering as a companion view. And where the
 user initiates the actions to order and to export the drawing in various formats.
 
-We chose to make the application front-end heavy in order to get as snappy interactions as possible. The rest of the
-article will focus on the front-end parts and pieces.
-
+We chose to make the application front-end heavy{{< note 1 >}} in order to get as snappy interactions as possible.
+The rest of the article will focus on the front-end parts and pieces.
+{{< sidenote >}}1. In responsibility, not in bytes.{{< /sidenote >}}
 
 ## User interaction
 
@@ -134,8 +134,7 @@ Imagine that you are about to design a simple electricity route.
 - Yet another post is added, also with wiring to its previous post. The previous post is automatically rotated 45
   degrees to form a corner.
 
-![Designing a tiny route](/designer/tiny-route.png)
-
+{{< fullwidth title="Designing a tiny route" source="/designer/tiny-route.png" >}}
 
 ## Step-by-step walkthrough
 
@@ -144,7 +143,7 @@ Let us walk through this step by step.
 Skipping the initial post, here is a simplified diagram on what happens when a user selects a post and acts on one of
 the arrows presented (i.e. the transition from image 2 to 3).
 
-![Step by step](/designer/step-by-step.png)
+{{< fullwidth title="Step by step" source="/designer/step-by-step.png" >}}
 
 When the user selects the post, the 2D shape renderer will ask the `SolutionWorkingSet` which options are available (1).
 Option are modeled as `CommandOption`, each represents a single option with meta-data such as:
@@ -152,7 +151,7 @@ Option are modeled as `CommandOption`, each represents a single option with meta
 - **Type**, if this represents an action, movement, menu item, keyboard, etc.
 - **Label**, used if this option is displayed as a menu item.
 - **Command**, if this option is selected by the user, there is a pre-constructed command that should be executed. This
-- command is fully constructed and `CommandOption` will never be created with a command that cannot be executed.
+  command is fully constructed and `CommandOption` will never be created with a command that cannot be executed.
 
 In our example four arrows were presented for the user. These are represented by four different `CommandOption`, one for
 each direction. The type of these options will be of the type action, it has a label that can be used as tooltip by the
@@ -169,7 +168,7 @@ Later in the illustration (screenshot 4), the user selects another post where on
 While this is obvious for a highly trained electricity planner such as yourself, the program still needs to have some
 way of determining the available options should only be for three directions, since one is already in use.
 
-The chosen approach for this is to combine the following into something we refer to as the rule engine.
+The chosen approach for this is to combine the following into something we refer to as the `RuleEngine`.
 
 - **A rich domain model** - a post can tell how many available connections that are available (among other things).
 - **Product data** - which posts and wires are compatible with each other.
@@ -187,8 +186,8 @@ In the case of extending the electricity route into the available directions it 
 All items are fully constructed, have the correct position for each alternative, and all alternatives are possible to
 execute.
 
-Below is a pseudocode implementation of how such a method is implemented in the rule engine.
-
+Below is a pseudocode{{< note 2 >}} implementation of how such a method is implemented in the `RuleEngine`.
+{{< sidenote >}}2. A love child between Scala and TypeScript.{{< /sidenote >}}
 ```
 def availableExtensionsFromPost(post, world, preferences) =
     for connection in post.availableConnections():
@@ -224,11 +223,11 @@ def availableExtensionsFromPost(post, world, preferences) =
             pointOfInterest = post.position) 
 ```
 
-As illustrated in the code above, the rule engine is responsible to ensure that each alternative is viable. The
+As illustrated in the code above, the `RuleEngine` is responsible to ensure that each alternative is viable. The
 alternative where the new wires would intersect with something existing is not a valid alternative and not included
 in the result.
 
-The rule engine handles what is possible to do and what items of the world that will be affected. It is the
+The `RuleEngine` handles what is possible to do and what items of the world that will be affected. It is the
 `SolutionWorkingSet` that is the glue between the graphical representation and the domain model.
 
 The above method would have been called when the user selects the post item in the 2D rendering. Where the UI will call
@@ -239,17 +238,21 @@ def *optionsForItem(id) =
     val item = this.world.byId(id)
     
     // Use our method to get the possible alternatives for extensions
-    val alternatives = this.ruleEngine.availableExtensionsFromPost(item, this.world. this.preferences)
+    val alternatives = this.ruleEngine.availableExtensionsFromPost(
+      item, 
+      this.world. 
+      this.preferences)
+      
     for alt in alternatives:
-        // Create the command that will be executed if the user selects this option
-        // Each command has different needs, this one will only need to replace one post and add the
-        // new items to the world upon execution.
+        // Create the command that will be executed if the user selects
+        // this option.
+        // Each command has different needs, this one will only need to
+        // replace one post and add the new items to the world upon execution.
         val command = ExtendFromPostCommand(alt.replacement, alt.added)
         
         // Return an option that should be rendered as an Action at the given position
         yield Option(type = Action, position = alt.pointOfInterest, command))
 ```
-
 
 ### Executing commands
 
@@ -366,12 +369,12 @@ At a simplified level, this is it.
 
 Let’s recap before we dive into the strengths and weaknesses of this design.
 
-![Step by step](/designer/step-by-step.png)
+{{< fullwidth title="Step by step" source="/designer/step-by-step.png" >}}
 
 The renderer and solution working set are unaware of the nitty-gritty details of posts and wires (i.e. the domain rules)
 and only focus on showing available options and rendering a world of items.
 
-The commands, world, and rule engine on the other hand are unaware of how options are presented or how actions are
+The commands, world, and `RuleEngine` on the other hand are unaware of how options are presented or how actions are
 triggered. Both the commands and rules are focused on the domain rules for a fixed number of situations or tasks.
 
 All of this runs at the client side of the application, after a command has been executed, the server is updated with
@@ -469,16 +472,18 @@ When we started this project we kept a collaboration mode in the back of our min
 it fits well with the command execution model where the result of an execution can be distributed to other peers.
 
 I think a simple conflict resolution scheme would be sufficient, one where the first to change an item wins. As pointed
-out in this article there is a social lock already. If you visualize where your collaborators are working there is a
-natural tendency to not interfere with others, effectively avoiding conflicts.
+out in [this article](https://jamsocket.com/blog/you-might-not-need-a-crdt){{< note 3 >}} there is a social lock
+already. If you visualize where your collaborators are working there is a  natural tendency to not interfere with
+others, effectively avoiding conflicts.
+{{< sidenote >}}<a class="no-feedback" href="https://jamsocket.com/blog/you-might-not-need-a-crdt">3.You might not need a CRDT</a>{{< /sidenote >}}
 
 As stated in the beginning of this long article, we wanted product data and rules to be managed as configuration and by
 domain experts. Currently, domain experts can easily add or update project data, but they cannot change the business
-rules. I believe there is room for improvement here. Maybe some of the rules in the RuleEngine can be expressed in
+rules. I believe there is room for improvement here. Maybe some of the rules in the `RuleEngine` can be expressed in
 something more high-level that even the domain experts can be trained to work in, a small domain specific language,
 perhaps. Considering how the gaming industry uses scripting languages in combinations with games engines, I think other
 businesses could benefit from this way of adjusting the software, if you get it right it would surely amplify the
 capabilities of your domain experts.
 
 Thank you for reading! I hope this walkthrough gave you some inspiration or ideas. If you have any thoughts or
-questions please reach out.
+questions please [reach out](mailto:markus.eliasson@gmail.com).

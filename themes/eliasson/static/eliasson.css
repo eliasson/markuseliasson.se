@@ -170,6 +170,21 @@ a:hover {
     text-decoration: none;
 }
 
+a:focus {
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: var(--color-red);
+    background-color: var(--color-red);
+    color: var(--color-white);
+    stroke: var(--color-white);
+}
+
+pre:focus {
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: var(--color-red);
+}
+
 pre {
     display: block;
     line-height: 1rem;
@@ -267,6 +282,10 @@ article ul li:before {
     width: 16px;
     height: 16px;
     stroke: var(--icon-color);
+}
+
+a:focus .is-icon {
+    stroke: var(--color-white);
 }
 
 a.no-feedback,

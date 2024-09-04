@@ -6,6 +6,7 @@ description:
   long read, focusing on the user interaction of such a tool in a complex domain, together with the benefits and
   challenges of this design. I always enjoy reading about how a piece of software is designed, the rationale behind
   the decisions, etc. This article is my way of giving back.
+draft: true
 ---
 
 I recently had the great opportunity to be part of a team that developed a piece of software that enabled users to

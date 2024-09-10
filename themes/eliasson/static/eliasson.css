@@ -354,6 +354,7 @@ header .logo a:visited {
         width: 100%;
     }
 
+    article span.note,
     article span.sidenote {
         display: none;
     }

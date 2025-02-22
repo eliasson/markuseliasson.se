@@ -46,7 +46,7 @@ public class BarDto(uint count, Bar bar)
 {
 	public uint Count;
 	public readonly string Filling = bar.Filling;
-	public readonly decimal Diameter = Math.Round(thing.Diameter, 1);
+	public readonly decimal Diameter = Math.Round(bar.Diameter(), 1);
 }
 ```
 

@@ -108,7 +108,8 @@ article span.sidenote {
 
     width: var(--aside-width);
     margin-right: calc(-1 * var(--text-width));
-    margin-top: -4rem;
+    margin-top: -3rem;
+    padding-bottom: 4rem;
     line-height: 1.7rem;
     font-size: var(--font-xs);
     display: flex;
@@ -218,7 +219,6 @@ strong {
 
 time {
     display: block;
-    width: 55%;
     margin: 2rem 0 3rem 0;
     font-size: var(--font-s);
 }

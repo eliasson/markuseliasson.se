@@ -27,6 +27,8 @@ record class Bar(decimal Diameter, string Filling)
 ```
 
 The task was to group these bars based on their diameter and filling to better understand what sells the most.
+Then take that list and save it elsewhere. When saving, the diameter should be rounded to _1 decimal_ which was
+decided to be precise enought for our use-case.
 
 I choose to implement a key that represented the unique properties to group on as follows:
 
@@ -37,11 +39,7 @@ record class Bar(decimal Diameter, string Filling)
 }
 ```
 
-Part of the grouping was to produce another list with the count of bars sharing the same key. Then take that list
-and save it elsewhere. When saving the diameter should be rounded to _1 decimal_ which was decided to be precise
-enought for our use-case.
-
-So there was a DTO for this bar as well, looking something like this:
+There was a DTO for this bar as well, looking something like this:
 
 ```csharp
 public class BarDto(uint count, Bar bar)

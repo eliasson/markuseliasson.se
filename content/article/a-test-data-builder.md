@@ -115,7 +115,7 @@ favourite.
 
 With no test-helper such a test might look something like.
 {{< code >}}
-```
+```csharp
 public class WithoutTheBuilder
 {
     private UserRepository _userRepository = null!;
@@ -296,7 +296,7 @@ Providing an _optional_ argument where the caller of the function (the test) can
 nice. The basis of the instance will be using the default data used in the builder, and the test can override the
 significant details from the test, like setting the track name: 
 
-```
+```csharp
 .WithTrack(configure: t => t.Title = "Glassy Eyes")`
 ```
 

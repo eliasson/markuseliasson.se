@@ -29,4 +29,4 @@ paginate = 10
 [markup]
     [markup.highlight]
         noClasses = false
-
+        codeFences = true

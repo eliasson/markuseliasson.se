@@ -15,12 +15,6 @@ paginate = 10
     weight = 10
 
 [[menu.footer]]
-    name = "Twitter"
-    url = "https://x.com/markuseliasson"
-    pre = "<use xlink:href=\"#icon-twitter\"></use>"
-    weight = 20
-
-[[menu.footer]]
     name = "LinkedIn"
     url = "http://www.linkedin.com/in/markuseliasson"
     pre = "<use xlink:href=\"#icon-linkedin\"></use>"

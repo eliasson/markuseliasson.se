@@ -1,6 +1,6 @@
 ---
 title: "A test-data builder"
-date: 2025-02-26T09:00:00+02:00
+date: 2025-03-25T12:00:00+02:00
 description:
   A while back I built a test-data builder for one of the projects I am working on. Now, after
   using if for some time I really think it simplifies and improves our tests, while also helping

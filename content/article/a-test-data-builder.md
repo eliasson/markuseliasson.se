@@ -14,7 +14,7 @@ can easily result in complex and verbose test-setup.
 
 A complex test-setup in combination with a system where we have thousands of tests is not a good
 combination! One of the ways to mitigate this is to provide a test-data builder. A tool that helps
-you to set up correct test-data while avoiding repetition. 
+you to set up correct test-data while avoiding repetition.
 
 This article will go through the implementation of such a test-data builder.
 
@@ -77,7 +77,7 @@ public class Track : IAggregate
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Title { get; set; } = string.Empty;
     public bool IsFavorite { get; private set;  } = false;
-    
+
     public void MarkAsFavourite() => IsFavorite = true;
     public void UnmarkAsFavourite() => IsFavorite = false;
 }
@@ -89,7 +89,7 @@ of it as a coherent entity with a unique ID. It is not that important{{< note 2 
 article.
 {{< sidenote >}}
 2. Aggregate is an important concept in Domain Driven Design, however. And I think DDD is a valuable tool
-for modelling complex domains. It is definitely worth looking into. 
+for modelling complex domains. It is definitely worth looking into.
 {{< /sidenote >}}
 
 ## Our system design
@@ -98,7 +98,7 @@ While being a very small example, I have built it using patterns, like repositor
 Domain Driven Design{{< note 3>}}, similar to the system that where I originally created this test-data builder.
 It is however not necessary to use these patterns to get the benefits of a test-data builder. The concepts used
 in the example are fairly unorthodox and hopefully easy enough to understand even if you are not familiar with
-them in the first place. 
+them in the first place.
 {{< sidenote >}}
 3. Here is this domain thing again! Could it be something interesting? 🤔
 {{< /sidenote >}}
@@ -191,8 +191,8 @@ of tests. A lot  of those tests would have very similar setup and in worst case,
 {{< sidenote >}}
 4. In the system this originates from we have > 20 000 tests for the backend alone.
 {{< /sidenote >}}
- 
-This it is not an ideal situation. 
+
+This it is not an ideal situation.
 
 > This looks like an integration level tests!
 
@@ -276,24 +276,24 @@ public FavouriteTestCase WithUser(
     var task = Task.Run(() => {
         // Create an arbitrary user.
         var user = new User { Username = name?.Name ?? "emma.goldman" };
-        
+
         // Allow the caller to configure the instance before saving.
         configure?.Invoke(user);
         await UserRepository.SaveAsync(user, CancellationToken.None);
-    
+
         // Use the given name or create a default name to use for this
         // test-data instance.
         var testName = name ?? NextUserName();
-        
+
         // Store details about the constructed user and its test-data
-        // name so it can be retrieved from tests. 
+        // name so it can be retrieved from tests.
         _constructedUsers.Enqueue(new ConstructedUser(user, testName));
     });
-    
+
     // Keep track of the task so that we can wait for its completion at
     // a later stage.
     _constructionOfUsers.Add(task);
-    
+
     // This is a builder alright!
     return this;
 }
@@ -309,7 +309,7 @@ will not wait for this complete.
 2. Store this operation as `task`, so that it can be added to a list of all the tasks of _"created users"_.
 3. Once the code passed to `Task.Run` is executed, create an arbitrary instance of `User`.
 4. Since arbitrary data only gets you so far, there is an option for the caller to configure the instance.
-5. When the code passed to `Task.Run` is run, it can be async, which allows for saving the user using async I/O operations. 
+5. When the code passed to `Task.Run` is run, it can be async, which allows for saving the user using async I/O operations.
 6. After the user is saved via the repository it is added to a list of constructed users.
 There is an option for the caller to provide a name for this instance, if none is given a default name is created
 
@@ -350,7 +350,7 @@ public async Task<FavouriteTestCase> BuildAsync()
     await Task.WhenAll(_constructionOfArtists);
     await Task.WhenAll(_constructionOfAlbums);
     await Task.WhenAll(_constructionOfTracks);
-    
+
     // Create the System Under Test
     FavouriteService = new FavouriteService(UserRepository, TrackRepository);
 
@@ -382,7 +382,7 @@ public class FavouriteTestCase
 {
     protected readonly UserRepository UserRepository = new ();
     protected readonly Repository<Track> TrackRepository = new ();
-    
+
     private readonly IList<Task> _constructionOfUsers = new List<Task>();
     // ...
 }
@@ -489,7 +489,7 @@ set as favourite.
 Here is the test, so that you do not have to scroll:
 
 {{< code >}}
-```
+```csharp
 var user = await _tc.UserOrThrowAsync();
 
 var favouriteTracks = await _tc.FavouriteService
@@ -578,6 +578,7 @@ concrete implementations for each area we are testing. So if there is a service,
 there is a `FavouriteServiceTestCase` subclass that sets up the service, and implement any convenience methods that are
 only relevant in the tests of that service, such as:
 
+{{< code >}}
 ```csharp
 public async Task<IEnumerable<string>> FavouriteTrackNamesAsync(UserName name)
 {
@@ -588,6 +589,7 @@ public async Task<IEnumerable<string>> FavouriteTrackNamesAsync(UserName name)
         .ToListAsync();
 }
 ```
+{{< /code >}}
 
 The construction of arbitrary objects does not have to be part of the builder. Some of them can be shifted to a static
 class that is fully synchronous and also very helpful to use in smaller, unit-tests.

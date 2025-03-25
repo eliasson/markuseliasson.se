@@ -3,17 +3,18 @@ title: "A test-data builder"
 date: 2025-02-26T09:00:00+02:00
 description:
   A while back I built a test-data builder for one of the projects I am working on. Now, after
-  using if for some time I really think it simplifies and improves our tests, while also being
-  faster to write. This article will guide you through how to implement one for yourself.
+  using if for some time I really think it simplifies and improves our tests, while also helping
+  us to write new tests faster. This article will guide you through how to implement one for yourself.
 ---
 In the system I currently work on we do a lot of automated testing. Both unit-tests, system-tests,
-integration-tests, end-to-end tests, etc. When doing system level tests and integration-tests we
-are faced with setting up test data for many different situations. The test-data must also be
+integration-tests, end-to-end tests, etc. When doing system level tests and integration-tests we are faced with
+setting up test data for many different situations. The test-data must also be
 correct / valid, as there are plenty of business rules that are validated by the system. This
 can easily result in complex and verbose test-setup.
 
 A complex test-setup in combination with a system where we have thousands of tests is not a good
-combination! One of the ways to mitigate this is to provide a test-data builder.
+combination! One of the ways to mitigate this is to provide a test-data builder. A tool that helps
+you to set up correct test-data while avoiding repetition. 
 
 This article will go through the implementation of such a test-data builder.
 
@@ -22,8 +23,8 @@ This article will go through the implementation of such a test-data builder.
 Before we dive into the art of test-data, let us set the scene by going through the example domain
 used in this article.
 
-As I enjoy listening to (and collecting) music, so today's domain will be albums and
-tracks. The model is greatly simplified to only contain what is needed for two illustrative tests.
+As I enjoy listening to (and collecting) music, so today's domain will be albums and tracks. The
+model is greatly simplified to only contain what is needed for two illustrative tests.
 
 Think of system where a user enters music albums, their tracks and the performing artist. The user
 can mark tracks as favourite tracks. And that is all there is.
@@ -88,13 +89,13 @@ of it as a coherent entity with a unique ID. It is not that important{{< note 2 
 article.
 {{< sidenote >}}
 2. Aggregate is an important concept in Domain Driven Design, however. And I think DDD is a valuable tool
-for modelling complex domains.
+for modelling complex domains. It is definitely worth looking into. 
 {{< /sidenote >}}
 
 ## Our system design
 
-While being a very small example, I have built it using patterns from Domain Driven Design{{< note 3>}}, just
-like the system that where I originally created this test-data builder.
+While being a very small example, I have built it using patterns, like repository pattern, from
+Domain Driven Design{{< note 3>}}, similar to the system that where I originally created this test-data builder.
 It is however not necessary to use these patterns to get the benefits of a test-data builder. The concepts used
 in the example are fairly unorthodox and hopefully easy enough to understand even if you are not familiar with
 them in the first place. 
@@ -105,7 +106,7 @@ them in the first place.
 Concepts used:
 - **Domain model**, a rich domain model that contains most of the business logic. Free of I/O and other effects.
 - **Repositories**, are used for all reading and writing of aggregates, lots of I/O.
-- **Services**, are the point of entry for any actions, orchestrates domain model and other processing. The examples use it very sparsely.
+- **Services**, are the point of entry for any actions, orchestrates domain model and other processing.
 - **Asynchronous**, all I/O operations are asynchronous and test-data generation must therefore support it.
 
 ## A first test
@@ -181,11 +182,30 @@ its album reference also exists.
 Now, think about your own system. Are your entities as simple as set up as the `Artist` and `Album` above? No, I did
 not think so.
 
-Combine this with having thousands of tests, where a lot of setup is repeated, it is not an ideal situation. 
+Now, think about your own system. I am pretty confident that your entities are a lot more complex than the example
+above. If this was not an example made to be simple, the maybe the `Album` would require us to add information about
+the label. The tracks to include details about composers, etc.
+
+Take this mental image of a complex domain and then how it would look having to be setup in thousands{{< note 4 >}}
+of tests. A lot  of those tests would have very similar setup and in worst case, this setup is copied from test to test.
+{{< sidenote >}}
+4. In the system this originates from we have > 20 000 tests for the backend alone.
+{{< /sidenote >}}
+ 
+This it is not an ideal situation. 
+
+> This looks like an integration level tests!
+
+I call it a "system level" test, and yes, in the examples we rely on persistence. These could be in-memory or a real
+database it is up to you. Regardless of underlying technology I would argue that using an actual implementation rather
+than mocks both increase the confidence in the tests, and making them more robust to future changes.
+
+The test data builder is not limited to these types of tests though! It is just that I write a lot of these, and I have
+found the builder to be very valuable at this level.
 
 ## An alternative
 
-Now, let us see how this might look using a test-data builder.
+Now, let us finally see how this might look using this test-data builder.
 
 {{< code >}}
 ```csharp
@@ -289,7 +309,7 @@ will not wait for this complete.
 2. Store this operation as `task`, so that it can be added to a list of all the tasks of _"created users"_.
 3. Once the code passed to `Task.Run` is executed, create an arbitrary instance of `User`.
 4. Since arbitrary data only gets you so far, there is an option for the caller to configure the instance.
-5. When the code passed to `Task.Run` is run, it can be async, which 
+5. When the code passed to `Task.Run` is run, it can be async, which allows for saving the user using async I/O operations. 
 6. After the user is saved via the repository it is added to a list of constructed users.
 There is an option for the caller to provide a name for this instance, if none is given a default name is created
 
@@ -297,7 +317,7 @@ Being synchronous allows for the builder notation, where method calls are chaine
 thought the construction itself is asynchronous. E.g.
 
 ```csharp
-WithUser().WithArtist().WithArtist()
+WithUser().WithArtist().WithAlbum()
 ```
 
 Providing an _optional_ argument where the caller of the function (the test) can configure the test-data is quite
@@ -348,7 +368,7 @@ Since our data is relational, aggregates can depend{{< note 6 >}} on their ances
 that part soon). Therefore, we wait in top-down order for construction.
 {{< sidenote >}}
 6. If you have circular dependencies between your aggregates, you will have to resolve these dependencies differently!
-Circular dependencies is a drag.
+Circular dependencies are a drag.
 {{< /sidenote >}}
 
 Once all objects are created, we can proceed to create an instance of the `FavouriteService`, which is the service we
@@ -373,7 +393,7 @@ public class FavouriteTestCase
 
 At the very end of our test setup, we want to act on our service to set a track as favourite. But in order to do that
 we need to get hold of the acting user and the track to favourite. Given that we asked the test-builder to create if
-for us, we have no reference to those objects.
+for us, we have no reference to those objects around.
 
 This is where the _test-data name_ comes in.
 
@@ -386,7 +406,7 @@ public FavouriteTestCase WithUser(UserName? name = null, Action<User>? configure
 {{< /code >}}
 
 This resulted in that the code that created the actual instance of the `User` aggregate used the default name for this
-instance during construction. Remember these statements?
+instance when it was constructed. Remember these statements?
 
 {{< code >}}
 ```csharp
@@ -438,13 +458,13 @@ Let us break it down.
 7. Using guards and assertions in your test-utils can be a real time-saver for future you!
 {{< /sidenote >}}
 3. Get the representation of the created user matching the given name, or use the first as default.
-4. Maybe the test misspelled the test-data, catch this.
+4. If there is no result, fail with a helpful message.
 5. Read and return the latest version of this aggregate.{{< note 8 >}}
 {{< sidenote >}}
 8. Yes, there is plenty of I/O hidden in this builder. But I rather have I/O than stale data to assert on!
 {{< /sidenote >}}
 
-The representation of the created object mentioned at step 4, is a small data type for matching name to aggregate ID.
+The representation of the created object mentioned at step 3, is a small data type for matching name to aggregate ID.
 This is what is kept in memory for created aggregates.
 
 {{< code >}}
@@ -501,6 +521,7 @@ This test exercise the test-data names a lot more than the previous one did. I p
 and to produce the mental graph of the objects and their relationships. Most of the details seen are the significant
 details of the tests, then, of course, there is some verbosity in type signatures, courtesy of C#.
 
+{{< code >}}
 ```csharp
 public class WhenGettingFavouriteTracksAcrossAlbums
 {
@@ -545,16 +566,17 @@ public class WhenGettingFavouriteTracksAcrossAlbums
     }
 }
 ```
+{{< /code >}}
 
 ### Improvements
 
 If you like what you see I would recommend you to start fairly simple and grow your test-builder over time. A few things
-we have done at work:
+we have done at work is.
 
 We have an abstract `TestCaseBuilder` that implements all generic operations (CRUD) for all our aggregates. Then we have
 concrete implementations for each area we are testing. So if there is a service, similar to the `FavouriteService`,
-there is a `FavouriteServiceTestCase` subclass that sets up the service, and implement convenience methods that are
-used in multiple tests, such as:
+there is a `FavouriteServiceTestCase` subclass that sets up the service, and implement any convenience methods that are
+only relevant in the tests of that service, such as:
 
 ```csharp
 public async Task<IEnumerable<string>> FavouriteTrackNamesAsync(UserName name)

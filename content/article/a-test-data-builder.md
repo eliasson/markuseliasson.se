@@ -258,9 +258,9 @@ But there are a lot of things going on under the hood. Let us go through piece b
 ### Synchronous setup - asynchronous construction
 
 Previously I wrote that all construction and I/O has to be asynchronous, did I not? So how come we add
-user with `WithUser`, this does not look very asynchronous{{< note 4>}}.
+user with `WithUser`, this does not look very asynchronous{{< note 5>}}.
 {{< sidenote >}}
-4. In C# asynchronous methods returns a `Task` (similar to JavaScript's `Promise` or `Future` in Scala). The convention
+5. In C# asynchronous methods returns a `Task` (similar to JavaScript's `Promise` or `Future` in Scala). The convention
 is to name such methods using a `Async` suffix.
 {{< /sidenote >}}
 
@@ -333,9 +333,9 @@ from the test, like setting the track name:
 Building the test-case on the other hand is an asynchronous task. The build has two main purposes:
 
 1. Setup and configure the test-data instances.
-2. Create the component that is being tested (i.e. the "system under test"{{< note 5>}}).
+2. Create the component that is being tested (i.e. the "system under test"{{< note 6>}}).
 {{< sidenote >}}
-5. Some prefer to name the variables in test `sut`, I prefer to call them by their real names.
+6. Some prefer to name the variables in test `sut`, I prefer to call them by their real names.
 {{< /sidenote >}}
 After the build has completed the test should be able to access any data or related components. Our implementation
 looks like this:
@@ -364,10 +364,10 @@ In the previous chapter, we stored future `Task` for each aggregate created usin
 other might not. So the first thing we have to do is to wait for all these to be constructed. Luckily, this is quite
 easy, just a bunch of `Task.WhenAll` calls.
 
-Since our data is relational, aggregates can depend{{< note 6 >}} on their ancestor to be existing (we will go through
+Since our data is relational, aggregates can depend{{< note 7 >}} on their ancestor to be existing (we will go through
 that part soon). Therefore, we wait in top-down order for construction.
 {{< sidenote >}}
-6. If you have circular dependencies between your aggregates, you will have to resolve these dependencies differently!
+7. If you have circular dependencies between your aggregates, you will have to resolve these dependencies differently!
 Circular dependencies are a drag.
 {{< /sidenote >}}
 
@@ -453,15 +453,15 @@ public async Task<User> UserOrThrowAsync(UserName? name = null)
 Let us break it down.
 
 1. Just to be safe, wait for the construction of all users to be finished.
-2. If this method is accessed when there are multiple users created ensure that a name is used as argument.{{< note 7 >}}
+2. If this method is accessed when there are multiple users created ensure that a name is used as argument.{{< note 8 >}}
 {{< sidenote >}}
-7. Using guards and assertions in your test-utils can be a real time-saver for future you!
+8. Using guards and assertions in your test-utils can be a real time-saver for future you!
 {{< /sidenote >}}
 3. Get the representation of the created user matching the given name, or use the first as default.
 4. If there is no result, fail with a helpful message.
-5. Read and return the latest version of this aggregate.{{< note 8 >}}
+5. Read and return the latest version of this aggregate.{{< note 9 >}}
 {{< sidenote >}}
-8. Yes, there is plenty of I/O hidden in this builder. But I rather have I/O than stale data to assert on!
+9. Yes, there is plenty of I/O hidden in this builder. But I rather have I/O than stale data to assert on!
 {{< /sidenote >}}
 
 The representation of the created object mentioned at step 3, is a small data type for matching name to aggregate ID.
@@ -506,9 +506,9 @@ As we have done so far, let us take this step by step.
 
 1. First, we get the user using the mechanism we just discussed.
 2. Get the list of favourite tracks by accessing the service.
-3. I order to produce a helpful test failure message{{< note 9 >}}, select the title for each favourite track.
+3. I order to produce a helpful test failure message{{< note 10 >}}, select the title for each favourite track.
 {{< sidenote >}}
-9. Try to be as specific as possible in the assertion. Using `Count` in this test would hide an error where the wrong track was set as favourite.
+10. Try to be as specific as possible in the assertion. Using `Count` in this test would hide an error where the wrong track was set as favourite.
 {{< /sidenote >}}
 4. Assert that the actual favourite tracks are the expected tracks by title.
 

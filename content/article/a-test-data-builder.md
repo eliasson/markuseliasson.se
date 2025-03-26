@@ -356,7 +356,7 @@ public async Task<FavouriteTestCase> BuildAsync()
 ```
 {{< /code >}}
 
-In the previous chapter, we stored future `Task` for each aggregate created using our builder methods such as
+In the previous section, we stored future `Task` for each aggregate created using our builder methods such as
 `.WithUser`. The builder does not have any control over when these are ready, some might have been constructed already,
 other might not. So the first thing we have to do is to wait for all these to be constructed. Luckily, this is quite
 easy, just a bunch of `Task.WhenAll` calls.
@@ -480,10 +480,10 @@ tests more concise.
 
 ### Asserting
 
-Ok, now that we have acted on our service we want to implement the test that asserts that the track was actually
+Ok, now that we have acted on our service, let us go through how we asserted that the track was actually
 set as favourite.
 
-Here is the test, so that you do not have to scroll:
+Here is the test from before, so that you do not have to scroll:
 
 {{< code >}}
 ```csharp

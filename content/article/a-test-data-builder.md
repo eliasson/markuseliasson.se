@@ -47,7 +47,7 @@ object-oriented languages.
 ```csharp
 public interface IAggregate
 {
-    // As this is an example, use Guid instead of, better, a type-safe ID.
+    // As this is an example, use Guid instead a type-safe ID.
     public Guid Id { get; }
 }
 

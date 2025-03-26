@@ -3,7 +3,7 @@ title: "A test-data builder"
 date: 2025-03-25T12:00:00+02:00
 description:
   A while back I built a test-data builder for one of the projects I am working on. Now, after
-  using if for some time I really think it simplifies and improves our tests, while also helping
+  using it for some time I really think it simplifies and improves our tests, while also helping
   us to write new tests faster. This article will guide you through how to implement one for yourself.
 ---
 In the system I currently work on we do a lot of automated testing. Both unit-tests, system-tests,

@@ -179,9 +179,6 @@ have a consistent model, etc. This is typically done both in the domain model an
 example above, there can be constraints at the persistence layer, that a track cannot be saved unless
 its album reference also exists.
 
-Now, think about your own system. Are your entities as simple as set up as the `Artist` and `Album` above? No, I did
-not think so.
-
 Now, think about your own system. I am pretty confident that your entities are a lot more complex than the example
 above. If this was not an example made to be simple, the maybe the `Album` would require us to add information about
 the label. The tracks to include details about composers, etc.

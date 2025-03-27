@@ -47,7 +47,6 @@ object-oriented languages.
 ```csharp
 public interface IAggregate
 {
-    // As this is an example, use Guid instead a type-safe ID.
     public Guid Id { get; }
 }
 
@@ -119,7 +118,7 @@ With no test-helper such a test might look something like.
 ```csharp
 public class WithoutTheBuilder
 {
-    private UserRepository _userRepository = null!;
+    private Repository<User> _userRepository = null!;
     private Repository<Artist> _artistRepository = null!;
     private Repository<Album> _albumRepository = null!;
     private Repository<Track> _trackRepository = null!;
@@ -132,7 +131,7 @@ public class WithoutTheBuilder
     {
         // First, we need to set up the infra to store our stuff.
         // Due to validation rules we must create the correct graph of aggregates.
-        _userRepository = new UserRepository();
+        _userRepository = new Repository<User>();
         _artistRepository = new Repository<Artist>();
         _albumRepository = new Repository<Album>();
         _trackRepository = new Repository<Track>();

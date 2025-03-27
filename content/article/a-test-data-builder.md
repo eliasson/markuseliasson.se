@@ -179,7 +179,7 @@ example above, there can be constraints at the persistence layer, that a track c
 its album reference also exists.
 
 Now, think about your own system. I am pretty confident that your entities are a lot more complex than the example
-above. If this was not an example made to be simple, the maybe the `Album` would require us to add information about
+above. If this was not an example made to be simple, then maybe the `Album` would require us to add information about
 the label. The tracks to include details about composers, etc.
 
 Take this mental image of a complex domain and then how it would look having to be setup in thousands{{< note 4 >}}
@@ -388,7 +388,7 @@ public class FavouriteTestCase
 ### Acting on test data
 
 At the very end of our test setup, we want to act on our service to set a track as favourite. But in order to do that
-we need to get hold of the acting user and the track to favourite. Given that we asked the test-builder to create if
+we need to get hold of the acting user and the track to favourite. Given that we asked the test-builder to create it
 for us, we have no reference to those objects around.
 
 This is where the _test-data name_ comes in.
@@ -502,7 +502,7 @@ As we have done so far, let us take this step by step.
 
 1. First, we get the user using the mechanism we just discussed.
 2. Get the list of favourite tracks by accessing the service.
-3. I order to produce a helpful test failure message{{< note 10 >}}, select the title for each favourite track.
+3. In order to produce a helpful test failure message{{< note 10 >}}, select the title for each favourite track.
 {{< sidenote >}}
 10. Try to be as specific as possible in the assertion. Using `Count` in this test would hide an error where the wrong track was set as favourite.
 {{< /sidenote >}}
@@ -535,7 +535,7 @@ public class WhenGettingFavouriteTracksAcrossAlbums
         _tc = await new FavouriteTestCase()
             .WithUser()
             .WithArtist() // You know who it is, right?
-            // These to albums will use the default artist, since there is only one.
+            // These two albums will use the default artist, since there is only one.
             .WithAlbum(SeventeenSeconds)
             .WithAlbum(Wish)
             // Add two favourite tracks

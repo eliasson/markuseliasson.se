@@ -8,7 +8,7 @@ title = "Markus Eliasson"
 [params]
     author = "Markus Eliasson"
     authorBio = "A coding software architect. Tends to occasionally blog about building software and can't seem to make up his mind on which programming language to use next."
-    authorEmail = "markus.eliasson@gmail.com"
+    authorEmail = "markus.eliasson@proton.me"
 
 [[menu.footer]]
     name = "GitHub"

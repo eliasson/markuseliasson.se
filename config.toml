@@ -1,7 +1,9 @@
 baseurl = "https://markuseliasson.se"
 languageCode = "en-us"
 title = "Markus Eliasson"
-paginate = 10
+
+[pagination]
+    pagerSize = 10
 
 [params]
     author = "Markus Eliasson"
